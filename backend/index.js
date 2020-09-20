@@ -50,17 +50,17 @@ app.post('/login', (request,response) => {
     
     console.log('Inside Login Post Request');
     //console.log("Req Body : ", username + "password : ",password);
-    console.log('Req Body : ',req.body);
+    console.log('Req Body : ',request.body);
 
     //Incoming information
     /*
         username, password, utype
     */
 
-    res.writeHead(200, {
+    response.writeHead(200, {
         'Content-Type' : 'text/plain'
     })
-    res.end('Successful Login')
+    response.end('Successful Login')
 
     //Unsuccessful login
     //res.status(404).send('Not found');
@@ -69,27 +69,26 @@ app.post('/login', (request,response) => {
 app.post('/signup', (request, response) => {
     console.log("Inside signup post")
     console.log("Req Body: ", request.body)
-    res.writeHead(200, {
+    response.writeHead(200, {
         'Content-Type' : 'text/plain'
     })
-    res.end('Successful Login')
+    response.end('Successful Signup')
 });
 
 //Route to get All Books when user visits the Home Page
-app.get('/home', function(req,res){
+app.get('/home', function(request,response){
     console.log("Inside Home Login");    
-    res.writeHead(200,{
-        'Content-Type' : 'application/json'
-    });
-    console.log("Books : ",JSON.stringify(books));
-    res.end(JSON.stringify(books));
+    response.writeHead(200, {
+        'Content-Type' : 'text/plain'
+    })
+    response.end('Default view without login')
     
 })
 
 
-app.get('*', function(req, res){
+app.get('*', function(request, response){
   console.log('Page not found');
-  res.status('404');
+  response.status('404');
 });
 
 //start your server on port 3001
