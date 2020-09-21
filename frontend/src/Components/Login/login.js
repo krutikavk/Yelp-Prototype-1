@@ -130,25 +130,27 @@ class Login extends Component {
             <span id = "exists"></span>
 
             <div class="container">
+            	<div class="logo">
+            		<img src="../../kelp_logo.css"></img>
+            	</div>
                 <form onSubmit={this.submitLogin} >
                     <div class="login-form">
                         <div class="main-div">
                             <div class="panel">
-                                <h2>Login</h2>   
+                                <p>Login as:</p>  
                             </div>
-                            <p>Login as:</p>
-                        	<div class="form-group">
-                        		<input type="radio" id="customer" name="customer" value="customer"/>
+                            <div class = "form-group">
+                            	<input type="radio" id="customer" name="loginType" value="customer"/>
 								<label for="customer">Customer</label><br />
-
-								<input type="radio" id="restaurant" name="restaurant" value="restaurant"/>
+								<input type="radio" id="restaurant" name="loginType" value="restaurant"/>
 								<label for="restaurant">Restaurant</label><br />
                         	</div>
+                            
                             <div class="form-group">
                                 <input onChange = {this.usernameChangeHandler} 
-                                type="text" 
-                                class="form-control" 
+                                type="text"  
                                 name="username" 
+                                class="form-control"
                                 placeholder="Username"
                                 required/>
                                 {errors.username.length > 0 && 
@@ -157,15 +159,15 @@ class Login extends Component {
                             <div class="form-group">
                                 <input onChange = {this.passwordChangeHandler} 
                                 type="password" 
-                                class="form-control" 
                                 name="password" 
+                                class="form-control"
                                 placeholder="Password"
                                 required/>
                                 {errors.password.length > 0 && 
                                 <span>{errors.password}</span>}
                             </div>
                             
-                            <button disabled={! validateForm(this.state.errors)}>Login</button>                 
+                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>                 
                         </div>
                     </div>
                 </form>
