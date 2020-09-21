@@ -1,10 +1,11 @@
 //import the require dependencies
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
-var cors = require('cors');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const mysql = require('mysql');
+const cors = require('cors');
 app.set('view engine', 'ejs');
 
 //use cors to allow cross origin resource sharing
@@ -18,6 +19,14 @@ app.use(session({
     duration            : 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
     activeDuration      : 5 * 60 * 1000
 }));
+
+
+const connection = mysql.createConnection({
+  host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
+  user     : 'xxxxxx',
+  password : 'xxxxxx',
+  database : 'lab1'
+});
 
 // app.use(bodyParser.urlencoded({
 //     extended: true
@@ -51,6 +60,10 @@ app.post('/login', (request,response) => {
     console.log('Inside Login Post Request');
     //console.log("Req Body : ", username + "password : ",password);
     console.log('Req Body : ',request.body);
+
+    //request.body.username
+    //request.body.password
+    //request.body.loginOption restaurant or customer
 
     //Incoming information
     /*

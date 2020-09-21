@@ -22,7 +22,7 @@ class Login extends Component {
 
       username: '',
       password: '',
-      type: '',
+      loginOption: '',
       authFlag: 'false',
       errors: {
       	username: '',
@@ -38,6 +38,12 @@ class Login extends Component {
   componentWillMount() {
     this.setState({
       authFlag: 'false',
+    })
+  }
+
+  loginOptionHandler = (event) => {
+    this.setState({
+      loginOption: event.target.value
     })
   }
 
@@ -94,7 +100,8 @@ class Login extends Component {
 
     const data = {
       username : this.state.username,
-      password : this.state.password
+      password : this.state.password,
+      loginOption: this.state.loginOption,
     }
     //set the with credentials to true
     axios.defaults.withCredentials = true;
@@ -131,7 +138,7 @@ class Login extends Component {
 
             <div class="container">
             	<div class="logo">
-            		<img src="../../kelp_logo.css"></img>
+            		<img src="../../kelp_logo.css" alt=''></img>
             	</div>
                 <form onSubmit={this.submitLogin} >
                     <div class="login-form">
@@ -140,11 +147,15 @@ class Login extends Component {
                                 <p>Login as:</p>  
                             </div>
                             <div class = "form-group">
-                            	<input type="radio" id="customer" name="loginType" value="customer"/>
-								<label for="customer">Customer</label><br />
-								<input type="radio" id="restaurant" name="loginType" value="restaurant"/>
-								<label for="restaurant">Restaurant</label><br />
-                        	</div>
+                            	<input type="radio" value="customer" 
+                                checked={this.state.loginOption === 'customer'}
+                                onChange={this.loginOptionHandler}/>
+              								<label for="customer">Customer</label><br />
+              								<input type="radio" value="restaurant"
+                                checked={this.state.loginOption === 'restaurant'}
+                                onChange={this.loginOptionHandler}/>
+              								<label for="restaurant">Restaurant</label><br />
+                        	  </div>
                             
                             <div class="form-group">
                                 <input onChange = {this.usernameChangeHandler} 
