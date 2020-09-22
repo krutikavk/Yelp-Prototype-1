@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
-import {Redirect} from 'react-router';
+
+//use react-router-dom ONLY
+//see Marko Perendio comment about using react-router-dom
+//Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
+import {Redirect} from 'react-router-dom';
 
 const validText = RegExp('[A-Za-z0-9]+')
 const validateForm = (errors) => {

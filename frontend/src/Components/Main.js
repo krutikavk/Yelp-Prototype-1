@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+
+//use react-router-dom ONLY
+//see Marko Perendio comment about using react-router-dom
+//Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
+
 import { Route } from 'react-router-dom';
 import Login from './Login/login';
 //import Navbar from './Navbar/navbar';
