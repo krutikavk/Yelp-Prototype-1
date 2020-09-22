@@ -6,6 +6,7 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const mysql = require('mysql');
 const cors = require('cors');
+const sql = require('sql-template-strings')
 app.set('view engine', 'ejs');
 
 //use cors to allow cross origin resource sharing
@@ -21,12 +22,15 @@ app.use(session({
 }));
 
 
-const connection = mysql.createConnection({
+var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'xxxxxx',
-  password : 'xxxxxx',
+  user     : 'admin',
+  password : 'admin273',
   database : 'lab1'
 });
+
+connection.connect();
+global.db = connection;
 
 // app.use(bodyParser.urlencoded({
 //     extended: true
@@ -64,16 +68,54 @@ app.post('/login', (request,response) => {
     //request.body.username
     //request.body.password
     //request.body.loginOption restaurant or customer
-
-    //Incoming information
     /*
-        username, password, utype
+    if(request.body.loginOption === 'customer') {
+      var dbQuery = (sql `SELECT * from customer WHERE cemail = ${request.body.username} AND cpassword = ${request.body.password}`);
+    }
+    if(request.body.loginOption === 'restaurant') {
+      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ${request.body.username} AND rpassword = ${request.body.password}`);
+    }
+
+    connection.query(dbQuery, function(error, results) {
+      if(error) {
+        response.status(404).send('Could not to database');
+      }
+      console.log(typeof(results))
+      console.log('Querying database for login credentials...')
+      if (results.length > 0) {
+        response.cookie('cookie',"customer",{maxAge: 900000, httpOnly: false, path : '/'});
+            request.session.user = request.body.username;
+            response.writeHead(200,{
+                'Content-Type' : 'text/plain'
+            })
+            response.end("Successful Login");
+      } else {
+        response.status(404).send('Not found');
+      }     
+    });
+
     */
 
-    response.writeHead(200, {
-        'Content-Type' : 'text/plain'
-    })
-    response.end('Successful Login')
+
+    if(request.body.loginOption === 'customer') {
+      response.cookie('cookie',"customer",{maxAge: 900000, httpOnly: false, path : '/'});
+      request.session.user = request.body.username;
+      console.log('Customer login')
+      response.writeHead(200,{
+                'Content-Type' : 'text/plain'
+            })
+            response.end("Successful cust Login");
+    } 
+
+    if(request.body.loginOption === 'restaurant') {
+      response.cookie('cookie',"restaurant",{maxAge: 900000, httpOnly: false, path : '/'});
+      request.session.user = request.body.username;
+      console.log('Restaurant login')
+      response.writeHead(200,{
+                'Content-Type' : 'text/plain'
+            })
+            response.end("Successful cust Login");
+    }
 
     //Unsuccessful login
     //res.status(404).send('Not found');

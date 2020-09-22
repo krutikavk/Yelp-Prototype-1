@@ -23,7 +23,7 @@ class Login extends Component {
       username: '',
       password: '',
       loginOption: '',
-      authFlag: 'false',
+      authFlag: false,
       errors: {
       	username: '',
       	password: '',
@@ -37,7 +37,7 @@ class Login extends Component {
 
   componentWillMount() {
     this.setState({
-      authFlag: 'false',
+      authFlag: false,
     })
   }
 
@@ -110,6 +110,7 @@ class Login extends Component {
         .then(response => {
             console.log("Status Code : ",response.status);
             if(response.status === 200){
+              console.log("Login authorized")
                 this.setState({
                     authFlag : true
                 })
@@ -123,13 +124,15 @@ class Login extends Component {
 
   render(){
     //redirect based on successful login
-    let redirectVar = null;
+
+    let redirectVar = <Redirect to= "/userdash"/>;
+    /*
     if(cookie.load('cookie')){
-       redirectVar = <Redirect to= "/home"/>
-    } else {
-       //Book ID already exists
-       //document.getElementById("exists").textContent= "Incorrect Login"
-    }
+      console.log('redirecting to user dashboard')
+      redirectVar = <Redirect to= "/userdash"/>
+    } 
+    */
+
     const errors = this.state.errors;
     return(
         <div>

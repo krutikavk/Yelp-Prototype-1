@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Login from './Login/login';
-import Navbar from './Navbar/navbar'
+//import Navbar from './Navbar/navbar';
+//import Userdash from './Userdash/userdash';
 
 //Create a Main Component
 class Main extends Component {
@@ -9,8 +10,8 @@ class Main extends Component {
         return(
             <div>
                 {/*Render Different Component based on Route*/}
-                <Route path='/navbar' component={Navbar}/>
                 <Route path='/login' component={Login}/>
+
             </div>
         )
     }
