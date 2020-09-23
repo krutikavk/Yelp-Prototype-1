@@ -72,11 +72,11 @@ class Login extends Component {
       errors: err
       }, ()=> {
 	    console.log(err.password)
-	}) 
-	this.setState({
-	  password : event.target.value
-	    
-	})
+  	}) 
+  	this.setState({
+  	  password : event.target.value
+  	    
+  	})
   }
 
   usernameChangeHandler = (event) => {
@@ -142,9 +142,6 @@ class Login extends Component {
             <span id = "exists"></span>
 
             <div class="container">
-            	<div class="logo">
-            		<img src="../../kelp_logo.png" alt=''></img>
-            	</div>
                 <form onSubmit={this.submitLogin} >
                     <div class="login-form">
                         <div class="main-div">

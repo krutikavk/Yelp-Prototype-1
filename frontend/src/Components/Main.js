@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Login from './Login/login';
 import Userdash from './Userdash/userdash'
+import Custsignup from './Signup/custsignup'
 import Navbar from './Navbar/navbar.js'
 
 //import Navbar from './Navbar/navbar';
@@ -20,6 +21,7 @@ class Main extends Component {
                 {/*Render Different Component based on Route*/}
                 <Route path='/' component={Navbar}/>
                 <Route path='/login' component={Login}/>
+                <Route path='/custsignup' component={Custsignup}/>
                 <Route path='/userdash' component={Userdash}/>
             </div>
         )
