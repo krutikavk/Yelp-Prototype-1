@@ -129,9 +129,9 @@ class Login extends Component {
   render(){
     //redirect based on successful login
 
-    let redirectVar = <Redirect to= "/userdash"/>;
+    let redirectVar = null;
     if(cookie.load('cookie')){
-      console.log('redirecting to user dashboard')
+      console.log(cookie)
       redirectVar = <Redirect to= "/userdash"/>
     } 
 

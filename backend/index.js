@@ -14,7 +14,7 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 //use express session to maintain session data
 app.use(session({
-    secret              : 'cmpe273_kafka_passport_mongo',
+    secret              : 'cmpe273_lab1',
     resave              : false, // Forces the session to be saved back to the session store, even if the session was never modified during the request
     saveUninitialized   : false, // Force to save uninitialized session to db. A session is uninitialized when it is new but not modified.
     duration            : 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
@@ -24,12 +24,16 @@ app.use(session({
 
 var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'admin',
-  password : 'admin273',
+  user     : 'xxxxx',
+  password : 'xxxxx',
   database : 'lab1'
 });
 
-connection.connect();
+/* Connect to the Db */
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
 global.db = connection;
 
 // app.use(bodyParser.urlencoded({
@@ -47,17 +51,6 @@ app.use(function(req, res, next) {
     next();
   });
 
-  var Users = [{
-      username : 'customer',
-      password : 'customer',
-      type: 'customer'
-  },{
-      username: 'restaurant',
-      password: 'restaurant',
-      type: 'restaurant'
-  }]
-
-
 //Route to handle Post Request Call
 app.post('/login', (request,response) => {
     
@@ -65,60 +58,28 @@ app.post('/login', (request,response) => {
     //console.log("Req Body : ", username + "password : ",password);
     console.log('Req Body : ',request.body);
 
-    //request.body.username
-    //request.body.password
-    //request.body.loginOption restaurant or customer
-    /*
     if(request.body.loginOption === 'customer') {
-      var dbQuery = (sql `SELECT * from customer WHERE cemail = ${request.body.username} AND cpassword = ${request.body.password}`);
+      var dbQuery = (sql `SELECT * from customer WHERE cemail = ? AND cpassword = ?`);
     }
     if(request.body.loginOption === 'restaurant') {
-      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ${request.body.username} AND rpassword = ${request.body.password}`);
+      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ? AND rpassword = ?`);
     }
 
-    connection.query(dbQuery, function(error, results) {
+    connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
       if(error) {
-        response.status(404).send('Could not to database');
+        response.status(404).send('Could not connect to database');
       }
-      console.log(typeof(results))
-      console.log('Querying database for login credentials...')
       if (results.length > 0) {
-        response.cookie('cookie',"customer",{maxAge: 900000, httpOnly: false, path : '/'});
+        response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
             request.session.user = request.body.username;
             response.writeHead(200,{
                 'Content-Type' : 'text/plain'
             })
             response.end("Successful Login");
       } else {
-        response.status(404).send('Not found');
+        response.status(404).send('Incorrect login');
       }     
     });
-
-    */
-
-
-    if(request.body.loginOption === 'customer') {
-      response.cookie('cookie',"customer",{maxAge: 900000, httpOnly: false, path : '/'});
-      request.session.user = request.body.username;
-      console.log('Customer login')
-      response.writeHead(200,{
-                'Content-Type' : 'text/plain'
-            })
-            response.end("Successful cust Login");
-    } 
-
-    if(request.body.loginOption === 'restaurant') {
-      response.cookie('cookie',"restaurant",{maxAge: 900000, httpOnly: false, path : '/'});
-      request.session.user = request.body.username;
-      console.log('Restaurant login')
-      response.writeHead(200,{
-                'Content-Type' : 'text/plain'
-            })
-            response.end("Successful cust Login");
-    }
-
-    //Unsuccessful login
-    //res.status(404).send('Not found');
 });
 
 app.post('/signup', (request, response) => {
