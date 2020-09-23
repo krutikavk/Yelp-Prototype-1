@@ -143,7 +143,7 @@ class Login extends Component {
 
             <div class="container">
             	<div class="logo">
-            		<img src="../../kelp_logo.css" alt=''></img>
+            		<img src="../../kelp_logo.png" alt=''></img>
             	</div>
                 <form onSubmit={this.submitLogin} >
                     <div class="login-form">
@@ -183,7 +183,13 @@ class Login extends Component {
                                 <span>{errors.password}</span>}
                             </div>
                             
-                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>                 
+                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
+
+                            <div class='forgot'>
+                              Don't have an account yet?<br />
+                              <a href="/custsignup">Customer signup</a> <br />
+                              <a href="/restsignup">Restaurant signup</a>
+                            </div>
                         </div>
                     </div>
                 </form>

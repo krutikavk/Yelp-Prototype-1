@@ -6,6 +6,9 @@ import React, { Component } from 'react';
 
 import { Route } from 'react-router-dom';
 import Login from './Login/login';
+import Userdash from './Userdash/userdash'
+import Navbar from './Navbar/navbar.js'
+
 //import Navbar from './Navbar/navbar';
 //import Userdash from './Userdash/userdash';
 
@@ -15,8 +18,9 @@ class Main extends Component {
         return(
             <div>
                 {/*Render Different Component based on Route*/}
+                <Route path='/' component={Navbar}/>
                 <Route path='/login' component={Login}/>
-
+                <Route path='/userdash' component={Userdash}/>
             </div>
         )
     }

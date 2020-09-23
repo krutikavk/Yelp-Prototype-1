@@ -24,8 +24,8 @@ app.use(session({
 
 var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'xxxxx',
-  password : 'xxxxx',
+  user     : 'admin',
+  password : 'admin273!',
   database : 'lab1'
 });
 
@@ -85,6 +85,30 @@ app.post('/login', (request,response) => {
 app.post('/signup', (request, response) => {
     console.log("Inside signup post")
     console.log("Req Body: ", request.body)
+
+    if(request.body.loginOption === 'customer') {
+      var dbQuery = (sql `INSERT into customer values () cemail = ? AND cpassword = ?`);
+    }
+    if(request.body.loginOption === 'restaurant') {
+      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ? AND rpassword = ?`);
+    }
+
+    connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
+      if(error) {
+        response.status(404).send('Could not connect to database');
+      }
+      if (results.length > 0) {
+        response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
+            request.session.user = request.body.username;
+            response.writeHead(200,{
+                'Content-Type' : 'text/plain'
+            })
+            response.end("Successful Login");
+      } else {
+        response.status(404).send('Incorrect login');
+      }     
+    });
+
     response.writeHead(200, {
         'Content-Type' : 'text/plain'
     })
