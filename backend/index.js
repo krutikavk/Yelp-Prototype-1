@@ -67,52 +67,40 @@ app.post('/login', (request,response) => {
 
     connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
       if(error) {
-        response.status(404).send('Could not connect to database');
+        response.status(404).send('Could not fetch from database');
       }
       if (results.length > 0) {
         response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
-            request.session.user = request.body.username;
-            response.writeHead(200,{
-                'Content-Type' : 'text/plain'
-            })
-            response.end("Successful Login");
+        request.session.user = request.body.username;
+        response.writeHead(200,{
+            'Content-Type' : 'text/plain'
+        })
+        response.end("Successful Login");
       } else {
         response.status(404).send('Incorrect login');
       }     
     });
 });
 
-app.post('/signup', (request, response) => {
-    console.log("Inside signup post")
+app.post('/custsignup', (request, response) => {
+    console.log("Inside customer signup post")
     console.log("Req Body: ", request.body)
 
-    if(request.body.loginOption === 'customer') {
-      var dbQuery = (sql `INSERT into customer values () cemail = ? AND cpassword = ?`);
-    }
-    if(request.body.loginOption === 'restaurant') {
-      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ? AND rpassword = ?`);
-    }
+    var dbQuery = (sql `INSERT into customer (cname, cemail, cpassword) VALUES (?, ?, ?)`);
 
-    connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
+    connection.query(dbQuery, [request.body.cname, request.body.cemail, request.body.cpassword], function(error, results) {
       if(error) {
-        response.status(404).send('Could not connect to database');
+        response.status(404).send('Could not insert into database');
       }
-      if (results.length > 0) {
-        response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
-            request.session.user = request.body.username;
-            response.writeHead(200,{
-                'Content-Type' : 'text/plain'
-            })
-            response.end("Successful Login");
-      } else {
-        response.status(404).send('Incorrect login');
-      }     
-    });
+      //also let the customer login
+      response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
+      request.session.user = request.body.username;
+      response.writeHead(200,{
+          'Content-Type' : 'text/plain'
+      })
+      response.end("Successful Login");
 
-    response.writeHead(200, {
-        'Content-Type' : 'text/plain'
-    })
-    response.end('Successful Signup')
+    });
 });
 
 //Route to get All Books when user visits the Home Page
