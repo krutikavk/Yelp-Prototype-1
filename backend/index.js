@@ -90,15 +90,17 @@ app.post('/custsignup', (request, response) => {
 
     connection.query(dbQuery, [request.body.cname, request.body.cemail, request.body.cpassword], function(error, results) {
       if(error) {
+        console.log('User already exists')
         response.status(404).send('User may already exist');
+      } else {
+        //also let the customer login
+        response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
+        request.session.user = request.body.username;
+        response.writeHead(200,{
+            'Content-Type' : 'text/plain'
+        })
+        response.end("Successful Login");
       }
-      //also let the customer login
-      response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
-      request.session.user = request.body.username;
-      response.writeHead(200,{
-          'Content-Type' : 'text/plain'
-      })
-      response.end("Successful Login");
 
     });
 });

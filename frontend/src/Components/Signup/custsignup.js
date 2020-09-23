@@ -6,7 +6,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router-dom';
 
 const validText = RegExp('[A-Za-z0-9]+')
-const validEmail = RegExp('/^\S+@\S+\.\S+$/')
+const validEmail = RegExp('\\S+\@\\S+\.\\S+')
 const validateForm = (errors) => {
   let valid = true;
   Object.values(errors).forEach(
@@ -60,7 +60,7 @@ class Custsignup extends Component {
 
   cemailChangeHandler = (event) => {
     let err = this.state.errors;
-    err.cname = validEmail.test(event.target.value) ? '' : 'Invalid email ID';
+    err.cemail = validEmail.test(event.target.value) ? '' : 'Invalid email ID';
     this.setState({
       errors: err
         }, ()=> {
@@ -173,7 +173,7 @@ class Custsignup extends Component {
                                 <span>{errors.cpassword}</span>}
                             </div>
                             
-                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
+                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Sign Up</button>
                         </div>
                     </div>
                 </form>
