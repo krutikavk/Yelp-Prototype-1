@@ -150,7 +150,7 @@ app.post('/custsignup', (request, response) => {
 
 app.put('/custUpdate', function (request, response) {
     let updateUserQuery = (sql `UPDATE customer SET cpassword = ?, cname = ? where cemail = ?`);
-    connection.query(updateUserQuery, [req.body.cpassword,req.body.cname, req.body.cemail], function (error, results, fields) {
+    connection.query(updateUserQuery, [request.body.cpassword,request.body.cname, request.body.cemail], function (error, results, fields) {
       if (error) {
         console.log('Could not update the resource')
         response.status(404).send('Could not update the resource'); 
@@ -158,7 +158,7 @@ app.put('/custUpdate', function (request, response) {
         response.writeHead(200,{
           'Content-Type' : 'text/plain'
         })
-        response.end("Successful Login");
+        response.end("Successfully updated");
       }
   });
 });

@@ -8,14 +8,6 @@ import {Redirect} from 'react-router-dom';
 
 
 const validText = RegExp('[A-Za-z0-9]+')
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
 
 class Userdash extends Component {
 
@@ -71,7 +63,10 @@ class Userdash extends Component {
         }, ()=> {
             console.log(err.username)
     }) 
-  	this.props.update('CNAME', event.target.value)
+    this.setState({
+        username : event.target.value
+    })
+  	//this.props.update('CNAME', event.target.value)
   	
   }
 
@@ -83,23 +78,73 @@ class Userdash extends Component {
       }, ()=> {
 	    console.log(err.password)
   	}) 
-  	this.props.update('CPASSWORD', event.target.value)
+  	this.setState({
+        password : event.target.value
+    })
+  	//this.props.update('CPASSWORD', event.target.value)
   }
-
 
 
   submitUsernameChange = (event) => {
   	//Write backend put request
   	event.preventDefault();
+    
+    const data = {
+      cname: this.state.username,
+      cpassword: this.props.password,
+      cemail: this.props.cemail
+    }
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    //make a post request with the user data
+    axios.put('http://localhost:3001/custUpdate', data)
+      .then(response => {
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+
+          //call props action
+          this.props.update('CNAME', this.state.username)
+
+          this.setState({
+	    	usernameToChange: false,
+	      })
+        }
+      }).catch(err =>{
+        alert("Update failed")
+    });
   }
+	
 
   submitPasswordChange = (event) => {
-  	//write backend put request
-	event.preventDefault();
+  	//Write backend put request
+  	event.preventDefault();
+    
+    const data = {
+      cname: this.props.username,
+      cpassword: this.state.password,
+      cemail: this.props.cemail
+    }
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+    //make a post request with the user data
+    axios.put('http://localhost:3001/custUpdate', data)
+      .then(response => {
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+
+          //call props action
+          this.props.update('CPASSWORD', this.state.password)
+
+          this.setState({
+	    	passwordToChange: false,
+	      })
+        }
+      }).catch(err =>{
+        alert("Update failed")
+    });
   }
-  
-  
-	
+
+
   render() {
   	let redirectVar = null;
   	console.log(this.props.isLogged)
@@ -121,14 +166,14 @@ class Userdash extends Component {
                                 required/>
         {errors.username.length > 0 && 
           <span>{errors.username}</span>}
-        <button disabled={this.state.errors.username.length > 0} class="btn btn-primary" onClick = {this.submitUsernameChange}>Submit username change</button>
+        <button disabled={this.state.errors.username.length > 0} onClick = {this.submitUsernameChange}>Submit change</button>
         </div>
       )
   	}
 
   	if(this.state.passwordToChange === true) {
   	  passwordTextField = (
-  	  	<div class = 'login-form'>
+  	  	<div>
   	  	<input onChange = {this.passwordChangeHandler} 
                                 type="password"  
                                 name="password" 
@@ -138,7 +183,7 @@ class Userdash extends Component {
         {errors.password.length > 0 && 
           <span>{errors.password}</span>}
 
-        <button disabled={this.state.errors.password.length > 0} class="btn btn-primary" onClick = {this.submitPasswordChange}>Submit password change</button>
+        <button disabled={this.state.errors.password.length > 0} onClick = {this.submitPasswordChange}>Submit change</button>
         </div>
       )
   	}
@@ -147,22 +192,22 @@ class Userdash extends Component {
 
       <div>
       	{redirectVar}
-	    <div class = 'login-form'>
+	    <div class='login-form'>
 
 		    <h2> User Dashboard</h2>
 
 		    <div class='form-group'>
-			  <h3>Username</h3>
+			  USERNAME: {this.props.cname}
 			  {usernameTextField}
 
 		    </div>
 		    <div class='form-group'>
-		      <h3>Password</h3>
+		      PASSWORD:
 		      {passwordTextField}
 
 		    </div>
 		    <div class='form-group'>
-			  <h3>Email ID</h3>
+			  EMAIL ID: {this.props.cemail}
 			  
 			</div>
 		  </div>
