@@ -91,12 +91,13 @@ class Userdash extends Component {
     
     const data = {
       cname: this.state.username,
-      cpassword: this.props.password,
+      cpassword: this.props.cpassword,
       cemail: this.props.cemail
     }
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
+    console.log(data);
     axios.put('http://localhost:3001/custUpdate', data)
       .then(response => {
         console.log("Status Code : ",response.status);
@@ -120,7 +121,7 @@ class Userdash extends Component {
   	event.preventDefault();
     
     const data = {
-      cname: this.props.username,
+      cname: this.props.cname,
       cpassword: this.state.password,
       cemail: this.props.cemail
     }
@@ -151,8 +152,8 @@ class Userdash extends Component {
     if(this.props.isLogged === false) {
       redirectVar = <Redirect to= '/login'/>
     }
-  	let usernameTextField = <button class="btn btn-primary" onClick = {this.usernameEditTextFieldHandler}>Edit</button>;
-  	let passwordTextField = <button class="btn btn-primary" onClick = {this.passwordEditTextFieldHandler}>Edit</button>;
+  	let usernameTextField = <button onClick = {this.usernameEditTextFieldHandler}>Edit</button>;
+  	let passwordTextField = <button onClick = {this.passwordEditTextFieldHandler}>Edit</button>;
   	const errors = this.state.errors;
 
   	if(this.state.usernameToChange === true) {
@@ -202,7 +203,7 @@ class Userdash extends Component {
 
 		    </div>
 		    <div class='form-group'>
-		      PASSWORD:
+		      PASSWORD
 		      {passwordTextField}
 
 		    </div>

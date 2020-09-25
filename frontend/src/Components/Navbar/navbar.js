@@ -46,8 +46,9 @@ class Navbar extends Component {
         }
         
         return(
+
             <div>
-                <nav class="navbar navbar-inverse">
+                <nav class="topnav">
                     <div class="container-fluid">
                         <div class="navbar-header">
                             <a class="navbar-brand">Yelp!</a>
