@@ -24,8 +24,8 @@ app.use(session({
 
 var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'admin',
-  password : 'admin273!',
+  user     : 'xxxxx',
+  password : 'xxxxx',
   database : 'lab1'
 });
 

@@ -7,6 +7,8 @@ import cookie from 'react-cookies';
 //see Marko Perendio comment about using react-router-dom
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
 import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 const validText = RegExp('[A-Za-z0-9]+')
 const validateForm = (errors) => {
@@ -136,11 +138,11 @@ class Login extends Component {
     } 
 
     const errors = this.state.errors;
+
     return(
         <div>
             {redirectVar}
             <span id = "exists"></span>
-
             <div class="container">
                 <form onSubmit={this.submitLogin} >
                     <div class="login-form">

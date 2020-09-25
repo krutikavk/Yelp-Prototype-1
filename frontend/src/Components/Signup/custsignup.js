@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import cookie from 'react-cookies';
-
 import {Redirect} from 'react-router-dom';
+
+import {connect} from 'react-redux';
+import {update} from '../../_actions'
+import {login} from '../../_actions';
 
 const validText = RegExp('[A-Za-z0-9]+')
 const validEmail = RegExp('\\S+\@\\S+\.\\S+')
@@ -53,8 +56,9 @@ class Custsignup extends Component {
         }, ()=> {
             console.log(err.cname)
     }) 
+    this.props.update('CNAME', event.target.value)
     this.setState({
-        cname : event.target.value
+      cname: event.target.value
     })
   }
 
@@ -66,8 +70,9 @@ class Custsignup extends Component {
         }, ()=> {
             console.log(err.cemail)
     }) 
+    this.props.update('CEMAIL', event.target.value)
     this.setState({
-        cemail : event.target.value
+      cemail: event.target.value
     })
   }
 
@@ -79,9 +84,9 @@ class Custsignup extends Component {
       }, ()=> {
 	    console.log(err.cpassword)
   	}) 
+    this.props.update('CPASSWORD', event.target.value)
   	this.setState({
   	  cpassword : event.target.value
-  	    
   	})
   }
 
@@ -107,14 +112,16 @@ class Custsignup extends Component {
             console.log("Status Code : ",response.status);
             if(response.status === 200){
               console.log('Customer added')
-                this.setState({
-                    isAdded : true
-                })
+              this.props.update('SIGN_IN', true)
+              this.setState({
+                  isAdded : true
+              })
             }
         }).catch(err =>{
             this.setState({
                 isAdded : false
             })
+            this.props.update('SIGN_OUT', false);
         });
   }
 
@@ -184,7 +191,29 @@ class Custsignup extends Component {
 
 }
 
-export default Custsignup;
+const mapStateToProps = (state) => {
+    return {
+      cname : state.custProfile.cname,
+      cpassword: state.custProfile.cpassword,
+      cemail: state.custProfile.cemail,
+      isLogged: state.isLogged
+    }
+}
+//const mapDispatchToProps = (dispatch) => { since this does not call a function directly it cannot be a function
+
+function mapDispatchToProps(dispatch) {  
+  return {
+    update : (field, payload) => dispatch(update(field, payload))
+  }
+  
+}
+
+//export Login Component
+//export default Login;
+//export default connect(mapStateToProps, mapDispatchToProps())(Custsignup);
+export default connect(mapStateToProps, mapDispatchToProps)(Custsignup);
+
+//export default Custsignup;
 
 
 
