@@ -17,7 +17,7 @@ const custReducer = (state = initialCustProfile, action) => {
     		  cpassword  : state.cpassword
 	    	}
 	    }
-	    case 'CPASS' : {
+	    case 'CPASSWORD' : {
 	    	console.log(action);
 	    	return {
 	    	  cname  : state.cname,

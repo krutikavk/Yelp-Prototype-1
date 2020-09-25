@@ -24,8 +24,8 @@ app.use(session({
 
 var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'xxxxx',
-  password : 'xxxxx',
+  user     : 'admin',
+  password : 'admin273!',
   database : 'lab1'
 });
 
@@ -60,12 +60,29 @@ app.post('/login', (request,response) => {
 
     if(request.body.loginOption === 'customer') {
       var dbQuery = (sql `SELECT * from customer WHERE cemail = ? AND cpassword = ?`);
-    }
-    if(request.body.loginOption === 'restaurant') {
-      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ? AND rpassword = ?`);
+      connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
+      if(error) {
+        response.status(404).send('Could not fetch from database');
+      }
+      if (results.length > 0) {
+        response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
+        request.session.user = request.body.username;
+        response.writeHead(200,{
+            //'Content-Type' : 'text/plain'
+            'Content-Type': 'application/json'
+
+        })
+        //response.end("Successful Login");
+        response.end(JSON.stringify(results));
+        } else {
+          response.status(404).send('Incorrect login');
+        }     
+      });
     }
 
-    connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
+    if(request.body.loginOption === 'restaurant') {
+      var dbQuery = (sql `SELECT * from restaurant WHERE remail = ? AND rpassword = ?`);
+      connection.query(dbQuery, [request.body.username, request.body.password], function(error, results) {
       if(error) {
         response.status(404).send('Could not fetch from database');
       }
@@ -74,12 +91,16 @@ app.post('/login', (request,response) => {
         request.session.user = request.body.username;
         response.writeHead(200,{
             'Content-Type' : 'text/plain'
+            //'Content-Type': 'application/json'
+
         })
         response.end("Successful Login");
+        //response.end(JSON.stringify(results));
       } else {
         response.status(404).send('Incorrect login');
       }     
     });
+    }
 });
 
 app.post('/custsignup', (request, response) => {
@@ -92,14 +113,36 @@ app.post('/custsignup', (request, response) => {
       if(error) {
         console.log('User already exists')
         response.status(404).send('User may already exist');
+
       } else {
         //also let the customer login
+        console.log("cust signup insert succeeded")
         response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
         request.session.user = request.body.username;
+        /*
         response.writeHead(200,{
-            'Content-Type' : 'text/plain'
+            //'Content-Type' : 'text/plain'
+            'Content-Type': 'application/json'
         })
-        response.end("Successful Login");
+        //response.end("Successful Login");
+        */
+        let getUserQuery = (sql `SELECT * from customer WHERE cemail = ?`);
+        connection.query(getUserQuery, [request.body.cemail], function(error, results) {
+          if(error) {
+            response.status(404).send('Could not fetch from database');
+          }
+          if (results.length > 0) {
+            response.writeHead(200,{
+                //'Content-Type' : 'text/plain'
+                'Content-Type': 'application/json'
+
+            })
+            //response.end("Successful Login");
+            response.end(JSON.stringify(results));
+            } else {
+              response.status(404).send('Incorrect login');
+            }     
+        });
       }
 
     });

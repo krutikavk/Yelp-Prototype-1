@@ -8,6 +8,9 @@ import cookie from 'react-cookies';
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {update, login, logout} from '../../_actions'
+
+
 
 
 const validText = RegExp('[A-Za-z0-9]+')
@@ -117,9 +120,15 @@ class Login extends Component {
             console.log("Status Code : ",response.status);
             if(response.status === 200){
               console.log("Login authorized")
-                this.setState({
-                    authFlag : true
-                })
+              console.log(response.data[0]);
+              //call props action
+              this.props.update('CNAME', response.data[0].cname)
+              this.props.update('CEMAIL', response.data[0].cemail)
+              this.props.update('CPASSWORD', response.data[0].cpassword)
+              this.props.login()   //this will update isLogged = true
+              this.setState({
+                  authFlag : true
+              })
             }
         }).catch(err =>{
             this.setState({
@@ -132,10 +141,16 @@ class Login extends Component {
     //redirect based on successful login
 
     let redirectVar = null;
+    /*
     if(cookie.load('cookie')){
       console.log(cookie)
       redirectVar = <Redirect to= "/userdash"/>
     } 
+    */
+    console.log(this.props.isLogged)
+    if(this.props.isLogged === true) {
+      redirectVar = <Redirect to= "/userdash"/>
+    }
 
     const errors = this.state.errors;
 
@@ -197,5 +212,31 @@ class Login extends Component {
     )
   }
 }
+
+
+
+//importedname: state.reducer.statename
+
+const mapStateToProps = (state) => {
+    return {
+      cname : state.custProfile.cname,
+      cpassword: state.custProfile.cpassword,
+      cemail: state.custProfile.cemail,
+      isLogged: state.isLogged.isLoggedIn
+    }
+}
+
+//const mapDispatchToProps = (dispatch) => { since this does not call a function directly it cannot be a function
+
+function mapDispatchToProps(dispatch) {  
+  return {
+    update : (field, payload) => dispatch(update(field, payload)),
+    login: () => dispatch(login()),
+    logout: () => dispatch(logout())
+  }
+  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
 //export Login Component
-export default Login;
+//export default Login;
