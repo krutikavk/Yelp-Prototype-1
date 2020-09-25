@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import '../../App.css';
 import axios from 'axios';
-import cookie from 'react-cookies';
 import {connect} from 'react-redux';
 import {update} from '../../_actions'
 import {login} from '../../_actions';
@@ -65,16 +64,25 @@ class Userdash extends Component {
 
 
   usernameChangeHandler = (event) => {
-  	this.setState({
-  		username: event.target.value,
-  	})
+  	let err = this.state.errors;
+    err.username = validText.test(event.target.value) ? "" : "Username-Only alphanumeric word"
+    this.setState({
+            errors: err
+        }, ()=> {
+            console.log(err.username)
+    }) 
   	this.props.update('CNAME', event.target.value)
+  	
   }
 
   passwordChangeHandler = (event) => {
-  	this.setState({
-  		password: event.target.value
-  	})
+  	let err = this.state.errors;
+    err.password = event.target.value.length >= 5 ? "" : "Password should have 8 or more characters"
+    this.setState({
+      errors: err
+      }, ()=> {
+	    console.log(err.password)
+  	}) 
   	this.props.update('CPASSWORD', event.target.value)
   }
 
@@ -82,12 +90,12 @@ class Userdash extends Component {
 
   submitUsernameChange = (event) => {
   	//Write backend put request
-  	
+  	event.preventDefault();
   }
 
   submitPasswordChange = (event) => {
   	//write backend put request
-	
+	event.preventDefault();
   }
   
   
@@ -105,7 +113,7 @@ class Userdash extends Component {
   	if(this.state.usernameToChange === true) {
   	  usernameTextField = (
   	  	<div class = 'login-form'>
-  	  	<input onChange = {this.submitUsernameChange} 
+  	  	<input onChange = {this.usernameChangeHandler} 
                                 type="text"  
                                 name="username" 
                                 class="form-control"
@@ -113,7 +121,7 @@ class Userdash extends Component {
                                 required/>
         {errors.username.length > 0 && 
           <span>{errors.username}</span>}
-        <button class="btn btn-primary" onClick = {this.submitUsernameChange}>Submit username change</button>
+        <button disabled={this.state.errors.username.length > 0} class="btn btn-primary" onClick = {this.submitUsernameChange}>Submit username change</button>
         </div>
       )
   	}
@@ -121,7 +129,7 @@ class Userdash extends Component {
   	if(this.state.passwordToChange === true) {
   	  passwordTextField = (
   	  	<div class = 'login-form'>
-  	  	<input onChange = {this.submitPasswordChange} 
+  	  	<input onChange = {this.passwordChangeHandler} 
                                 type="password"  
                                 name="password" 
                                 class="form-control"
@@ -130,7 +138,7 @@ class Userdash extends Component {
         {errors.password.length > 0 && 
           <span>{errors.password}</span>}
 
-        <button class="btn btn-primary" onClick = {this.submitPasswordChange}>Submit password change</button>
+        <button disabled={this.state.errors.password.length > 0} class="btn btn-primary" onClick = {this.submitPasswordChange}>Submit password change</button>
         </div>
       )
   	}
