@@ -131,6 +131,7 @@ class Login extends Component {
               })
             }
         }).catch(err =>{
+            alert("Incorrect credentials")
             this.setState({
                 authFlag : false
             })
