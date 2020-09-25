@@ -122,7 +122,7 @@ class Custsignup extends Component {
             this.setState({
                 isAdded : false
             })
-            this.props.update('SIGN_OUT', false);
+            this.props.update.logout();
         });
   }
 

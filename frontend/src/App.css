@@ -26,10 +26,11 @@
   max-width: 25%;
   padding: 50px 70px 70px 71px;
   border: 2px solid black;
+  border-radius: 10px;
 }
 
 .login-form .form-group {
-  margin-bottom:10px;
+  margin-bottom:5px;
 }
 .login-form{ text-align:center;}
 .forgot a {
@@ -39,10 +40,11 @@
 }
 .login-form  .btn.btn-primary {
   background: #f0ad4e none repeat scroll 0 0;
+  border-radius: 10px;
   border-color: #f0ad4e;
   color: #ffffff;
   font-size: 14px;
-  width: 100%;
+  width: 50%;
   height: 50px;
   line-height: 50px;
   padding: 0;

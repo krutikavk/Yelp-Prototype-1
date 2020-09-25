@@ -50,13 +50,8 @@ class Navbar extends Component {
                 <nav class="navbar navbar-inverse">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                            <a class="navbar-brand">Kelp!</a>
+                            <a class="navbar-brand">Yelp!</a>
                         </div>
-                        <ul class="nav navbar-nav">
-                            <li class="active"><Link to="/home">Home</Link></li>
-                            <li><Link to="/create">Add a Book</Link></li>
-                            <li><Link to="/delete">Delete a Book</Link></li>
-                        </ul>
                         {navLogin}
                     </div>
                 </nav>
