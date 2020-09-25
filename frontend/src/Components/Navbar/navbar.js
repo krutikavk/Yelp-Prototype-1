@@ -2,6 +2,8 @@ import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
+import {connect} from 'react-redux';
+import {update, login, logout} from '../../_actions'
 
 //create the Navbar Component
 class Navbar extends Component {
@@ -11,12 +13,17 @@ class Navbar extends Component {
     }
     //handle logout to destroy the cookie
     handleLogout = () => {
-        cookie.remove('cookie', { path: '/' })
+        //cookie.remove('cookie', { path: '/' })
+        this.props.update('CNAME', '')
+        this.props.update('CEMAIL', '')
+        this.props.update('CPASSWORD', '')
+        this.props.logout()
+
     }
     render(){
         //if Cookie is set render Logout Button
         let navLogin = null;
-        if(cookie.load('cookie')){
+        if(this.props.isLogged === true){
             console.log("Able to read cookie");
             navLogin = (
                 <ul class="nav navbar-nav navbar-right">
@@ -34,7 +41,7 @@ class Navbar extends Component {
         }
         
         let redirectVar = null;
-        if(cookie.load('cookie')){
+        if(this.props.isLogged === true){
             redirectVar = <Redirect to="/home"/>
         }
         
@@ -58,4 +65,28 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+//importedname: state.reducer.statename
+
+const mapStateToProps = (state) => {
+    return {
+      cname : state.custProfile.cname,
+      cpassword: state.custProfile.cpassword,
+      cemail: state.custProfile.cemail,
+      isLogged: state.isLogged.isLoggedIn
+    }
+}
+
+//const mapDispatchToProps = (dispatch) => { since this does not call a function directly it cannot be a function
+
+function mapDispatchToProps(dispatch) {  
+  return {
+    update : (field, payload) => dispatch(update(field, payload)),
+    login: () => dispatch(login()),
+    logout: () => dispatch(logout())
+  }
+  
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
+
+//export default Navbar;
