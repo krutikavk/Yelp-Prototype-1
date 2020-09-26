@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {update} from '../../_actions'
 import {login} from '../../_actions';
 import {Redirect} from 'react-router-dom';
+import profilepicture from './profile-picture.png';
 
 
 const validText = RegExp('[A-Za-z0-9]+')
@@ -193,10 +194,7 @@ class Userdash extends Component {
 
       <div>
       	{redirectVar}
-	    <div class='login-form'>
-
-		    <h2> User Dashboard</h2>
-
+	    <div class='dashboard'>
 		    <div class='form-group'>
 			  USERNAME: {this.props.cname}
 			  {usernameTextField}
@@ -209,7 +207,13 @@ class Userdash extends Component {
 		    </div>
 		    <div class='form-group'>
 			  EMAIL ID: {this.props.cemail}
-			  
+			</div>
+			<div>
+			  PROFILE PICTURE
+			  <div>
+		    	<img src={profilepicture} alt = "" width="300px" height="200px"></img>
+			    <h2>User Dashboard</h2>
+		      </div>
 			</div>
 		  </div>
 	  </div>

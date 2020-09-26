@@ -34,7 +34,7 @@ class Navbar extends Component {
             //Else display login button
             console.log("Not Able to read cookie");
             navLogin = (
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="topnav">
                         <li><Link to="/login"><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
                 </ul>
             )
@@ -47,16 +47,19 @@ class Navbar extends Component {
         
         return(
 
-            <div>
-                <nav class="topnav">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand">Yelp!</a>
-                        </div>
-                        {navLogin}
-                    </div>
-                </nav>
+          <div>
+            <div class = "header"> 
             </div>
+              <nav class="topnav">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a href='/userdash'class="navbar-brand">Dashboard</a>
+                    <a class="navbar-brand">Orders</a>
+                  </div>
+                  {navLogin}
+                </div>
+              </nav>
+          </div>
         )
     }
 }
