@@ -4,10 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const mysql = require('mysql');
+//const mysql = require('mysql');
 const cors = require('cors');
-const sql = require('sql-template-strings')
-app.set('view engine', 'ejs');
+//const sql = require('sql-template-strings')
+//app.set('view engine', 'ejs');
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -20,21 +20,6 @@ app.use(session({
     duration            : 60 * 60 * 1000,    // Overall duration of Session : 30 minutes : 1800 seconds
     activeDuration      : 5 * 60 * 1000
 }));
-
-
-var connection = mysql.createConnection({
-  host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'admin',
-  password : 'admin273!',
-  database : 'lab1'
-});
-
-/* Connect to the Db */
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
-global.db = connection;
 
 // app.use(bodyParser.urlencoded({
 //     extended: true
@@ -50,6 +35,29 @@ app.use(function(req, res, next) {
     res.setHeader('Cache-Control', 'no-cache');
     next();
   });
+
+var customers = require('./customers.js')
+app.use('/customers', customers);
+
+
+//start your server on port 3001
+app.listen(3001);
+console.log("Server Listening on port 3001");
+
+/*
+var connection = mysql.createConnection({
+  host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
+  user     : 'admin',
+  password : 'admin273!',
+  database : 'lab1'
+});
+
+
+connection.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+});
+global.db = connection;
 
 //Route to handle Post Request Call
 app.post('/login', (request,response) => {
@@ -119,13 +127,6 @@ app.post('/custsignup', (request, response) => {
         console.log("cust signup insert succeeded")
         response.cookie('cookie','customer',{maxAge: 900000, httpOnly: false, path : '/'});
         request.session.user = request.body.username;
-        /*
-        response.writeHead(200,{
-            //'Content-Type' : 'text/plain'
-            'Content-Type': 'application/json'
-        })
-        //response.end("Successful Login");
-        */
         let getUserQuery = (sql `SELECT * from customer WHERE cemail = ?`);
         connection.query(getUserQuery, [request.body.cemail], function(error, results) {
           if(error) {
@@ -164,7 +165,7 @@ app.put('/custUpdate', function (request, response) {
 });
 
 //Route to get All Books when user visits the Home Page
-app.get('/home', function(request,response){
+app.get('/home', function(request,reesponse){
     console.log("Inside Home Login");    
     response.writeHead(200, {
         'Content-Type' : 'text/plain'
@@ -178,7 +179,6 @@ app.get('*', function(request, response){
   console.log('Page not found');
   response.status('404');
 });
+*/
 
-//start your server on port 3001
-app.listen(3001);
-console.log("Server Listening on port 3001");
+
