@@ -104,12 +104,12 @@
 
 .topnav {
   overflow: hidden;
-  background-color: #587375;
+  background-color: #FFFFF;
 }
 
 .topnav a {
   float: left;
-  color: #f2f2f2;
+  color: #e12120;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;

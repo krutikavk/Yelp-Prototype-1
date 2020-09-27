@@ -3,7 +3,9 @@ import {Link} from 'react-router-dom';
 import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import {update, login, logout} from '../../_actions'
+import {update, login, logout} from '../../_actions';
+import * as ReactBootStrap from 'react-bootstrap'
+import logo from './yelp-logo.jpg';
 
 //create the Navbar Component
 class Navbar extends Component {
@@ -24,42 +26,61 @@ class Navbar extends Component {
         //if Cookie is set render Logout Button
         let navLogin = null;
         if(this.props.isLogged === true){
-            console.log("Able to read cookie");
+            console.log("Login is true");
             navLogin = (
-                <ul class="nav navbar-nav navbar-right">
-                        <li><Link to="/" onClick = {this.handleLogout}><span class="glyphicon glyphicon-user"></span>Logout</Link></li>
-                </ul>
+                <ReactBootStrap.Navbar.Text>
+                  <Link to="/" onClick = {this.handleLogout}>Logout</Link>
+                </ReactBootStrap.Navbar.Text>
             );
         }else{
             //Else display login button
             console.log("Not Able to read cookie");
             navLogin = (
-                <ul class="topnav">
-                        <li><Link to="/login"><span class="glyphicon glyphicon-log-in"></span> Login</Link></li>
-                </ul>
+                <ReactBootStrap.Navbar.Text>
+                  <Link to="/login">Login</Link>
+                </ReactBootStrap.Navbar.Text>
             )
         }
         
-        let redirectVar = null;
-        if(this.props.isLogged === true){
-            redirectVar = <Redirect to="/home"/>
-        }
         
         return(
 
+            <ReactBootStrap.Navbar bg="light" expand="sm">
+              <ReactBootStrap.Navbar.Brand> <Link to="/"><img src={logo}></img></Link> </ReactBootStrap.Navbar.Brand>
+              <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
+                <ReactBootStrap.Nav className="mr-auto">
+                  <Link to="/userdash">Profile</Link>
+                   
+                </ReactBootStrap.Nav>
+                <ReactBootStrap.Form inline>
+                  <ReactBootStrap.FormControl type="text" placeholder="Search" className="mr-sm-2" />
+                  <ReactBootStrap.Button variant="outline-success">Search</ReactBootStrap.Button>
+                </ReactBootStrap.Form>
+                <ReactBootStrap.Navbar.Collapse className="justify-content-end">
+                {navLogin}
+              </ReactBootStrap.Navbar.Collapse>
+              </ReactBootStrap.Navbar.Collapse>
+            </ReactBootStrap.Navbar>
+
+
+            /*
           <div>
             <div class = "header"> 
             </div>
               <nav class="topnav">
                 <div class="container-fluid">
                   <div class="navbar-header">
-                    <a href='/userdash'class="navbar-brand">Dashboard</a>
+                  <ul class="topnav">
+                    <li><Link to="/userdash"><span class="glyphicon glyphicon-log-in"></span> Dashboard</Link></li>
                     <a class="navbar-brand">Orders</a>
+                    {navLogin}
+                    </ul>
                   </div>
-                  {navLogin}
                 </div>
               </nav>
           </div>
+          */
         )
     }
 }
