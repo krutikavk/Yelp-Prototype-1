@@ -1,12 +1,15 @@
 import loggedReducer from './isLogged';
-import custReducer from './custProfile'
+import custReducer from './custProfile';
+import restReducer from './restProfile';
 import {combineReducers} from 'redux';
 
 const allReducer = combineReducers({
 	//equivalent: counterReducer: counterReducer
 	//JS6 shorthand: counterReducer
 	isLogged: loggedReducer,
-	custProfile: custReducer
+	custProfile: custReducer,
+  restProfile: restReducer,
+
 })
 
 

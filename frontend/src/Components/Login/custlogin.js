@@ -9,7 +9,6 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions'
-import * as ReactBootStrap from 'react-bootstrap'
 
 
 
@@ -35,8 +34,8 @@ class Login extends Component {
       loginOption: '',
       authFlag: false,
       errors: {
-      	username: '',
-      	password: '',
+        username: '',
+        password: '',
       }
     };
 
@@ -77,12 +76,12 @@ class Login extends Component {
     this.setState({
       errors: err
       }, ()=> {
-	    console.log(err.password)
-  	}) 
-  	this.setState({
-  	  password : event.target.value
-  	    
-  	})
+      console.log(err.password)
+    }) 
+    this.setState({
+      password : event.target.value
+        
+    })
   }
 
   usernameChangeHandler = (event) => {
@@ -99,9 +98,9 @@ class Login extends Component {
   }
 
   submitLogin = (event) => {
-  	event.preventDefault();
+    event.preventDefault();
 
-  	if(validateForm(this.state.errors)) {
+    if(validateForm(this.state.errors)) {
       console.info("Valid form")
         
     } else {
@@ -168,15 +167,15 @@ class Login extends Component {
                                 <p>Login as:</p>  
                             </div>
                             <div class = "form-group">
-                            	<input type="radio" value="customer" 
+                              <input type="radio" value="customer" 
                                 checked={this.state.loginOption === 'customer'}
                                 onChange={this.loginOptionHandler}/>
-              								<label for="customer">Customer</label><br />
-              								<input type="radio" value="restaurant"
+                              <label for="customer">Customer</label><br />
+                              <input type="radio" value="restaurant"
                                 checked={this.state.loginOption === 'restaurant'}
                                 onChange={this.loginOptionHandler}/>
-              								<label for="restaurant">Restaurant</label><br />
-                        	  </div>
+                              <label for="restaurant">Restaurant</label><br />
+                            </div>
                             
                             <div class="form-group">
                                 <input onChange = {this.usernameChangeHandler} 
@@ -222,9 +221,16 @@ class Login extends Component {
 const mapStateToProps = (state) => {
     return {
       //Customer props
-      cname : state.custProfile.cname,
-      cpassword: state.custProfile.cpassword,
+      cid: state.custProfile.cid,
       cemail: state.custProfile.cemail,
+      cpassword: state.custProfile.cpassword,
+      cname: state.custProfile.cname,
+      cphone: state.custProfile.cphone,
+      cabout: state.custProfile.cabout,
+      cjoined: state.custProfile.cjoined,
+      cphoto: state.custProfile.cphoto,
+      cfavrest: state.custProfile.cfavrest,
+      cfavcuisine: state.custProfile.cfavcuisine,
       isLogged: state.isLogged.isLoggedIn
     }
 }

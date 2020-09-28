@@ -10,6 +10,7 @@ export const logout = () => {
 	} ;
 }
 
+//incoming field, data ==> infield, payload
 export const update = (infield, payload) => {
 	console.log(infield)
 	console.log(payload)
