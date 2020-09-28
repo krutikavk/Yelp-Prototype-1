@@ -37,12 +37,14 @@ app.use(function(req, res, next) {
   });
 
 var customers = require('./customers.js')
+var restaurants = require('./restaurants.js')
 app.use('/customers', customers);
+app.use('/restaurants', restaurants);
 
 
-//start your server on port 3001
+//start backend server on port 3001
 app.listen(3001);
-console.log("Server Listening on port 3001");
+console.log("Backend Server listening on port 3001");
 
 /*
 var connection = mysql.createConnection({
