@@ -24,7 +24,7 @@ connection.connect(err => {
 global.db = connection;
 
 
-//get all restaurants
+//get all restaurants TESTED 
 router.get('/', (request, response) => {
   console.log('\nEndpoint GET: Get all restaurants');
   //LATER: Select the required fields needed by restaurants to display in order details
@@ -49,8 +49,7 @@ router.get('/', (request, response) => {
 });
 
 
-//get one restaurant
-//Get a customer
+//Get one restaurants TESTED
 router.get('/:rid', (request, response) => {
   console.log('\nEndpoint GET: Get a restaurant');
   //LATER: Select the required fields needed by restaurants to display in order details
@@ -72,7 +71,7 @@ router.get('/:rid', (request, response) => {
 
 });
 
-//Restaurant signup
+//Restaurant signup TESTED
 router.post('/', (request, response) => {
   console.log('\nEndpoint POST: Restaurant signup')
   console.log('Req Body: ', request.body)
@@ -108,10 +107,9 @@ router.post('/', (request, response) => {
       }
     });
   });
-
 });
 
-//restaurant login
+//restaurant login TESTED
 router.post('/login', (request, response) => {
   console.log('Endpoint POST: restaurant login')
   console.log('Request Body: ', request.body);
@@ -137,3 +135,18 @@ router.post('/login', (request, response) => {
     }
   });
 });
+
+//Restaurant update
+
+
+
+//ORDER MANIPULATION
+/*
+1. Get all orders for restaurant
+2. Update order status
+3. Get particular order
+
+
+*/
+
+
