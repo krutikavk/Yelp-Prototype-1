@@ -22,7 +22,7 @@ class Main extends Component {
                 {/*Render Different Component based on Route*/}
                 <Route path='/' component={Navbar}/>
                 <Route path='/login' component={Login}/>
-                <Route path='custLogin' component={Custlogin}/>
+                <Route path='/custLogin' component={Custlogin}/>
                 <Route path='/custsignup' component={Custsignup}/>
                 <Route path='/userdash' component={Userdash}/>
             </div>

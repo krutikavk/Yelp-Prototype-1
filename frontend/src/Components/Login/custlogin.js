@@ -8,12 +8,12 @@ import cookie from 'react-cookies';
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {update, login, logout} from '../../_actions'
+import {update, login, logout, customerLogin, restaurantLogin} from '../../_actions'
 
 
 
 
-const validText = RegExp('[A-Za-z0-9]+')
+const validEmail = RegExp('\\S+\@\\S+\.\\S+')
 const validateForm = (errors) => {
   let valid = true;
   Object.values(errors).forEach(
@@ -29,17 +29,17 @@ class Login extends Component {
 
     this.state = {
 
-      username: '',
+      email: '',
       password: '',
       loginOption: '',
       authFlag: false,
       errors: {
-        username: '',
+        email: '',
         password: '',
       }
     };
 
-    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
+    this.emailChangeHandler = this.emailChangeHandler.bind(this);
     this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
     this.submitLogin = this.submitLogin.bind(this);
   }
@@ -57,16 +57,16 @@ class Login extends Component {
   }
 
   // Comment
-  usernameChangeHandler = (event) => {
+  emailChangeHandler = (event) => {
     let err = this.state.errors;
-    err.username = validText.test(event.target.value) ? "" : "Username-Only alphanumeric word"
+    err.email = validEmail.test(event.target.value) ? "" : "Invalid email ID"
     this.setState({
             errors: err
         }, ()=> {
-            console.log(err.username)
+            console.log(err.email)
     }) 
     this.setState({
-        username : event.target.value
+        email : event.target.value
     })
   }
 
@@ -84,19 +84,6 @@ class Login extends Component {
     })
   }
 
-  usernameChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.username = validText.test(event.target.value) ? "" : "Username-Only alphanumeric word"
-    this.setState({
-            errors: err
-        }, ()=> {
-            console.log(err.username)
-    }) 
-    this.setState({
-        username : event.target.value
-    })
-  }
-
   submitLogin = (event) => {
     event.preventDefault();
 
@@ -108,34 +95,41 @@ class Login extends Component {
     }
 
     const data = {
-      username : this.state.username,
-      password : this.state.password,
-      loginOption: this.state.loginOption,
+      cemail : this.state.email,
+      cpassword : this.state.password,
     }
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios.post('http://localhost:3001/customers/login', data)
-        .then(response => {
-            console.log("Status Code : ",response.status);
-            if(response.status === 200){
-              console.log("Login authorized")
-              console.log(response.data[0]);
-              //call props action
-              this.props.update('CNAME', response.data[0].cname)
-              this.props.update('CEMAIL', response.data[0].cemail)
-              this.props.update('CPASSWORD', response.data[0].cpassword)
-              this.props.login()   //this will update isLogged = true
-              this.setState({
-                  authFlag : true
-              })
-            }
-        }).catch(err =>{
-            alert("Incorrect credentials")
-            this.setState({
-                authFlag : false
-            })
-        });
+      .then(response => {
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+          console.log("Login authorized")
+          console.log(response.data[0]);
+          //call props action
+          this.props.update('CID', response.data[0].cid)
+          this.props.update('CEMAIL', response.data[0].cemail)
+          this.props.update('CPASSWORD', response.data[0].cpassword)
+          this.props.update('CNAME', response.data[0].cname)
+          this.props.update('CPHONE', response.data[0].cphone)
+          this.props.update('CABOUT', response.data[0].cabout)
+          this.props.update('CJOINED', response.data[0].cjoined)
+          this.props.update('CPHOTO', response.data[0].cphoto)
+          this.props.update('CFAVREST', response.data[0].cfavrest)
+          this.props.update('CFAVCUISINE', response.data[0].cfavcuisine)
+          this.props.login()   //this will update isLogged = true
+          this.props.customerLogin()
+          this.setState({
+              authFlag : true
+          })
+        }
+      }).catch(err =>{
+        alert("Incorrect credentials")
+        this.setState({
+            authFlag : false
+        })
+    });
   }
 
   render(){
@@ -156,60 +150,48 @@ class Login extends Component {
     const errors = this.state.errors;
 
     return(
-        <div>
-            {redirectVar}
-            <span id = "exists"></span>
-            <div class="container">
-                <form onSubmit={this.submitLogin} >
-                    <div class="login-form">
-                        <div class="main-div">
-                            <div class="panel">
-                                <p>Login as:</p>  
-                            </div>
-                            <div class = "form-group">
-                              <input type="radio" value="customer" 
-                                checked={this.state.loginOption === 'customer'}
-                                onChange={this.loginOptionHandler}/>
-                              <label for="customer">Customer</label><br />
-                              <input type="radio" value="restaurant"
-                                checked={this.state.loginOption === 'restaurant'}
-                                onChange={this.loginOptionHandler}/>
-                              <label for="restaurant">Restaurant</label><br />
-                            </div>
-                            
-                            <div class="form-group">
-                                <input onChange = {this.usernameChangeHandler} 
-                                type="text"  
-                                name="username" 
-                                class="form-control"
-                                placeholder="Username"
-                                required/>
-                                {errors.username.length > 0 && 
-                                <span>{errors.username}</span>}
-                            </div>
-                            <div class="form-group">
-                                <input onChange = {this.passwordChangeHandler} 
-                                type="password" 
-                                name="password" 
-                                class="form-control"
-                                placeholder="Password"
-                                required/>
-                                {errors.password.length > 0 && 
-                                <span>{errors.password}</span>}
-                            </div>
-                            
-                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
 
-                            <div class='forgot'>
-                              Don't have an account yet?<br />
-                              <a href="/custsignup">Customer signup</a> <br />
-                              <a href="/restsignup">Restaurant signup</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+
+      <div>
+        {redirectVar} 
+        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
+          <form>
+            <div class="col d-flex justify-content-center rounded-0">
+
+            <div class="card-header">
+              <h4>Customer</h4>
             </div>
+            </div>
+                  <div className = "form-group text-left">
+                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input onChange = {this.emailChangeHandler} 
+                                        type="email"  
+                                        name="email" 
+                                        className="form-control form-control-lg"
+                                        placeholder="Email ID"
+                                        aria-describedby="emailHelp" 
+                                        required/>
+                                        {errors.email.length > 0 && 
+                                        <span><small id="emailHelp" className="form-text text-muted">{errors.email}</small></span>}
+                  </div>
+                  <div class="form-group text-left">
+                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <input onChange = {this.passwordChangeHandler} 
+                                        type="password" 
+                                        name="password" 
+                                        class="form-control form-control-lg"
+                                        placeholder="Password"
+                                        required/>
+                                        {errors.password.length > 0 && 
+                                        <span><small id="emailHelp" className="form-text text-muted">{errors.password}</small></span>}
+                  </div>
+
+                  <div class="col-md-12 text-center">
+                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" class="btn btn-success btn-lg">Login</button>
+                  </div>
+          </form>
         </div>
+      </div>
     )
   }
 }
@@ -232,6 +214,7 @@ const mapStateToProps = (state) => {
       cfavrest: state.custProfile.cfavrest,
       cfavcuisine: state.custProfile.cfavcuisine,
       isLogged: state.isLogged.isLoggedIn
+
     }
 }
 
@@ -241,7 +224,9 @@ function mapDispatchToProps(dispatch) {
   return {
     update : (field, payload) => dispatch(update(field, payload)),
     login: () => dispatch(login()),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    customerLogin: () => dispatch(customerLogin()),
+    restaurantLogin: () => dispatch(restaurantLogin())
   }
   
 }

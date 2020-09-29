@@ -8,6 +8,11 @@
 }
 */
 
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 100px; /* Added */
+}
 
 
 .header{

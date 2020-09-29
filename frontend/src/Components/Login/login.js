@@ -9,7 +9,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions'
-import * as ReactBootStrap from 'react-bootstrap'
+
 
 
 
@@ -157,6 +157,57 @@ class Login extends Component {
     const errors = this.state.errors;
 
     return(
+
+    
+      <div>
+        {redirectVar} 
+
+
+        
+        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
+        <form>
+        <div class="col d-flex justify-content-center">
+
+        <h3>Customer Sign in</h3>
+        </div>
+          <div className="auth-wrapper">
+            <div className="auth-inner">
+              <div className = "form-group text-left">
+                <label htmlFor="exampleInputEmail1">Email address</label>
+                <input onChange = {this.usernameChangeHandler} 
+                                    type="email"  
+                                    name="username" 
+                                    className="form-control"
+                                    placeholder="Email ID"
+                                    aria-describedby="emailHelp" 
+                                    required/>
+                                    {errors.username.length > 0 && 
+                                    <span><small id="emailHelp" className="form-text text-muted">{errors.username}</small></span>}
+              </div>
+              <div class="form-group text-left">
+                <label htmlFor="exampleInputPassword1">Password</label>
+                <input onChange = {this.passwordChangeHandler} 
+                                    type="password" 
+                                    name="password" 
+                                    class="form-control"
+                                    placeholder="Password"
+                                    required/>
+                                    {errors.password.length > 0 && 
+                                    <span>{errors.password}</span>}
+              </div>
+              <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
+
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+
+
+
+
+        /*
         <div>
             {redirectVar}
             <span id = "exists"></span>
@@ -211,6 +262,7 @@ class Login extends Component {
                 </form>
             </div>
         </div>
+        */
     )
   }
 }
