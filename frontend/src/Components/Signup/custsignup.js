@@ -5,8 +5,7 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
-import {update} from '../../_actions'
-import {login} from '../../_actions';
+import {update, login, logout} from '../../_actions';
 
 const validText = RegExp('[A-Za-z0-9]+')
 const validEmail = RegExp('\\S+\@\\S+\.\\S+')
@@ -107,12 +106,23 @@ class Custsignup extends Component {
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios.post('http://localhost:3001/custsignup', data)
+    axios.post('http://localhost:3001/customers', data)
         .then(response => {
             console.log("Status Code : ",response.status);
             if(response.status === 200){
               console.log('Customer added')
+              this.props.update('CID', response.data[0].cid)
+              this.props.update('CEMAIL', response.data[0].cemail)
+              this.props.update('CPASSWORD', response.data[0].cpassword)
+              this.props.update('CNAME', response.data[0].cname)
+              this.props.update('CPHONE', response.data[0].cphone)
+              this.props.update('CABOUT', response.data[0].cabout)
+              this.props.update('CJOINED', response.data[0].cjoined)
+              this.props.update('CPHOTO', response.data[0].cphoto)
+              this.props.update('CFAVREST', response.data[0].cfavrest)
+              this.props.update('CFAVCUISINE', response.data[0].cfavcuisine)
               this.props.login()
+              this.props.customerLogin()
               //This is no longer needed, state error only needed
               this.setState({
                 isAdded : true
@@ -122,7 +132,7 @@ class Custsignup extends Component {
             this.setState({
                 isAdded : false
             })
-            this.props.update.logout();
+            this.props.logout();
         });
   }
 
@@ -200,9 +210,16 @@ class Custsignup extends Component {
 //importedname: state.reducer.statenames
 const mapStateToProps = (state) => {
     return {
-      cname : state.custProfile.cname,
-      cpassword: state.custProfile.cpassword,
+      cid: state.custProfile.cid,
       cemail: state.custProfile.cemail,
+      cpassword: state.custProfile.cpassword,
+      cname: state.custProfile.cname,
+      cphone: state.custProfile.cphone,
+      cabout: state.custProfile.cabout,
+      cjoined: state.custProfile.cjoined,
+      cphoto: state.custProfile.cphoto,
+      cfavrest: state.custProfile.cfavrest,
+      cfavcuisine: state.custProfile.cfavcuisine,
       isLogged: state.isLogged.isLoggedIn
     }
 }
@@ -212,7 +229,8 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {  
   return {
     update : (field, payload) => dispatch(update(field, payload)),
-    login: () => dispatch(login())
+    login: () => dispatch(login()),
+    logout: () => dispatch(logout())
   }
   
 }
