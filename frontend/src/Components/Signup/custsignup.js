@@ -137,7 +137,7 @@ class Custsignup extends Component {
       redirectVar = <Redirect to= "/userdash"/>
     } */
     if(this.props.isLogged === true) {
-      redirectVar = <Redirect to= "/userdash"/>
+      redirectVar = <Redirect to= "/customer/dashboard"/>
     }
     const errors = this.state.errors;
 

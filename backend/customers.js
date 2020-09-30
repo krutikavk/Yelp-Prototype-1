@@ -86,7 +86,7 @@ router.get('/:cid', (request, response) => {
       response.status(404).send('Incorrect response');
     }     
   });
-  connection.close();
+  connection.end();
 });
 
 //Customer signup
@@ -130,7 +130,7 @@ router.post('/', (request, response) => {
       }
     });
   });
-  connection.close()
+  connection.end()
 });
 
 //customer login
@@ -145,6 +145,8 @@ router.post('/login', (request, response) => {
       response.status(404).send('Could not fetch from database');
     }
     if (results.length > 0) {
+      console.log(results[0].cpassword)
+      console.log(request.body.cpassword)
       bcrypt.compare(request.body.cpassword, results[0].cpassword, (err, result) => {
         console.log('in db: ', results[0].cpassword);
         if(result === true ) {
@@ -159,7 +161,7 @@ router.post('/login', (request, response) => {
       });   
     }
   });
-  connection.close();
+  connection.end();
 });
 
 
@@ -219,7 +221,7 @@ router.post('/:cid/orders', (request, response) => {
       })        //end getOrderId
     }          //end if-else dbquery
   })          //end insertOrder
-  connection.close()
+  connection.end()
 });
 
 
@@ -250,7 +252,7 @@ router.get('/:id/orders', (request, response) => {
       });   
     }
   });
-  connection.close()
+  connection.end()
 });
 
 
@@ -274,7 +276,7 @@ router.get('/:cid/orders/:oid', (request, response) => {
     }
 
   });
-  connection.close();
+  connection.end();
 });
 
 

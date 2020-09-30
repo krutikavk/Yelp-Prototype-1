@@ -6,9 +6,11 @@ import React, { Component } from 'react';
 
 import { Route } from 'react-router-dom';
 import Login from './Login/login';
-import Userdash from './Userdash/userdash'
-import Custsignup from './Signup/custsignup'
+import Userdash from './Userdash/userdash';
+import Restdash from './Restdash/restdash';
+import Custsignup from './Signup/custsignup';
 import Custlogin from './Login/custlogin';
+import Restlogin from './Login/restlogin';
 import Navbar from './Navbar/navbar.js'
 
 //import Navbar from './Navbar/navbar';
@@ -22,9 +24,11 @@ class Main extends Component {
                 {/*Render Different Component based on Route*/}
                 <Route path='/' component={Navbar}/>
                 <Route path='/login' component={Login}/>
-                <Route path='/custLogin' component={Custlogin}/>
-                <Route path='/custsignup' component={Custsignup}/>
-                <Route path='/userdash' component={Userdash}/>
+                <Route path='/customer/login' component={Custlogin}/>
+                <Route path='/restaurant/login' component={Restlogin}/>
+                <Route path='/customer/signup' component={Custsignup}/>
+                <Route path='/customer/dashboard' component={Userdash}/>
+                <Route path='/restaurant/dashboard' component={Restdash}/>
             </div>
         )
     }

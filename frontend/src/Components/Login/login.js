@@ -195,7 +195,7 @@ class Login extends Component {
                                     {errors.password.length > 0 && 
                                     <span>{errors.password}</span>}
               </div>
-              <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
+              <button disabled={! validateForm(this.state.errors)} class="btn btn-primary" onClick={this.submitLogin}>Login</button>
 
             </div>
           </div>

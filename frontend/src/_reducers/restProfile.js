@@ -21,6 +21,24 @@ const restReducer = (state = initialRestProfile, action) => {
 
       switch(action.field) {
 
+        case 'RID': {
+          console.log(action);
+          return {
+            rid: action.payload,
+            remail: state.remail,
+            rpassword: state.rpassword,
+            rname: state.rname,
+            rphone: state.rphone,
+            rabout: state.rabout,
+            rlocation: state.rlocation,
+            rlatitude: state.rlatitude,
+            rlongitude: state.rlongitude,
+            raddress: state.raddress,
+            rcuisine: state.rcuisine,
+            rdelivery: state.rdelivery,
+          }
+        }
+
         case 'REMAIL': {
           console.log(action);
           return {

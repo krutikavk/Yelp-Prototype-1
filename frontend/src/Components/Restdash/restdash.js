@@ -5,14 +5,14 @@ import cookie from 'react-cookies';
 import {Redirect} from 'react-router';
 
 
-class restDash extends Component {
+class Restdash extends Component {
 	
 	render() {
 		return (
-			<h2> User Dashboard</h2>
+			<h2> Restaurant Dashboard</h2>
 
 		)
 	}
-
-
 }
+
+export default Restdash;

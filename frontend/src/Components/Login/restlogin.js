@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import cookie from 'react-cookies';
-
 //use react-router-dom ONLY
 //see Marko Perendio comment about using react-router-dom
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {update, login, logout, customerLogin} from '../../_actions'
+import {update, login, logout, restaurantLogin} from '../../_actions'
 
 
 
@@ -23,7 +21,7 @@ const validateForm = (errors) => {
   return valid;
 }
 
-class custLogin extends Component {
+class restLogin extends Component {
   constructor(props) {
     super(props);
 
@@ -44,11 +42,13 @@ class custLogin extends Component {
     this.submitLogin = this.submitLogin.bind(this);
   }
 
+  /*
   componentWillMount() {
     this.setState({
       authFlag: false,
     })
   }
+  */
 
   loginOptionHandler = (event) => {
     this.setState({
@@ -61,9 +61,9 @@ class custLogin extends Component {
     let err = this.state.errors;
     err.email = validEmail.test(event.target.value) ? "" : "Invalid email ID"
     this.setState({
-            errors: err
-        }, ()=> {
-            console.log(err.email)
+        errors: err
+      }, ()=> {
+        console.log(err.email)
     }) 
     this.setState({
         email : event.target.value
@@ -95,31 +95,33 @@ class custLogin extends Component {
     }
 
     const data = {
-      cemail : this.state.email,
-      cpassword : this.state.password,
+      remail : this.state.email,
+      rpassword : this.state.password,
     }
     //set the with credentials to true
     axios.defaults.withCredentials = true;
     //make a post request with the user data
-    axios.post('http://localhost:3001/customers/login', data)
+    axios.post('http://localhost:3001/restaurants/login', data)
       .then(response => {
         console.log("Status Code : ",response.status);
         if(response.status === 200){
           console.log("Login authorized")
           console.log(response.data[0]);
           //call props action
-          this.props.update('CID', response.data[0].cid)
-          this.props.update('CEMAIL', response.data[0].cemail)
-          this.props.update('CPASSWORD', response.data[0].cpassword)
-          this.props.update('CNAME', response.data[0].cname)
-          this.props.update('CPHONE', response.data[0].cphone)
-          this.props.update('CABOUT', response.data[0].cabout)
-          this.props.update('CJOINED', response.data[0].cjoined)
-          this.props.update('CPHOTO', response.data[0].cphoto)
-          this.props.update('CFAVREST', response.data[0].cfavrest)
-          this.props.update('CFAVCUISINE', response.data[0].cfavcuisine)
-          this.props.login()   //this will update isLogged = true
-          this.props.customerLogin()
+          this.props.update('RID', response.data[0].rid)
+          this.props.update('REMAIL', response.data[0].remail)
+          this.props.update('RPASSWORD', response.data[0].rpassword)
+          this.props.update('RNAME', response.data[0].rname)
+          this.props.update('RPHONE', response.data[0].rphone)
+          this.props.update('RABOUT', response.data[0].rabout)
+          this.props.update('RLOCATION', response.data[0].rlocation)
+          this.props.update('RLATITUDE', response.data[0].rlatitude)
+          this.props.update('RLONGITUDE', response.data[0].rlongitude)
+          this.props.update('RADDRESS', response.data[0].raddress)
+          this.props.update('RCUISINE', response.data[0].rcuisine)
+          this.props.update('RDELIVERY', response.data[0].rdelivery)
+          this.props.login()            //this will update isLogged = true
+          this.props.restaurantLogin()
           this.setState({
               authFlag : true
           })
@@ -144,7 +146,7 @@ class custLogin extends Component {
     */
     console.log(this.props.isLogged)
     if(this.props.isLogged === true) {
-      redirectVar = <Redirect to= "/customer/dashboard"/>
+      redirectVar = <Redirect to= "/restaurant/dashboard"/>
     }
 
     const errors = this.state.errors;
@@ -197,24 +199,24 @@ class custLogin extends Component {
 }
 
 
-
 //importedname: state.reducer.statename
-
 const mapStateToProps = (state) => {
     return {
-      //Customer props
-      cid: state.custProfile.cid,
-      cemail: state.custProfile.cemail,
-      cpassword: state.custProfile.cpassword,
-      cname: state.custProfile.cname,
-      cphone: state.custProfile.cphone,
-      cabout: state.custProfile.cabout,
-      cjoined: state.custProfile.cjoined,
-      cphoto: state.custProfile.cphoto,
-      cfavrest: state.custProfile.cfavrest,
-      cfavcuisine: state.custProfile.cfavcuisine,
+      //Restaurant props
+      rid: state.restProfile.rid,
+      remail: state.restProfile.remail,
+      rpassword: state.restProfile.rpassword,
+      rname: state.restProfile.rname,
+      rphone: state.restProfile.rphone,
+      rabout: state.restProfile.rabout,
+      rlocation: state.restProfile.rlocation,
+      rlatitude: state.restProfile.rlatitude,
+      rlongitude: state.restProfile.rlongitude,
+      raddress: state.restProfile.raddress,
+      rcuisine: state.restProfile.rcuisine,
+      rdelivery: state.restProfile.rdelivery,
       isLogged: state.isLogged.isLoggedIn,
-      whoIsLogged: state.whoIsLogged.whoIsLoggedIn
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
     }
 }
 
@@ -225,11 +227,11 @@ function mapDispatchToProps(dispatch) {
     update : (field, payload) => dispatch(update(field, payload)),
     login: () => dispatch(login()),
     logout: () => dispatch(logout()),
-    customerLogin: () => dispatch(customerLogin()),
+    restaurantLogin: () => dispatch(restaurantLogin())
   }
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(custLogin);
+export default connect(mapStateToProps, mapDispatchToProps)(restLogin);
 //export Login Component
 //export default Login;

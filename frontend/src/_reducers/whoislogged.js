@@ -1,15 +1,15 @@
 const initialWhoIsLogged = {
   //false: customer, true: restaurant
-  whoIsLogged : false
+  whoIsLoggedIn : false
 }
 
 const whoIsLoggedReducer = (state = initialWhoIsLogged, action) => {
   // eslint-disable-next-line default-case
   switch(action.type) {
   case 'CUSTOMER':
-    return {whoIsLogged: false};
+    return {whoIsLoggedIn: false};
   case 'RESTAURANT':
-    return {whoIsLogged: true};
+    return {whoIsLoggedIn: true};
   default:
     return state;  
 

@@ -17,6 +17,22 @@ const custReducer = (state = initialCustProfile, action) => {
 
 	  switch(action.field) {
 
+      case 'CID' : {
+        console.log(action);
+        return {
+          cid: action.payload,
+          cemail: state.cemail,
+          cpassword: state.cpassword,
+          cname: state.cname,
+          cphone: state.cphone,
+          cabout: state.cabout,
+          cjoined: state.cjoined,
+          cphoto: state.cphoto,
+          cfavrest: state.cfavrest,
+          cfavcuisine: state.cfavcuisine,
+        }
+      }
+
       case 'CEMAIL' : {
         console.log(action);
         return {

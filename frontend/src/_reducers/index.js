@@ -1,6 +1,7 @@
 import loggedReducer from './isLogged';
 import custReducer from './custProfile';
 import restReducer from './restProfile';
+import whoIsLoggedReducer from './whoislogged';
 import {combineReducers} from 'redux';
 
 const allReducer = combineReducers({
@@ -9,6 +10,7 @@ const allReducer = combineReducers({
 	isLogged: loggedReducer,
 	custProfile: custReducer,
   restProfile: restReducer,
+  whoIsLogged: whoIsLoggedReducer,
 
 })
 

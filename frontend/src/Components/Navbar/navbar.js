@@ -36,7 +36,7 @@ class Navbar extends Component {
             */
             navLogin = (
                 
-                  <Link class="nav-link" to="/" onClick = {this.handleLogout}>Logout</Link>
+                  <Link className="nav-link" to="/" onClick = {this.handleLogout}>Logout</Link>
                 
             ); 
         }else{
@@ -52,7 +52,7 @@ class Navbar extends Component {
             console.log("Not Able to read cookie");
             navLogin = (
 
-                  <Link class="nav-link" to="/login">Login</Link>
+                  <Link className="nav-link" to="/login">Login</Link>
 
             )
         }
@@ -107,32 +107,32 @@ class Navbar extends Component {
 
             */
 
-          <nav class="navbar navbar-expand-sm bg-light navbar-light">
+          <nav className="navbar navbar-expand-sm bg-light navbar-light">
             <Link to="/"><img src={logo}></img></Link>
 
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <Link class="nav-link" to="/userdash">Profile</Link>
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/userdash">Profile</Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/order">Orders</Link>
+              <li className="nav-item">
+                <Link className="nav-link" to="/order">Orders</Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/order">Events</Link>
+              <li className="nav-item">
+                <Link className="nav-link" to="/order">Events</Link>
               </li>
             </ul>
               
-            <ul class="navbar-nav mx-auto">
-              <li class="nav-item">
-                <form class="form-inline" action="/" >
-                  <input class="form-control mr-sm-2" type="text" placeholder="Search" ></input>
-                  <button class="btn btn-success " type="submit">Search</button>
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item">
+                <form className="form-inline" action="/" >
+                  <input className="form-control mr-sm-2" type="text" placeholder="Search" ></input>
+                  <button className="btn btn-success " type="submit">Search</button>
                 </form>
               </li>
             </ul>
 
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
                 {navLogin}
               </li>
             </ul>
