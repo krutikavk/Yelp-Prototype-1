@@ -7,41 +7,45 @@ const bcrypt = require('bcrypt');
 module.exports = router;
 
 
-/*
+
 //Connect to mysql RDS database
+
 var connection = mysql.createConnection({
   host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
   user     : 'admin', 
-  password : 'admin273!',
+  password : 'beatles14',
   database : 'lab1'
 });
-*/
 
+connection.connect(err => {
+  if (err) throw err;
+  console.log("Connected to Mysql database!");
+});
+global.db = connection;
+
+
+/* NOT STABLE
 function getMySQLConnection() {
   var connection = mysql.createConnection({
     host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
     user     : 'admin', 
-    password : 'admin273!',
+    password : 'beatles14',
     database : 'lab1'
   });
   connection.connect(err => {
   if (err) throw err;
-    console.log("Connected to Mysql database!");
+  console.log("Connected to Mysql database!");
   });
   return connection;
 }
 
-/*
-connection.connect(err => {
-  if (err) throw err;
-    console.log("Connected to Mysql database!");
-});
-global.db = connection;
 */
+
+
 
 //get all customers
 router.get('/', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('\nEndpoint GET: Get all customers');
   //LATER: Select the required fields needed by restaurants to display in order details
   var dbQuery = (sql `SELECT * from customer`);
@@ -60,14 +64,14 @@ router.get('/', (request, response) => {
       response.status(404).send('No customers found');
     }     
   });
-  connection.end();
+  //connection.end();
   console.log('Connection closed');
 });
 
 
 //Get one customer
 router.get('/:cid', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('\nEndpoint GET: Get a customer');
   //LATER: Select the required fields needed by restaurants to display in order details
   var dbQuery = (sql `SELECT * from customer WHERE cid = ?`);
@@ -81,28 +85,28 @@ router.get('/:cid', (request, response) => {
       })
       response.end(JSON.stringify(results));
     } else {
-      response.status(404).send('Incorrect response');
+      response.status(404).send('No such customer');
     }     
   });
-  connection.end();
+  //connection.end();
 });
 
 //Customer signup
 router.post('/', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('\nEndpoint POST: customer signup')
   console.log('Req Body: ', request.body)
 
   var dbQuery = (sql `INSERT into customer (cname, cemail, cpassword, cjoined) VALUES (?, ?, ?, ?)`);
   var now = new Date();
   var jsonDate = now.toJSON();
-  var then = new Date(jsonDate);
-  console.log(then);
+  var joined = new Date(jsonDate);
+  console.log(joined);
 
-  bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
-    console.log('Password hash ', hash);
-    connection.query(dbQuery, [request.body.cname, request.body.cemail, hash, then], (error, results) => {
-      console.log(hash);
+//  bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
+    //console.log('Password hash ', hash);
+    connection.query(dbQuery, [request.body.cname, request.body.cemail, request.body.cpassword, joined], (error, results) => {
+      //console.log(hash);
       if(error) {
         console.log('User already exists')
         response.status(404).send('User already exists');
@@ -126,14 +130,13 @@ router.post('/', (request, response) => {
         });
       }
     });
-  });
-  connection.end()
+  //connection.end()
 });
 
 
 //customer login
 router.post('/login', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('Endpoint POST: customer login')
   console.log('Request Body: ', request.body);
 
@@ -160,7 +163,7 @@ router.post('/login', (request, response) => {
       response.status(404).send('Incorrect login');
     }
   });
-  connection.end();
+  //connection.end();
 })
 
 /*
@@ -183,7 +186,7 @@ router.post('/login', (request, response) => {
 //Update customer profile
 router.put('/:cid', (request, response) => {
 
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('Endpoint PUT: customer update')
   console.log('Request Body: ', request.body);
 
@@ -213,40 +216,35 @@ router.put('/:cid', (request, response) => {
       response.end("Successfully updated");
     }
   });
-  connection.end();
+  //connection.end();
 })
 
 //Separate update route for password--call only if password changed at frontend
-router.put('/:id/password', (request, response) => {
-  const connection = getMySQLConnection();
-  console.log('\nEndpoint PUT: customer signup')
+//BUG HERE
+router.put('/:cid/password', (request, response) => {
+  //const connection = getMySQLConnection();
+  console.log('\nEndpoint PUT: customer password update')
   console.log('Req Body: ', request.body)
 
   var dbQuery = (sql `UPDATE customer SET cpassword = ? WHERE cid = ?`);
 
   bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
     console.log('Password hash ', hash);
-    connection.query(dbQuery, [hash, request.params.id], (error, results) => {
+    console.log(request.params.cid)
+    connection.query(dbQuery, [hash, request.params.cid], (error, results) => {
       if(error) {
         console.log('Error changing password')
         response.status(404).send('Error changing password');
       } else {
         //also let the customer login
-        let getUserQuery = (sql `SELECT * from customer WHERE cemail = ?`);
-        connection.query(getUserQuery, [request.body.cemail], (error, results) => {
-          if(error) {
-            response.status(404).send('Could not fetch from database');
-          } else {
-            response.writeHead(200,{
-              'Content-Type' : 'text/plain'
-            })
-            response.end("Successfully updated");
-          }   
-        });
+        response.writeHead(200,{
+          'Content-Type' : 'text/plain'
+        })
+        response.end("Successfully updated");
       }
     });
   });
-  connection.end()
+  //connection.end()
 })
 
 
@@ -256,7 +254,7 @@ router.put('/:id/password', (request, response) => {
 
 //Place an order --TO BE TESTED
 router.post('/:cid/orders', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('Endpoint POST: Place an new order')
   console.log('Request Body: ', request.body);
 
@@ -300,14 +298,14 @@ router.post('/:cid/orders', (request, response) => {
       })        //end getOrderId
     }          //end if-else dbquery
   })          //end insertOrder
-  connection.end()
+  //connection.end()
 });
 
 
 
 //Get all orders for customer
 router.get('/:id/orders', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('Endpoint GET: All Orders for customer')
   console.log('Request Body: ', request.body);
   var dbQuery = (sql `SELECT * from order_detail WHERE cid = ?`);
@@ -331,13 +329,13 @@ router.get('/:id/orders', (request, response) => {
       });   
     }
   });
-  connection.end()
+  //connection.end()
 });
 
 
 //Get a particular order for customer--MIGHT BE REDUNDANT
 router.get('/:cid/orders/:oid', (request, response) => {
-  const connection = getMySQLConnection();
+  //const connection = getMySQLConnection();
   console.log('Endpoint GET: 1 order for 1 customer')
   console.log('Request Body: ', request.body)
   var dbQuery = (sql `SELECT * from order_detail WHERE cid = ? and oid = ?`);
@@ -355,7 +353,7 @@ router.get('/:cid/orders/:oid', (request, response) => {
     }
 
   });
-  connection.end();
+  //connection.end();
 });
 
 

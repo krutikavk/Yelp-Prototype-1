@@ -47,19 +47,7 @@ app.listen(3001);
 console.log("Backend Server listening on port 3001");
 
 /*
-var connection = mysql.createConnection({
-  host     : 'yelp-lab1.czetep2ih4kd.us-west-2.rds.amazonaws.com',
-  user     : 'admin',
-  password : 'admin273!',
-  database : 'lab1'
-});
 
-
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
-global.db = connection;
 
 //Route to handle Post Request Call
 app.post('/login', (request,response) => {
