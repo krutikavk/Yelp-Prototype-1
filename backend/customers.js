@@ -48,8 +48,7 @@ router.get('/', (request, response) => {
   connection.query(dbQuery, (error, results) => {
     if(error) {
       response.status(404).send('Could not fetch from database');
-    }
-    if (results.length > 0) {
+    } else if (results.length > 0) {
       var res = JSON.stringify(results);
       console.log(res);
       response.writeHead(200,{
@@ -75,8 +74,7 @@ router.get('/:cid', (request, response) => {
   connection.query(dbQuery, [request.params.cid], (error, results) => {
     if(error) {
       response.status(404).send('Could not fetch from database');
-    }
-    if (results.length == 1) {
+    } else if (results.length == 1) {
       response.writeHead(200,{
           //'Content-Type' : 'text/plain'
           'Content-Type': 'application/json'
@@ -115,8 +113,7 @@ router.post('/', (request, response) => {
         connection.query(getUserQuery, [request.body.cemail], (error, results) => {
           if(error) {
             response.status(404).send('Could not fetch from database');
-          }
-          if (results.length > 0) {
+          } else if (results.length > 0) {
             response.writeHead(200,{
                 //'Content-Type' : 'text/plain'
                 'Content-Type': 'application/json'
@@ -133,6 +130,7 @@ router.post('/', (request, response) => {
   connection.end()
 });
 
+
 //customer login
 router.post('/login', (request, response) => {
   const connection = getMySQLConnection();
@@ -143,8 +141,7 @@ router.post('/login', (request, response) => {
   connection.query(dbQuery, [request.body.cemail], (error, results) => {
     if(error) {
       response.status(404).send('Could not fetch from database');
-    }
-    if (results.length > 0) {
+    } else if (results.length > 0) {
       console.log(results[0].cpassword)
       console.log(request.body.cpassword)
       bcrypt.compare(request.body.cpassword, results[0].cpassword, (err, result) => {
@@ -159,17 +156,99 @@ router.post('/login', (request, response) => {
           response.status(404).send('Incorrect login');
         }
       });   
+    } else {
+      response.status(404).send('Incorrect login');
     }
   });
   connection.end();
-});
-
-
-//UPDATE CUSTOMER PROFILE--NEED TO LOOK AT FRONTEND
-router.put('/:id', (request, response) => {
-
-  response.send('Update customer profile')
 })
+
+/*
+  Customer profile stored at frontend
+    cid: state.custProfile.cid,
+    cemail: state.custProfile.cemail,
+    cpassword: state.custProfile.cpassword,
+    cname: state.custProfile.cname,
+    cphone: state.custProfile.cphone,
+    cabout: state.custProfile.cabout,
+    cjoined: state.custProfile.cjoined,
+    cphoto: state.custProfile.cphoto,
+    cfavrest: state.custProfile.cfavrest,
+    cfavcuisine: state.custProfile.cfavcuisine,
+
+    Password needs another backend handler because of encryption
+    cjoined needs to stay the same
+*/
+
+//Update customer profile
+router.put('/:cid', (request, response) => {
+
+  const connection = getMySQLConnection();
+  console.log('Endpoint PUT: customer update')
+  console.log('Request Body: ', request.body);
+
+  let updateUserQuery = (sql `UPDATE customer SET cemail = ?, cname = ?, 
+                                cphone = ?, cabout = ?, cphoto = ?,
+                                cfavrest = ?, cfavcuisine = ? where cid = ?`);
+
+  var data = [
+    request.body.cemail,
+    request.body.cname,
+    request.body.cphone,
+    request.body.cabout,
+    request.body.cphoto,
+    request.body.cfavrest,
+    request.body.cfavcuisine,
+    request.params.cid
+  ]
+
+  connection.query(updateUserQuery, data, (error, results, fields) => {
+    if (error) {
+      console.log('Could not update the resource')
+      response.status(404).send('Could not update the resource'); 
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully updated");
+    }
+  });
+  connection.end();
+})
+
+//Separate update route for password--call only if password changed at frontend
+router.put('/:id/password', (request, response) => {
+  const connection = getMySQLConnection();
+  console.log('\nEndpoint PUT: customer signup')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `UPDATE customer SET cpassword = ? WHERE cid = ?`);
+
+  bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
+    console.log('Password hash ', hash);
+    connection.query(dbQuery, [hash, request.params.id], (error, results) => {
+      if(error) {
+        console.log('Error changing password')
+        response.status(404).send('Error changing password');
+      } else {
+        //also let the customer login
+        let getUserQuery = (sql `SELECT * from customer WHERE cemail = ?`);
+        connection.query(getUserQuery, [request.body.cemail], (error, results) => {
+          if(error) {
+            response.status(404).send('Could not fetch from database');
+          } else {
+            response.writeHead(200,{
+              'Content-Type' : 'text/plain'
+            })
+            response.end("Successfully updated");
+          }   
+        });
+      }
+    });
+  });
+  connection.end()
+})
+
 
 
 
