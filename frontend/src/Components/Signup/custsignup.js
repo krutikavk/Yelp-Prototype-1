@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import cookie from 'react-cookies';
 import {Redirect} from 'react-router-dom';
-
 import {connect} from 'react-redux';
-import {update, login, logout} from '../../_actions';
+import {update, login, logout, customerLogin} from '../../_actions';
 
 const validText = RegExp('[A-Za-z0-9]+')
+// eslint-disable-next-line no-useless-escape
 const validEmail = RegExp('\\S+\@\\S+\.\\S+')
 const validateForm = (errors) => {
   let valid = true;
@@ -28,9 +27,9 @@ class Custsignup extends Component {
 	  cpassword: '',
 	  isAdded: false,
 	  errors: {
-		cname: '',
-		cemail: '',
-		cpassword: '',
+  		cname: '',
+  		cemail: '',
+  		cpassword: '',
 	  }
 	}
 
@@ -41,21 +40,15 @@ class Custsignup extends Component {
 
   }
 
-  componentWillMount() {
-  	this.setState({
-      isAdded: true,
-  	})
-  }
-
   cnameChangeHandler = (event) => {
     let err = this.state.errors;
     err.cname = validText.test(event.target.value) ? '' : 'Username-Only alphanumeric word';
     this.setState({
       errors: err
         }, ()=> {
-            console.log(err.cname)
+          console.log(err.cname)
     }) 
-    this.props.update('CNAME', event.target.value)
+    //this.props.update('CNAME', event.target.value)
     this.setState({
       cname: event.target.value
     })
@@ -69,7 +62,7 @@ class Custsignup extends Component {
         }, ()=> {
             console.log(err.cemail)
     }) 
-    this.props.update('CEMAIL', event.target.value)
+    //this.props.update('CEMAIL', event.target.value)
     this.setState({
       cemail: event.target.value
     })
@@ -83,7 +76,7 @@ class Custsignup extends Component {
       }, ()=> {
 	    console.log(err.cpassword)
   	}) 
-    this.props.update('CPASSWORD', event.target.value)
+    //this.props.update('CPASSWORD', event.target.value)
   	this.setState({
   	  cpassword : event.target.value
   	})
@@ -107,33 +100,34 @@ class Custsignup extends Component {
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios.post('http://localhost:3001/customers', data)
-        .then(response => {
-            console.log("Status Code : ",response.status);
-            if(response.status === 200){
-              console.log('Customer added')
-              this.props.update('CID', response.data[0].cid)
-              this.props.update('CEMAIL', response.data[0].cemail)
-              this.props.update('CPASSWORD', response.data[0].cpassword)
-              this.props.update('CNAME', response.data[0].cname)
-              this.props.update('CPHONE', response.data[0].cphone)
-              this.props.update('CABOUT', response.data[0].cabout)
-              this.props.update('CJOINED', response.data[0].cjoined)
-              this.props.update('CPHOTO', response.data[0].cphoto)
-              this.props.update('CFAVREST', response.data[0].cfavrest)
-              this.props.update('CFAVCUISINE', response.data[0].cfavcuisine)
-              this.props.login()
-              this.props.customerLogin()
-              //This is no longer needed, state error only needed
-              this.setState({
-                isAdded : true
-              })
-            }
-        }).catch(err =>{
-            this.setState({
-                isAdded : false
-            })
-            this.props.logout();
-        });
+      .then(response => {
+
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+          console.log('Customer added')
+          this.props.update('CID', response.data[0].cid)
+          this.props.update('CEMAIL', response.data[0].cemail)
+          this.props.update('CPASSWORD', response.data[0].cpassword)
+          this.props.update('CNAME', response.data[0].cname)
+          this.props.update('CPHONE', response.data[0].cphone)
+          this.props.update('CABOUT', response.data[0].cabout)
+          this.props.update('CJOINED', response.data[0].cjoined)
+          this.props.update('CPHOTO', response.data[0].cphoto)
+          this.props.update('CFAVREST', response.data[0].cfavrest)
+          this.props.update('CFAVCUISINE', response.data[0].cfavcuisine)
+          this.props.login()
+          this.props.customerLogin()
+          //This is no longer needed, state error only needed
+          this.setState({
+            isAdded : true
+          })
+        }
+      }).catch(err =>{
+        this.setState({
+            isAdded : false
+        })
+        this.props.logout();
+    });
   }
 
 
@@ -141,12 +135,8 @@ class Custsignup extends Component {
 
   render() {
   	let redirectVar = null;
-    /*
-    if(cookie.load('cookie')){
-      console.log(cookie)
-      redirectVar = <Redirect to= "/userdash"/>
-    } */
-    if(this.props.isLogged === true) {
+    console.log("islogged props: ", this.props.isLogged)
+    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
       redirectVar = <Redirect to= "/customer/dashboard"/>
     }
     const errors = this.state.errors;
@@ -220,7 +210,9 @@ const mapStateToProps = (state) => {
       cphoto: state.custProfile.cphoto,
       cfavrest: state.custProfile.cfavrest,
       cfavcuisine: state.custProfile.cfavcuisine,
-      isLogged: state.isLogged.isLoggedIn
+      isLogged: state.isLogged.isLoggedIn,
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
+
     }
 }
 
@@ -230,7 +222,8 @@ function mapDispatchToProps(dispatch) {
   return {
     update : (field, payload) => dispatch(update(field, payload)),
     login: () => dispatch(login()),
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    customerLogin: () => dispatch(customerLogin())
   }
   
 }

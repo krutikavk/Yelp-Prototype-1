@@ -103,9 +103,9 @@ router.post('/', (request, response) => {
   var joined = new Date(jsonDate);
   console.log(joined);
 
-//  bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
+  bcrypt.hash(request.body.cpassword, 10, (error, hash) => {
     //console.log('Password hash ', hash);
-    connection.query(dbQuery, [request.body.cname, request.body.cemail, request.body.cpassword, joined], (error, results) => {
+    connection.query(dbQuery, [request.body.cname, request.body.cemail, hash, joined], (error, results) => {
       //console.log(hash);
       if(error) {
         console.log('User already exists')
@@ -119,17 +119,18 @@ router.post('/', (request, response) => {
             response.status(404).send('Could not fetch from database');
           } else if (results.length > 0) {
             response.writeHead(200,{
-                //'Content-Type' : 'text/plain'
-                'Content-Type': 'application/json'
+              //'Content-Type' : 'text/plain'
+              'Content-Type': 'application/json'
             })
             //response.end("Successful Login");
             response.end(JSON.stringify(results));
-            } else {
+          } else {
               response.status(404).send('Error');
-            }     
+          }     
         });
       }
     });
+  });
   //connection.end()
 });
 

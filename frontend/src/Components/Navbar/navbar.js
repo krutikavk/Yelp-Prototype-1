@@ -14,12 +14,36 @@ class Navbar extends Component {
         this.handleLogout = this.handleLogout.bind(this);
     }
     //handle logout to destroy the cookie
+
     handleLogout = () => {
         //cookie.remove('cookie', { path: '/' })
-        this.props.update('CNAME', '')
+        this.props.update('CID', '')
         this.props.update('CEMAIL', '')
         this.props.update('CPASSWORD', '')
+        this.props.update('CNAME', '')
+        this.props.update('CPHONE', '')
+        this.props.update('CABOUT', '')
+        this.props.update('CJOINED', '')
+        this.props.update('CPHOTO', '')
+        this.props.update('CFAVREST', '')
+        this.props.update('CFAVCUISINE', '')
+
+        this.props.update('RID', '')
+        this.props.update('REMAIL', '')
+        this.props.update('RPASSWORD', '')
+        this.props.update('RNAME', '')
+        this.props.update('RPHONE', '')
+        this.props.update('RABOUT', '')
+        this.props.update('RLOCATION', '')
+        this.props.update('RLATITUDE', '')
+        this.props.update('RLONGITUDE', '')
+        this.props.update('RADDRESS', '')
+        this.props.update('RCUISINE', '')
+        this.props.update('RDELIVERY', '')
+
         this.props.logout()
+
+
 
     }
     render(){
@@ -35,9 +59,7 @@ class Navbar extends Component {
             );
             */
             navLogin = (
-                
-                  <Link className="nav-link" to="/" onClick = {this.handleLogout}>Logout</Link>
-                
+                  <Link className="nav-link" to="/login" onClick = {this.handleLogout}>Logout</Link>
             ); 
         }else{
             //Else display login button
@@ -49,7 +71,7 @@ class Navbar extends Component {
                 </ReactBootStrap.Navbar.Text>
             )
             */
-            console.log("Not Able to read cookie");
+
             navLogin = (
 
                   <Link className="nav-link" to="/login">Login</Link>
@@ -145,10 +167,32 @@ class Navbar extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      cname : state.custProfile.cname,
-      cpassword: state.custProfile.cpassword,
+      cid: state.custProfile.cid,
       cemail: state.custProfile.cemail,
-      isLogged: state.isLogged.isLoggedIn
+      cpassword: state.custProfile.cpassword,
+      cname: state.custProfile.cname,
+      cphone: state.custProfile.cphone,
+      cabout: state.custProfile.cabout,
+      cjoined: state.custProfile.cjoined,
+      cphoto: state.custProfile.cphoto,
+      cfavrest: state.custProfile.cfavrest,
+      cfavcuisine: state.custProfile.cfavcuisine,
+
+      rid: state.restProfile.rid,
+      remail: state.restProfile.remail,
+      rpassword: state.restProfile.rpassword,
+      rname: state.restProfile.rname,
+      rphone: state.restProfile.rphone,
+      rabout: state.restProfile.rabout,
+      rlocation: state.restProfile.rlocation,
+      rlatitude: state.restProfile.rlatitude,
+      rlongitude: state.restProfile.rlongitude,
+      raddress: state.restProfile.raddress,
+      rcuisine: state.restProfile.rcuisine,
+      rdelivery: state.restProfile.rdelivery,
+
+      isLogged: state.isLogged.isLoggedIn,
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
     }
 }
 

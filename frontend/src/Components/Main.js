@@ -9,6 +9,8 @@ import Login from './Login/login';
 import Userdash from './Userdash/userdash';
 import Restdash from './Restdash/restdash';
 import Custsignup from './Signup/custsignup';
+import Restsignup from './Signup/restsignup';
+import Restupdate1 from './Restdash/restupdate1';
 import Custlogin from './Login/custlogin';
 import Restlogin from './Login/restlogin';
 import Navbar from './Navbar/navbar.js'
@@ -27,6 +29,8 @@ class Main extends Component {
                 <Route path='/customer/login' component={Custlogin}/>
                 <Route path='/restaurant/login' component={Restlogin}/>
                 <Route path='/customer/signup' component={Custsignup}/>
+                <Route path='/restaurant/signup' component={Restsignup}/>
+                <Route path='/restaurant/update1' component={Restupdate1}/>
                 <Route path='/customer/dashboard' component={Userdash}/>
                 <Route path='/restaurant/dashboard' component={Restdash}/>
             </div>

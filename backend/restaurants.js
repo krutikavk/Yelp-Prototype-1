@@ -215,7 +215,7 @@ router.put('/:rid', (request, response) => {
 
 
 
-//Update password--BUG HERE
+//Update password
 router.put('/:rid/password', (request, response) => {
   //const connection = getMySQLConnection();
   console.log('\nEndpoint PUT: restaurant password update')

@@ -42,14 +42,6 @@ class restLogin extends Component {
     this.submitLogin = this.submitLogin.bind(this);
   }
 
-  /*
-  componentWillMount() {
-    this.setState({
-      authFlag: false,
-    })
-  }
-  */
-
   loginOptionHandler = (event) => {
     this.setState({
       loginOption: event.target.value

@@ -58,6 +58,7 @@ class Restupdate1 extends Component {
       remail : this.state.email,
       rpassword : this.state.password,
     }
+
     axios.put('http://localhost:3001/restaurants/login', data)
       .then(response => {
         console.log("Status Code : ",response.status);
@@ -104,8 +105,10 @@ class Restupdate1 extends Component {
     }
     //customer is logged in
     if(this.props.isLogged === true && this.props.whoIsLogged === false) {
-      redirectVar = <Redirect to= "/customer/dashboard"/>
+      //redirectVar = <Redirect to= "/restaurant/update2"/>
     }
+
+    const errors = this.state.errors;
 
     return (
 

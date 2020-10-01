@@ -158,7 +158,11 @@ class Login extends Component {
 
     return(
 
-    
+      <div> 
+        Default Login page
+      </div>
+
+      /*
       <div>
         {redirectVar} 
 
@@ -202,7 +206,7 @@ class Login extends Component {
         </form>
         </div>
       </div>
-
+      */
 
 
 
