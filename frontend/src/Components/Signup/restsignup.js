@@ -148,7 +148,7 @@ class Restsignup extends Component {
     console.log("islogged props: ", this.props.isLogged)
     console.log("whoIsLogged props: ", this.props.whoIsLogged)
     if(this.props.isLogged === true && this.props.whoIsLogged === true) {
-      redirectVar = <Redirect to= "/restaurant/dashboard"/>
+      redirectVar = <Redirect to= "/restaurant/update1"/>
     }
     const errors = this.state.errors;
 

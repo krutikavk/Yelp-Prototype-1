@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../../App.css';
 import axios from 'axios';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions'
 
@@ -25,18 +25,28 @@ class Restupdate1 extends Component {
 
     this.state = {
       rname: '',
+      rphone: '',
+      rabout: '',
+      rcuisine: '',
+      rdelivery: '',
+      updated: false,
       errors: {
         rname: '',
+        rphone: '',
       }
     };
 
     this.rnameChangeHandler = this.rnameChangeHandler.bind(this);
+    this.rphoneChangeHandler = this.rphoneChangeHandler.bind(this);
+    this.raboutChangeHandler = this.raboutChangeHandler.bind(this);
+    this.rcuisineChangeHandler = this.rcuisineChangeHandler.bind(this);
+    this.rdeliveryChangeHandler = this.rdeliveryChangeHandler.bind(this);
     this.submitChange = this.submitChange.bind(this);
   }
 
   rnameChangeHandler = (event) => {
     let err = this.state.errors;
-    err.rname = event.target.value.length >= 50 ? "" : "Too long name"
+    err.rname = event.target.value.length <= 50 ? '' : 'Too long name'
     this.setState({
         errors: err
       }, ()=> {
@@ -47,51 +57,82 @@ class Restupdate1 extends Component {
     })
   }
 
+
+  rphoneChangeHandler = (event) => {
+    let err = this.state.errors;
+    err.rphone = event.target.value.length === 10 ? '' : 'Invalid';
+
+    this.setState({
+        errors: err
+      }, ()=> {
+        console.log(err.rphone)
+    }) 
+    this.setState({
+        rphone : event.target.value
+    })
+  }
+
+
+  raboutChangeHandler = (event) => {
+    this.setState({
+      rabout : event.target.value
+    })
+  }
+
+
+  rcuisineChangeHandler = (event) => {
+    this.setState({
+      rcuisine : event.target.value
+    })
+  }
+
+  rdeliveryChangeHandler = (event) => {
+    this.setState({
+      rdelivery : event.target.value
+    })
+  }
+
+
+
   submitChange = (event) => {
     event.preventDefault();
     if(validateForm(this.state.errors)) {
-      console.info("Valid form")
+      console.info('Valid form')
     } else {
-      console.error("Invalid form")
+      console.error('Invalid form')
     }
     const data = {
-      remail : this.state.email,
-      rpassword : this.state.password,
+      rname: this.state.rname,
+      rphone : this.state.email,
+      rabout : this.state.password,
+      rcuisine: this.state.cuisine,
+      rdelivery: this.state.delivery,
     }
 
-    axios.put('http://localhost:3001/restaurants/login', data)
+    let endpoint = 'http://localhost:3001/restaurants/' + this.props.rid;
+    console.log('update endpoint: ', endpoint)
+
+    axios.put(endpoint, data)
       .then(response => {
-        console.log("Status Code : ",response.status);
+        console.log('Status Code : ', response.status);
         if(response.status === 200){
-          console.log("Login authorized")
-          console.log(response.data[0]);
+          console.log("Update completed")
           //call props action
-          this.props.update('RID', response.data[0].rid)
-          this.props.update('REMAIL', response.data[0].remail)
-          this.props.update('RPASSWORD', response.data[0].rpassword)
-          this.props.update('RNAME', response.data[0].rname)
-          this.props.update('RPHONE', response.data[0].rphone)
-          this.props.update('RABOUT', response.data[0].rabout)
-          this.props.update('RLOCATION', response.data[0].rlocation)
-          this.props.update('RLATITUDE', response.data[0].rlatitude)
-          this.props.update('RLONGITUDE', response.data[0].rlongitude)
-          this.props.update('RADDRESS', response.data[0].raddress)
-          this.props.update('RCUISINE', response.data[0].rcuisine)
-          this.props.update('RDELIVERY', response.data[0].rdelivery)
-          this.props.login()            //this will update isLogged = true
-          this.props.restaurantLogin()
+          this.props.update('RNAME', this.state.rname)
+          this.props.update('RPHONE', this.state.rphone)
+          this.props.update('RABOUT', this.state.rabout)
+          this.props.update('RCUISINE', this.state.rcuisine)
+          this.props.update('RDELIVERY', this.state.rdelivery)
           this.setState({
-              authFlag : true
+            updated: true,
           })
         }
       }).catch(err =>{
-        alert("Incorrect credentials")
+        alert("Update failed")
         this.setState({
-            authFlag : false
+            updated : false
         })
     });
-
-
   }
 
 
@@ -101,11 +142,16 @@ class Restupdate1 extends Component {
     let redirectVar = null;
     //Nobody is logged in
     if(this.props.isLogged === false ) {
-      redirectVar = <Redirect to= "/login"/>
+      redirectVar = <Redirect to= '/login'/>
     }
-    //customer is logged in
-    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
-      //redirectVar = <Redirect to= "/restaurant/update2"/>
+    //customer is logged in--redirect to customer dashboard
+    else if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      redirectVar = <Redirect to= '/customer/dashboard'/>
+    }
+
+    //Update successful--redirect to update2 page
+    else if(this.props.isLogged === true && this.props.whoIsLogged === true && this.state.updated === true) {
+      redirectVar = <Redirect to= '/restaurant/update2'/>
     }
 
     const errors = this.state.errors;
@@ -123,7 +169,7 @@ class Restupdate1 extends Component {
             </div>
             </div>
                   <div className = "form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <label htmlFor="exampleInputEmail1">Restaurant Name</label>
                     <input onChange = {this.rnameChangeHandler} 
                                         type="text"  
                                         name="rname" 
@@ -132,22 +178,22 @@ class Restupdate1 extends Component {
                                         aria-describedby="emailHelp" 
                                         required/>
                                         {errors.rname.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.email}</small></span>}
+                                        <span><small id="emailHelp" className="form-text text-muted">{errors.rname}</small></span>}
                   </div>
                   <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input onChange = {this.passwordChangeHandler} 
-                                        type="password" 
-                                        name="password" 
+                    <label htmlFor="exampleInputPassword1">Phone Number</label>
+                    <input onChange = {this.rphoneChangeHandler} 
+                                        type="number" 
+                                        name="rphone" 
                                         className="form-control form-control-lg"
-                                        placeholder="Password"
+                                        placeholder="10-digit Phone Number"
                                         required/>
-                                        {errors.password.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.password}</small></span>}
+                                        {errors.rphone.length > 0 && 
+                                        <span><small id="emailHelp" className="form-text text-muted">{errors.rphone}</small></span>}
                   </div>
 
                   <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitLogin}>Login</button>
+                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitChange}>Submit</button>
                   </div>
           </form>
         </div>
@@ -184,8 +230,6 @@ const mapStateToProps = (state) => {
 function mapDispatchToProps(dispatch) {  
   return {
     update : (field, payload) => dispatch(update(field, payload)),
-    login: () => dispatch(login()),
-    logout: () => dispatch(logout()),
     restaurantLogin: () => dispatch(restaurantLogin())
   }
   
