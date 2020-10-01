@@ -132,3 +132,19 @@
 }
 
 .dashboard{ text-align:left;}
+
+.vh-100 {
+    min-height: 100vh;
+}
+
+.map-responsive{
+    bottom: 0;
+}
+
+.map-responsive iframe{
+    left:0;
+    top:0;
+    height:100%;
+    width:100%;
+    position:absolute;
+}

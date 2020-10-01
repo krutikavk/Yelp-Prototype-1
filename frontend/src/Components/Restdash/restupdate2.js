@@ -4,21 +4,145 @@ import axios from 'axios';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
+
 
 class Restupdate2 extends Component {
   constructor(props) {
     super(props);
+    this.state = { 
+      address: '',
+      updated: 'false'
+    };
+
+    this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.handleSelectAddress = this.handleSelectAddress.bind(this);
   }
 
+  handleAddressChange = (address) => {
+    this.setState({
+      address: address
+    })
+  }
+
+  handleSelectAddress = address => {
+    this.setState({address : address});
+    console.log(address);
+
+    geocodeByAddress(address)
+      .then(results => getLatLng(results[0]))
+      .then(latLng => {
+        console.log('Location found: ', latLng)
+
+        //Update restaurant location
+
+
+        let endpoint = 'http://localhost:3001/restaurants/' + this.props.rid;
+        console.log('update restaurant endpoint: ', endpoint)
+
+        const data = {
+          rlatitude: latLng.lat,
+          rlongitude : latLng.lng,
+          raddress : this.state.address,
+        }
+
+        axios.put(endpoint, data)
+          .then(response => {
+            console.log('Status Code : ', response.status);
+            if(response.status === 200){
+              console.log('Update completed')
+              //call props action
+              this.props.update('RLATITUDE',latLng.lat)
+              this.props.update('RLONGITUDE',latLng.lng)
+              this.props.update('RADDRESS', this.state.address)
+              this.setState({
+                updated: true,
+              })
+            }
+          }).catch(err =>{
+            alert("Update failed")
+            this.setState({
+                updated : false
+            })
+        });
+      })
+      .catch(error => console.error('Error', error));
+  };
+
+
+
+
+
   render() {
+
+    let redirectVar = null;
+    //Nobody is logged in
+    if(this.props.isLogged === false ) {
+      redirectVar = <Redirect to= '/login'/>
+    }
+    //customer is logged in--redirect to customer dashboard
+    else if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      redirectVar = <Redirect to= '/customer/dashboard'/>
+    }
+
+    //Update successful--redirect to update2 page
+    else if(this.props.isLogged === true && this.props.whoIsLogged === true && this.state.updated === true) {
+      redirectVar = <Redirect to= '/restaurant/dashboard'/>
+    }
+
     return (
+
+
       <div>
-        Update2--maps/location
 
-      </div>
-
-
-
+        {redirectVar}
+        
+        <div>
+          <PlacesAutocomplete
+          value={this.state.address}
+          onChange={this.handleAddressChange}
+          onSelect={this.handleSelectAddress}
+          >
+          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+            <div>
+              <input
+                {...getInputProps({
+                  placeholder: 'Search Places ...',
+                  className: 'location-search-input',
+                })}
+              />
+              <div className="autocomplete-dropdown-container">
+                {loading && <div>Loading...</div>}
+                {suggestions.map(suggestion => {
+                  const className = suggestion.active
+                    ? 'suggestion-item--active'
+                    : 'suggestion-item';
+                  // inline style for demonstration purpose
+                  const style = suggestion.active
+                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </PlacesAutocomplete>
+       </div>
+     </div>
     )
   }
 
