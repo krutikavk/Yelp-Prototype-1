@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import '../../App.css';
 import axios from 'axios';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import PlacesAutocomplete from 'react-places-autocomplete';
@@ -101,7 +101,7 @@ class Restupdate2 extends Component {
       <div>
 
         {redirectVar}
-        
+
         <div>
           <PlacesAutocomplete
           value={this.state.address}
