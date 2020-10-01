@@ -33,6 +33,7 @@ class Restupdate1 extends Component {
       errors: {
         rname: '',
         rphone: '',
+        rabout: '',
       }
     };
 
@@ -74,6 +75,14 @@ class Restupdate1 extends Component {
 
 
   raboutChangeHandler = (event) => {
+    let err = this.state.errors;
+    err.rabout = event.target.value.length <= 200 ? '' : 'Too Long, keep to 200 charactersx';
+
+    this.setState({
+        errors: err
+      }, ()=> {
+        console.log(err.rabout)
+    }) 
     this.setState({
       rabout : event.target.value
     })
@@ -103,10 +112,10 @@ class Restupdate1 extends Component {
     }
     const data = {
       rname: this.state.rname,
-      rphone : this.state.email,
-      rabout : this.state.password,
-      rcuisine: this.state.cuisine,
-      rdelivery: this.state.delivery,
+      rphone : this.state.rphone,
+      rabout : this.state.rabout,
+      rcuisine: this.state.rcuisine,
+      rdelivery: this.state.rdelivery,
     }
 
     let endpoint = 'http://localhost:3001/restaurants/' + this.props.rid;
@@ -116,7 +125,7 @@ class Restupdate1 extends Component {
       .then(response => {
         console.log('Status Code : ', response.status);
         if(response.status === 200){
-          console.log("Update completed")
+          console.log('Update completed')
           //call props action
           this.props.update('RNAME', this.state.rname)
           this.props.update('RPHONE', this.state.rphone)
@@ -165,15 +174,15 @@ class Restupdate1 extends Component {
             <div className="col d-flex justify-content-center rounded-0">
 
             <div className="card-header">
-              <h4>Customer</h4>
+              <h4>Restaurant</h4>
             </div>
             </div>
                   <div className = "form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Restaurant Name</label>
+                    <label for="exampleInputEmail1">Restaurant Name</label>
                     <input onChange = {this.rnameChangeHandler} 
                                         type="text"  
                                         name="rname" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="Restaurant Name"
                                         aria-describedby="emailHelp" 
                                         required/>
@@ -185,11 +194,39 @@ class Restupdate1 extends Component {
                     <input onChange = {this.rphoneChangeHandler} 
                                         type="number" 
                                         name="rphone" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="10-digit Phone Number"
                                         required/>
                                         {errors.rphone.length > 0 && 
                                         <span><small id="emailHelp" className="form-text text-muted">{errors.rphone}</small></span>}
+                  </div>
+
+                  <div className="form-group text-left">
+                    <label htmlFor="exampleInputPassword1">Cuisine</label>
+                    <input onChange = {this.rcuisineChangeHandler} 
+                                        type="text" 
+                                        name="rcuisine" 
+                                        className="form-control form-control-sm"
+                                        placeholder="Cuisine"
+                                        required/>
+                  </div>
+
+                  <div class="radio">
+                    <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="1" name="optradio" checked/>Curbside Pickup </label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="2" name="optradio"/>Pickup</label>
+                  </div>
+                  <div class="radio disabled">
+                    <label><input onChange={this.rdeliveryChangeHandler} type="radio" name="optradio" disabled/>Dine In</label>
+                  </div>
+
+                  <div className="form-group text-left">
+                    <label for="comment">About You</label>
+                    <textarea onChange = {this.raboutChangeHandler} 
+                              class="form-control form-control-sm" rows="5" id="rabout"></textarea>
+                              {errors.rabout.length > 0 && 
+                              <span><small id="emailHelp" className="form-text text-muted">{errors.rabout}</small></span>}
                   </div>
 
                   <div className="col-md-12 text-center">

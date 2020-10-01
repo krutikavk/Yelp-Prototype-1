@@ -167,7 +167,7 @@ class custLogin extends Component {
                     <input onChange = {this.emailChangeHandler} 
                                         type="email"  
                                         name="email" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="Email ID"
                                         aria-describedby="emailHelp" 
                                         required/>
@@ -179,7 +179,7 @@ class custLogin extends Component {
                     <input onChange = {this.passwordChangeHandler} 
                                         type="password" 
                                         name="password" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="Password"
                                         required/>
                                         {errors.password.length > 0 && 
