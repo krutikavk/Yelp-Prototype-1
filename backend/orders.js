@@ -22,7 +22,7 @@ global.db = connection;
 
 
 //Place a new order
-router.post('/orders', (request, response) => {
+router.post('/', (request, response) => {
   //const connection = getMySQLConnection();
   console.log('Endpoint POST: Place an new order')
   console.log('Request Body: ', request.body);
@@ -35,7 +35,14 @@ router.post('/orders', (request, response) => {
   var insertOrder = (sql `INSERT into order_detail (cid, rid, ooption, ostatus, otype, otime) values (?, ?, ?, ?, ?, ?)`);
   var getOrderId = (sql `SELECT MAX(oid) from order_detail WHERE cid = ? AND rid = ?`);
   var orderDish = (sql `INSERT into order_dish (oid, dname, odquantity) values (?, ?, ?)`);
-  var data = [request.params.cid, request.body.rid, request.body.ooption, request.body.ostatus, request.body.otype, ordertime];
+
+  var data = [request.body.cid, 
+              request.body.rid, 
+              request.body.ooption, 
+              request.body.ostatus, 
+              request.body.otype, 
+              ordertime];
+
   connection.query(insertOrder, data, (error, results) => {
     if(error) {
       response.status(404).send('Could not fetch from database');
@@ -46,24 +53,23 @@ router.post('/orders', (request, response) => {
           response.status(404).send('Could not fetch order id from database');
         } else {
           //make an entry in order_dish table
-          var oid = results1['MAX(oid)'];
-          let data = [oid, request.body.dname, request.body.odquenatity]
+          var oid = results1[0]['MAX(oid)'];
+          //console.log('-->', results1[0]['MAX(oid)']);
+          //console.log("max oid: ", oid)
+          let data = [oid, request.body.dname, request.body.odquantity]
+          console.log("query 2 data", data)
           connection.query(orderDish, data, (error, results2) => {
             if(error) {
               response.status(404).send('Could not insert into order_dish');
             } else {
               response.writeHead(200,{
-                //'Content-Type' : 'text/plain'
-                'Content-Type': 'application/json'
+                'Content-Type' : 'text/plain'
+                //'Content-Type': 'application/json'
               })
-              response.end(oid);
-
+              response.end("Order placed");
             }
-
           })        //end orderDishn
-
         }         
-
       })        //end getOrderId
     }          //end if-else dbquery
   })          //end insertOrder
@@ -76,7 +82,23 @@ router.post('/orders', (request, response) => {
 
 
 //Get all orders for a restaurant
-router.get('/')
+router.get('/restaurants/:rid', (request, response) => {
+  console.log('Endpoint GET: Get all orders for restaurant')
+  console.log('Request Body: ', request.body);
+
+  let dbQuery = (sql `SELECT * from order_detail where rid = ?`)
+  connection.query(dbQuery, request.params.rid, (error, results)=> {
+    if( error) {
+      console.log("Error fetching orders")
+    } else {
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+});
 
 
 
