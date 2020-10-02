@@ -78,9 +78,6 @@ router.post('/', (request, response) => {
 
 
 
-
-
-
 //Get all orders for a restaurant
 router.get('/restaurants/:rid', (request, response) => {
   console.log('Endpoint GET: Get all orders for restaurant')
@@ -104,6 +101,73 @@ router.get('/restaurants/:rid', (request, response) => {
 
 
 //Get all orders for a customer
+router.get('/customers/:cid', (request, response) => {
+  console.log('Endpoint GET: Get all orders for restaurant')
+  console.log('Request Body: ', request.body);
+
+  let dbQuery = (sql `SELECT * from order_detail where cid = ?`)
+  connection.query(dbQuery, request.params.cid, (error, results)=> {
+    if( error) {
+      console.log("Error fetching orders")
+    } else {
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+});
+
+
+//get an order
+router.get('/:oid', (request, response)=> {
+  console.log('Endpoint GET: Get a particular order')
+  console.log('Request Body: ', request.body);
+
+  let dbQuery = (sql `SELECT * from order_detail where oid = ?`);
+  connection.query(dbQuery, request.params.rid, (error, results)=> {
+    if( error) {
+      console.log("Error fetching order")
+      response.status(404).send('Error fetching order');
+    } else if (results.length == 1) {
+      response.writeHead(200,{
+          //'Content-Type' : 'text/plain'
+          'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    } else {
+      response.status(404).send('No such order');
+    }
+
+  });
+
+})
+
+
+//Update an order's status --BUG
+router.put('/:oid', (request, response)=> {
+  console.log('Endpoint PUT: Update order')
+  console.log('Request Body: ', request.body);
+  let dbQuery = (sql `UPDATE order_detail SET ostatus = ?, otype = ? where oid = ?`);
+
+  connection.query(dbQuery, [request.body.ostatus, request.body.otype, request.params.oid], (error, results)=> {
+    if( error) {
+      console.log("Error fetching order")
+      response.status(404).send('Error fetching order');
+    } else if (results.length == 1) {
+      response.writeHead(200,{
+          //'Content-Type' : 'text/plain'
+          'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    } else {
+      
+      response.status(404).send('No such order');
+    }
+  });
+
+})
 
 
 
