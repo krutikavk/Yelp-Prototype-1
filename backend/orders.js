@@ -126,7 +126,7 @@ router.get('/:oid', (request, response)=> {
   console.log('Request Body: ', request.body);
 
   let dbQuery = (sql `SELECT * from order_detail where oid = ?`);
-  connection.query(dbQuery, request.params.rid, (error, results)=> {
+  connection.query(dbQuery, request.params.oid, (error, results)=> {
     if( error) {
       console.log("Error fetching order")
       response.status(404).send('Error fetching order');
