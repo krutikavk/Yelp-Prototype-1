@@ -51,83 +51,17 @@ class Navbar extends Component {
         let navLogin = null;
         if(this.props.isLogged === true){
             console.log("Login is true");
-            /*
-            navLogin = (
-                <ReactBootStrap.Navbar.Text>
-                  <Link to="/" onClick = {this.handleLogout}>Logout</Link>
-                </ReactBootStrap.Navbar.Text>
-            );
-            */
             navLogin = (
                   <Link className="nav-link" to="/login" onClick = {this.handleLogout}>Logout</Link>
             ); 
         }else{
-            //Else display login button
-            /*
-            console.log("Not Able to read cookie");
             navLogin = (
-                <ReactBootStrap.Navbar.Text>
-                  <Link to="/login">Login</Link>
-                </ReactBootStrap.Navbar.Text>
-            )
-            */
-
-            navLogin = (
-
                   <Link className="nav-link" to="/login">Login</Link>
-
             )
         }
         
         
         return(
-
-/*
-            <ReactBootStrap.Navbar bg="light" expand="sm">
-              <ReactBootStrap.Navbar.Brand> <Link to="/"><img src={logo}></img></Link> </ReactBootStrap.Navbar.Brand>
-              <ReactBootStrap.Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <ReactBootStrap.Navbar.Collapse id="basic-navbar-nav">
-                <ReactBootStrap.Nav className="mr-auto">
-                  <Link to="/userdash">Profile</Link>
-                   
-                </ReactBootStrap.Nav>
-                <ReactBootStrap.Form inline>
-                  <ReactBootStrap.FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                  <ReactBootStrap.Button variant="outline-success">Search</ReactBootStrap.Button>
-                </ReactBootStrap.Form>
-                <ReactBootStrap.Navbar.Collapse className="justify-content-end">
-                {navLogin}
-              </ReactBootStrap.Navbar.Collapse>
-              </ReactBootStrap.Navbar.Collapse>
-            </ReactBootStrap.Navbar>
-
-
-            
-          <div>
-            <div class = "header"> 
-            </div>
-              <nav class="topnav">
-                <div class="container-fluid">
-                  <div class="navbar-header">
-                  <ul class="topnav">
-                    <li><Link to="/userdash"><span class="glyphicon glyphicon-log-in"></span> Dashboard</Link></li>
-                    
-                    {navLogin}
-                    <a class="navbar-brand">Orders</a>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-          </div>
-            */
-
-            /*
-              For Left Align
-              class = "navbar-nav mr-auto"
-              right: ml-auto
-              center: mx-auto
-
-            */
 
           <nav className="navbar navbar-expand-sm bg-light navbar-light">
             <Link to="/"><img src={logo}></img></Link>
