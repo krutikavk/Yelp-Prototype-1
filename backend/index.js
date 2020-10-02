@@ -38,8 +38,18 @@ app.use(function(req, res, next) {
 
 var customers = require('./customers.js')
 var restaurants = require('./restaurants.js')
+var orders = require('./orders.js')
+var dishes = require('./dishes.js')
+
 app.use('/customers', customers);
 app.use('/restaurants', restaurants);
+app.use('/orders', orders);
+app.use('/dishes', dishes);
+
+app.get('*', function(request, response){
+  console.log('Page not found');
+  response.status('404');
+});
 
 
 //start backend server on port 3001

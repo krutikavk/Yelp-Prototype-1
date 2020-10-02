@@ -55,7 +55,7 @@ class Restsignup extends Component {
 
   remailChangeHandler = (event) => {
     let err = this.state.errors;
-    err.cemail = validEmail.test(event.target.value) ? '' : 'Invalid email ID';
+    err.remail = validEmail.test(event.target.value) ? '' : 'Invalid email ID';
     this.setState({
       errors: err
         }, ()=> {
@@ -148,7 +148,7 @@ class Restsignup extends Component {
     console.log("islogged props: ", this.props.isLogged)
     console.log("whoIsLogged props: ", this.props.whoIsLogged)
     if(this.props.isLogged === true && this.props.whoIsLogged === true) {
-      redirectVar = <Redirect to= "/restaurant/update1"/>
+      redirectVar = <Redirect to= "/restaurant/updateinfo"/>
     }
     const errors = this.state.errors;
 
@@ -169,7 +169,7 @@ class Restsignup extends Component {
                             type="text"  
                             name="rname" 
                             class="form-control"
-                            placeholder="Name"
+                            placeholder="Restaurant Name"
                             required/>
                             {errors.rname.length > 0 && 
                             <span>{errors.rname}</span>}

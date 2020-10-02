@@ -10,8 +10,8 @@ import Userdash from './Userdash/userdash';
 import Restdash from './Restdash/restdash';
 import Custsignup from './Signup/custsignup';
 import Restsignup from './Signup/restsignup';
-import Restupdate1 from './Restdash/restupdate1';
-import Restupdate2 from './Restdash/restupdate2';
+import Restupdateinfo from './Restdash/restupdateinfo';
+import Restupdatelocation from './Restdash/restupdatelocation';
 import Custlogin from './Login/custlogin';
 import Restlogin from './Login/restlogin';
 import Navbar from './Navbar/navbar.js'
@@ -31,8 +31,8 @@ class Main extends Component {
                 <Route path='/restaurant/login' component={Restlogin}/>
                 <Route path='/customer/signup' component={Custsignup}/>
                 <Route path='/restaurant/signup' component={Restsignup}/>
-                <Route path='/restaurant/update1' component={Restupdate1}/>
-                <Route path='/restaurant/update2' component={Restupdate2}/>
+                <Route path='/restaurant/updateinfo' component={Restupdateinfo}/>
+                <Route path='/restaurant/updatelocation' component={Restupdatelocation}/>
                 <Route path='/customer/dashboard' component={Userdash}/>
                 <Route path='/restaurant/dashboard' component={Restdash}/>
             </div>

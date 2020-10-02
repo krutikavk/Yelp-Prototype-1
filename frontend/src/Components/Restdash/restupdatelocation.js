@@ -12,7 +12,7 @@ import {
 } from 'react-places-autocomplete';
 
 
-class Restupdate2 extends Component {
+class Restupdatelocation extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -180,4 +180,4 @@ function mapDispatchToProps(dispatch) {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restupdate2);
+export default connect(mapStateToProps, mapDispatchToProps)(Restupdatelocation);

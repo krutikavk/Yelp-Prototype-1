@@ -18,7 +18,7 @@ const validateForm = (errors) => {
 
 
 
-class Restupdate1 extends Component {
+class Restupdateinfo extends Component {
 
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ class Restupdate1 extends Component {
       }
     };
 
-    this.rnameChangeHandler = this.rnameChangeHandler.bind(this);
+    //this.rnameChangeHandler = this.rnameChangeHandler.bind(this);
     this.rphoneChangeHandler = this.rphoneChangeHandler.bind(this);
     this.raboutChangeHandler = this.raboutChangeHandler.bind(this);
     this.rcuisineChangeHandler = this.rcuisineChangeHandler.bind(this);
@@ -45,6 +45,7 @@ class Restupdate1 extends Component {
     this.submitChange = this.submitChange.bind(this);
   }
 
+  /*
   rnameChangeHandler = (event) => {
     let err = this.state.errors;
     err.rname = event.target.value.length <= 50 ? '' : 'Too long name'
@@ -57,7 +58,7 @@ class Restupdate1 extends Component {
         rname : event.target.value
     })
   }
-
+  */
 
   rphoneChangeHandler = (event) => {
     let err = this.state.errors;
@@ -127,7 +128,7 @@ class Restupdate1 extends Component {
         if(response.status === 200){
           console.log('Update completed')
           //call props action
-          this.props.update('RNAME', this.state.rname)
+          //this.props.update('RNAME', this.state.rname)
           this.props.update('RPHONE', this.state.rphone)
           this.props.update('RABOUT', this.state.rabout)
           this.props.update('RCUISINE', this.state.rcuisine)
@@ -160,7 +161,7 @@ class Restupdate1 extends Component {
 
     //Update successful--redirect to update2 page
     else if(this.props.isLogged === true && this.props.whoIsLogged === true && this.state.updated === true) {
-      redirectVar = <Redirect to= '/restaurant/update2'/>
+      redirectVar = <Redirect to= '/restaurant/updatelocation'/>
     }
 
     const errors = this.state.errors;
@@ -179,61 +180,50 @@ class Restupdate1 extends Component {
               <h4>Restaurant</h4>
             </div>
             </div>
-                  <div className = "form-group text-left">
-                    <label for="exampleInputEmail1">Restaurant Name</label>
-                    <input onChange = {this.rnameChangeHandler} 
-                                        type="text"  
-                                        name="rname" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Restaurant Name"
-                                        aria-describedby="emailHelp" 
-                                        required/>
-                                        {errors.rname.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.rname}</small></span>}
-                  </div>
-                  <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Phone Number</label>
-                    <input onChange = {this.rphoneChangeHandler} 
-                                        type="number" 
-                                        name="rphone" 
-                                        className="form-control form-control-sm"
-                                        placeholder="10-digit Phone Number"
-                                        required/>
-                                        {errors.rphone.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.rphone}</small></span>}
-                  </div>
 
-                  <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Cuisine</label>
-                    <input onChange = {this.rcuisineChangeHandler} 
-                                        type="text" 
-                                        name="rcuisine" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Cuisine"
-                                        required/>
-                  </div>
+              <div className="form-group text-left">
+                <label htmlFor="exampleInputPassword1">Phone Number</label>
+                <input onChange = {this.rphoneChangeHandler} 
+                                    type="number" 
+                                    name="rphone" 
+                                    className="form-control form-control-sm"
+                                    placeholder="10-digit Phone Number"
+                                    required/>
+                                    {errors.rphone.length > 0 && 
+                                    <span><small id="emailHelp" className="form-text text-muted">{errors.rphone}</small></span>}
+              </div>
 
-                  <div class="radio">
-                    <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="1" name="optradio" checked/>Curbside Pickup </label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="2" name="optradio"/>Pickup</label>
-                  </div>
-                  <div class="radio disabled">
-                    <label><input onChange={this.rdeliveryChangeHandler} type="radio" name="optradio" disabled/>Dine In</label>
-                  </div>
+              <div className="form-group text-left">
+                <label htmlFor="exampleInputPassword1">Cuisine</label>
+                <input onChange = {this.rcuisineChangeHandler} 
+                                    type="text" 
+                                    name="rcuisine" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Cuisine"
+                                    required/>
+              </div>
 
-                  <div className="form-group text-left">
-                    <label for="comment">About You</label>
-                    <textarea onChange = {this.raboutChangeHandler} 
-                              class="form-control form-control-sm" rows="5" id="rabout"></textarea>
-                              {errors.rabout.length > 0 && 
-                              <span><small id="emailHelp" className="form-text text-muted">{errors.rabout}</small></span>}
-                  </div>
+              <div class="radio">
+                <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="1" name="optradio" checked/>Curbside Pickup </label>
+              </div>
+              <div class="radio">
+                <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="2" name="optradio"/>Pickup</label>
+              </div>
+              <div class="radio disabled">
+                <label><input onChange={this.rdeliveryChangeHandler} type="radio" name="optradio" disabled/>Dine In</label>
+              </div>
 
-                  <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitChange}>Submit</button>
-                  </div>
+              <div className="form-group text-left">
+                <label for="comment">About You</label>
+                <textarea onChange = {this.raboutChangeHandler} 
+                          class="form-control form-control-sm" rows="5" id="rabout"></textarea>
+                          {errors.rabout.length > 0 && 
+                          <span><small id="emailHelp" className="form-text text-muted">{errors.rabout}</small></span>}
+              </div>
+
+              <div className="col-md-12 text-center">
+              <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitChange}>Submit</button>
+            </div>
           </form>
         </div>
       </div>
@@ -274,4 +264,4 @@ function mapDispatchToProps(dispatch) {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Restupdate1);
+export default connect(mapStateToProps, mapDispatchToProps)(Restupdateinfo);

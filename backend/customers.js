@@ -125,7 +125,7 @@ router.post('/', (request, response) => {
             //response.end("Successful Login");
             response.end(JSON.stringify(results));
           } else {
-              response.status(404).send('Error');
+            response.status(404).send('Error');
           }     
         });
       }
@@ -221,7 +221,6 @@ router.put('/:cid', (request, response) => {
 })
 
 //Separate update route for password--call only if password changed at frontend
-//BUG HERE
 router.put('/:cid/password', (request, response) => {
   //const connection = getMySQLConnection();
   console.log('\nEndpoint PUT: customer password update')
