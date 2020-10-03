@@ -4,30 +4,30 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
-import Dish from './dish';
+import Restaurant from './restaurant';
 
  
-class Dishes extends Component {
+class Restaurants extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      dishes: []
+      restaurants: []
     }
   }
 
-
   componentDidMount() {
-    let url = 'http://localhost:3001/dishes/1';
+    let url = 'http://localhost:3001/restaurants';
     axios.get(url)
         .then(response => {
+          console.log("Status Code : ",response.data);
           if(response.status === 200){
             //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
             //use JSON.parse(JSON.stringify()) to convert back to JSON object
             let temp = JSON.parse(JSON.stringify(response.data));
             this.setState({
-                dishes: [...temp]
+                restaurants: [...temp]
             })
           }
         }).catch(err =>{
@@ -36,12 +36,11 @@ class Dishes extends Component {
   }
 
   render() {
-    //{this.state.dishes.length > 0 && <displayDishes dishes={this.state.dishes} />}
     return(
 
       <div>
-        {this.state.dishes.map (dish => (
-              <Dish dish = {dish} />
+        {this.state.restaurants.map (restaurant => (
+          <Restaurant restaurant = {restaurant} />
         ))}
       </div>
 
@@ -75,4 +74,4 @@ function mapDispatchToProps(dispatch) {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dishes);
+export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);

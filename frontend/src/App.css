@@ -19,6 +19,12 @@
     flex: 1 1 auto;
 }
 
+.card-img-top {
+    width: 50%;
+    height: 20vw;
+    object-fit: cover;
+}
+
 img {
   display: block;
   max-width: 100%;

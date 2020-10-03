@@ -8,8 +8,9 @@ class Dish extends Component {
   render() {
     console.log("=>inside dish" , this.props.dish.dname)
     return (
+      
       /*
-      <div class="card" style={{width: 400 }}>
+      <div class="card-horizontal" style={{width: 400 }}>
         <img class="card-img-top" src={nachospic} alt="dish"></img>
         <div class="card-body">
           <h4 class="card-title">{this.props.dish.dname}</h4>
@@ -21,8 +22,26 @@ class Dish extends Component {
         </div>
       </div>
       */
+      <div>
+      <div class="card-horizontal" >
+        <div class="img-square-wrapper">
+            <img class="img-responsive card-img-top" src={nachospic} alt="dish"></img>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{this.props.dish.dname}</h4>
+          <p class="card-text">{this.props.dish.ddescription}</p>
+          <p class="card-text">Category: {this.props.dish.dcategory}</p>
+          <p class="card-text">Ingredients: {this.props.dish.dingredients}</p>
+          <p class="card-text"><h4>{this.props.dish.dprice}$</h4></p>
+          <button class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+      <div class="card-footer">
+          <small class="text-muted">Featured!</small>
+      </div>
+      </div>
 
-
+      /*
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 mt-3">
@@ -46,6 +65,7 @@ class Dish extends Component {
           </div>
         </div>
       </div>
+      */
     )
   }
 
