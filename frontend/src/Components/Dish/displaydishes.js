@@ -25,19 +25,16 @@ class Dishes extends Component {
 
           console.log("Status Code : ",response.status);
           if(response.status === 200){
-            console.log("==>", response.data)
-            let temp = [];
-            for( let i = 0;
-             i < response.data.length; i++) {
-              temp.push(response.data[i])
-            }
-            this.setState({
-//              dishes: JSON.parse(response.data)
-                dishes: temp
-            })
+            //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
+            //use JSON.parse(JSON.stringify()) to convert back to JSON object
+            let temp = JSON.parse(JSON.stringify(response.data));
             
-            //Access data inside the state as this.state.dishes[0].dname, .rid, .dingredients, etc.
-            console.log("State changed to response: ", this.state.dishes)
+            temp.map(dish => (
+              console.log(typeof(dish))
+            ))
+            this.setState({
+                dishes: [...temp]
+            })
           }
         }).catch(err =>{
             console.log("No response")
@@ -47,12 +44,13 @@ class Dishes extends Component {
   render() {
     //{this.state.dishes.length > 0 && <displayDishes dishes={this.state.dishes} />}
     return(
+
       <div>
-        {this.state.dishes}
         {this.state.dishes.map (dish => (
-          <Dish dish = {dish} />
+              <Dish dish = {dish} />
         ))}
       </div>
+
 
     )
 
