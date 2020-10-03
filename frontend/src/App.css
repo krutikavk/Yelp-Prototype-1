@@ -14,6 +14,16 @@
   margin-bottom: 100px; /* Added */
 }
 
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
 .header{
 
