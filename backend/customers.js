@@ -125,7 +125,7 @@ router.post('/', (request, response) => {
             //response.end("Successful Login");
             response.end(JSON.stringify(results));
           } else {
-            response.status(404).send('Error');
+            response.status(404).send('Incorrect login');
           }     
         });
       }
@@ -250,7 +250,7 @@ router.put('/:cid/password', (request, response) => {
 
 
 
-//ORDER MANIPULATION
+//ORDER MANIPULATION--DONT USE ANY OF THESE
 
 //Place an order --TO BE TESTED
 router.post('/:cid/orders', (request, response) => {

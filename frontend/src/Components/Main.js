@@ -14,7 +14,8 @@ import Restupdateinfo from './Restdash/restupdateinfo';
 import Restupdatelocation from './Restdash/restupdatelocation';
 import Custlogin from './Login/custlogin';
 import Restlogin from './Login/restlogin';
-import Navbar from './Navbar/navbar.js'
+import Navbar from './Navbar/navbar';
+import dishes from './Dish/displaydishes'
 
 //import Navbar from './Navbar/navbar';
 //import Userdash from './Userdash/userdash';
@@ -35,6 +36,7 @@ class Main extends Component {
                 <Route path='/restaurant/updatelocation' component={Restupdatelocation}/>
                 <Route path='/customer/dashboard' component={Userdash}/>
                 <Route path='/restaurant/dashboard' component={Restdash}/>
+                <Route path='/test' component={dishes}/>
             </div>
         )
     }

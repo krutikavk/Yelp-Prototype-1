@@ -52,8 +52,7 @@ router.post('/', (request, response) => {
 
 //Get dishes for restaurant
 router.get('/:rid', (request, response) => {
-  console.log('Endpoint POST: Add dishes')
-  console.log('Request Body: ', request.body);
+  console.log('Endpoint POST: Get dishes')
 
   var dbQuery = (sql `SELECT * from dish WHERE rid = ?`);
 
@@ -65,8 +64,8 @@ router.get('/:rid', (request, response) => {
       response.writeHead(200,{
         'Content-Type' : 'application/json'
       })
+      console.log(results);
       response.end(JSON.stringify(results));
     }
   })
-
 })

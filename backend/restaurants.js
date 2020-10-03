@@ -149,6 +149,8 @@ router.post('/login', (request, response) => {
           response.status(404).send('Incorrect login');
         }
       });   
+    } else {
+      response.status(404).send('Incorrect login');
     }
   });
   //connection.end();

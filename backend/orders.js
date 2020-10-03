@@ -32,7 +32,7 @@ router.post('/', (request, response) => {
   var ordertime = new Date(jsonDate);
   console.log(ordertime);
 
-  var insertOrder = (sql `INSERT into order_detail (cid, rid, ooption, ostatus, otype, otime) values (?, ?, ?, ?, ?, ?)`);
+  var insertOrder = (sql `INSERT into order_detail (cid, rid, ooption, ostatus, otype, oaddress, otime) values (?, ?, ?, ?, ?, ?, ?)`);
   var getOrderId = (sql `SELECT MAX(oid) from order_detail WHERE cid = ? AND rid = ?`);
   var orderDish = (sql `INSERT into order_dish (oid, dname, odquantity) values (?, ?, ?)`);
 
@@ -40,7 +40,8 @@ router.post('/', (request, response) => {
               request.body.rid, 
               request.body.ooption, 
               request.body.ostatus, 
-              request.body.otype, 
+              request.body.otype,
+              request.body.oaddress, 
               ordertime];
 
   connection.query(insertOrder, data, (error, results) => {
