@@ -1,4 +1,4 @@
-let nextcartid = 0;
+
 
 export const login = () => {
 	return {
@@ -41,7 +41,6 @@ export const updateCart = (infield, payload) => {
 	return {
 		type: 'UPDATECART',
 		field: infield,
-		id: (infield === 'ADD' ? nextcartid++ : 0),
 		payload: payload
 	}
 }

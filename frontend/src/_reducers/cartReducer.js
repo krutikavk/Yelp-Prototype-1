@@ -6,7 +6,6 @@ const initialCartState = {
 };
 
 const emptyCart = {
-  cartid: '',
   dname: '',            //dish name
   rid: '',              //restaurant
   dquantity: '',        //dish quantity
@@ -17,7 +16,6 @@ const emptyCart = {
 
 
 const cartEntry = {
-  cartid: 0,
   dname: 'super tasty dish 1',            //dish name
   rid: '1',              //restaurant
   dquantity: '3',        //dish quantity
@@ -27,7 +25,6 @@ const cartEntry = {
 }
 
 const cartEntry2 = {
-  cartid: 1,
   dname: 'super tasty dish 2',            //dish name
   rid: '1',              //restaurant
   dquantity: '5',        //dish quantity
@@ -75,33 +72,32 @@ const cartReducer = (state = initialCartState, action) => {
         }
         //send entry number in cart to be deleted
         case 'DELETE': {
-          let cartid = action.payload
-          console.log("cartreducer id", cartid)
+         
           let newcontents = [...state.cartContents]
-          console.log(newcontents)
-          console.log("state ", state.cartContents)
-          //Loose equality--match string/number
+          let dname = action.payload.dname;
+
           //Q-Why search for index? 
           /* A-Because when we delete a complete entry from the cart, cart id does not 
           ** coincide with cartContents' index! 
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
-          let index = state.cartContents.findIndex(x => x.cartid == cartid);
-          console.log("index", index)
+          let index = state.cartContents.findIndex(x => x.dname === dname);
           if(state.cartContents[index].dquantity === 1) {
             //Loose equality--match string/number
-            newcontents = newcontents.filter(entry => (entry.cartid != cartid))
+            newcontents = newcontents.filter(entry => (entry.dname !== dname))
             console.log("-->", newcontents)
             
           } else {
             newcontents= [...state.cartContents];
             newcontents[index].dquantity--;
           }
+
           let newState = {
             cartContents: newcontents
           }
           console.log('new state', newState)
           return newState;
+
         }
         case 'ORDER': {
           let temp = initialCartState;
