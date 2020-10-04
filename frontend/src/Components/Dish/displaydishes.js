@@ -20,10 +20,10 @@ class Dishes extends Component {
 
   componentDidMount(props) {
 
-    alert("here");
-    console.log("rest id: ", this.props.location.state.rid)
+    console.log("rest id: ", this.props.location.query.rid)
     //
-    let url = 'http://localhost:3001/dishes/1';
+    let url = 'http://localhost:3001/dishes/' + this.props.location.query.rid;
+    console.log(url)
     axios.get(url)
         .then(response => {
           if(response.status === 200){

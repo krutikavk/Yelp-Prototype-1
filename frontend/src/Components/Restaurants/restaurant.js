@@ -37,7 +37,10 @@ class Restaurant extends Component {
 
     return (
 
-      <Link to ='/dishes'>
+      <Link to ={{
+                  pathname: '/dishes',
+                  query: {rid: `${this.props.restaurant.rid}`}
+                }}>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">
             <div class="col-12 mt-3">
