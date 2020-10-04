@@ -114,9 +114,7 @@ class Navbar extends Component {
             </ul>
             
             <ul className="navbar-nav ml-auto">
-              <Link className="nav-link" to="/cart">
-                <i className="fa fa-shopping-cart" style={{'font-size':36}}></i>
-              </Link>
+              {cart}
               <li className="nav-item">
                 {navLogin}
               </li>
