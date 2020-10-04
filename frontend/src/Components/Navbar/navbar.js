@@ -62,95 +62,73 @@ class Navbar extends Component {
 
 
         let links = null;
+        let dashboard = null;
+        let search = (
+          <li className="nav-item">
+              <form className="form-inline" action="/" >
+                <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
+                <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
+                <button className="btn btn-success " type="submit">Search</button>
+              </form>
+            </li>
+        )
+
+        let cart = null;
         
 
         if(this.props.isLogged === true && this.props.whoIsLogged === false) {
           //customer login
-          links = (
-            <div>
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/order">Orders</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/order">Events</Link>
-                </li>
-              </ul>
-
-              <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                  <form className="form-inline" action="/" >
-                    <input className="form-control mr-sm-2" type="text" placeholder="Restaurant" ></input>
-                    <input className="form-control mr-sm-2" type="text" placeholder="Search query"></input>
-                    <button className="btn btn-success " type="submit">Search</button>
-                  </form>
-                </li>
-              </ul>
-
-              <ul className="navbar -nav ml-auto">
-                <i className="fa fa-shopping-cart" style={{'font-size':36}}>
-                  <Link className="nav-link" to="/cart"></Link>
-                </i>
-                <li className="nav-item">
-                  {navLogin}
-                </li>
-              </ul>
-
-            </div>
+          dashboard = <Link className="nav-link" to="/customer/dashboard">Profile</Link>
+          cart = (
+            <Link className="nav-link" to="/cart">
+              <i className="fa fa-shopping-cart" style={{'font-size':36}}></i>
+            </Link>
           )
-
 
         } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
           //restaurant login
-          links = (
-            <div>
-              <ul className="navbar-nav mr-auto">
-                <li className="nav-item">
-                  <Link className="nav-link" to="/order">Orders</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/order">Events</Link>
-                </li>
-              </ul>
-
-              <ul className="navbar-nav mx-auto">
-                <li className="nav-item">
-                  <form className="form-inline" action="/" >
-                    <input className="form-control mr-sm-2" type="text" placeholder="Restaurant" ></input>
-                    <input className="form-control mr-sm-2" type="text" placeholder="Search query"></input>
-                    <button className="btn btn-success " type="submit">Search</button>
-                  </form>
-                </li>
-              </ul>
-              
-              <ul className="navbar -nav ml-auto">
-                <i className="fa fa-shopping-cart" style={{'font-size':36}}>
-                  <Link className="nav-link" to="/cart"></Link>
-                </i>
-                <li className="nav-item">
-                  {navLogin}
-                </li>
-              </ul>
-
-            </div>
-          )
-
+          dashboard = <Link className="nav-link" to="/restaurant/dashboard">Profile</Link>
+          search = null;
         }
         
         
         return(
 
-
-
           <nav className="navbar navbar-expand-sm bg-light navbar-light">
             <Link to="/"><img src={logo}></img></Link>
 
-            {links}
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                {dashboard}
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/orders">Orders</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/events">Events</Link>
+              </li>
+            </ul>
+              
+            <ul className="navbar-nav mx-auto">
+              {search}
+            </ul>
+            
+            <ul className="navbar-nav ml-auto">
+              <Link className="nav-link" to="/cart">
+                <i className="fa fa-shopping-cart" style={{'font-size':36}}></i>
+              </Link>
+              <li className="nav-item">
+                {navLogin}
+              </li>
+            </ul>
           </nav>
 
 
-          /*
 
+
+
+          
+          /*
           <nav className="navbar navbar-expand-sm bg-light navbar-light">
             <Link to="/"><img src={logo}></img></Link>
 
@@ -159,10 +137,10 @@ class Navbar extends Component {
                 <Link className="nav-link" to="/userdash">Profile</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/order">Orders</Link>
+                <Link className="nav-link" to="/orders">Orders</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/order">Events</Link>
+                <Link className="nav-link" to="/events">Events</Link>
               </li>
             </ul>
               
@@ -185,6 +163,7 @@ class Navbar extends Component {
             </ul>
           </nav>
           */
+          
         )
     }
 }
