@@ -32,3 +32,13 @@ export const update = (infield, payload) => {
 		payload: payload
 	}
 }
+
+export const updateCart = (infield, payload) => {
+	console.log(infield)
+	console.log(payload)
+	return {
+		type: 'UPDATECART',
+		field: infield,
+		payload: payload
+	}
+}

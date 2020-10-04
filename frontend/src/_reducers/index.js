@@ -2,6 +2,7 @@ import loggedReducer from './isLogged';
 import custReducer from './custProfile';
 import restReducer from './restProfile';
 import whoIsLoggedReducer from './whoislogged';
+import cartReducer from './cartReducer';
 import {combineReducers} from 'redux';
 
 const allReducer = combineReducers({
@@ -11,6 +12,7 @@ const allReducer = combineReducers({
 	custProfile: custReducer,
   restProfile: restReducer,
   whoIsLogged: whoIsLoggedReducer,
+  cartContents: cartReducer,
 
 })
 
