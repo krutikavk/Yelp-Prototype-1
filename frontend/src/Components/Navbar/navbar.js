@@ -63,6 +63,8 @@ class Navbar extends Component {
 
         let links = null;
         let dashboard = null;
+        let cart = null;
+        let menu = null;
         let search = (
           <li className="nav-item">
               <form className="form-inline" action="/" >
@@ -73,7 +75,7 @@ class Navbar extends Component {
             </li>
         )
 
-        let cart = null;
+        
         
 
         if(this.props.isLogged === true && this.props.whoIsLogged === false) {
@@ -89,6 +91,7 @@ class Navbar extends Component {
           //restaurant login
           dashboard = <Link className="nav-link" to="/restaurant/dashboard">Profile</Link>
           search = null;
+          menu = <Link className="nav-link" to="/dishes">Menu</Link>
         }
         
         
@@ -103,6 +106,9 @@ class Navbar extends Component {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/orders">Orders</Link>
+              </li>
+              <li className="nav-item">
+                {menu}
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/events">Events</Link>
