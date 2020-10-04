@@ -59,9 +59,97 @@ class Navbar extends Component {
                   <Link className="nav-link" to="/login">Login</Link>
             )
         }
+
+
+        let links = null;
+        
+
+        if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+          //customer login
+          links = (
+            <div>
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/order">Orders</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/order">Events</Link>
+                </li>
+              </ul>
+
+              <ul className="navbar-nav mx-auto">
+                <li className="nav-item">
+                  <form className="form-inline" action="/" >
+                    <input className="form-control mr-sm-2" type="text" placeholder="Restaurant" ></input>
+                    <input className="form-control mr-sm-2" type="text" placeholder="Search query"></input>
+                    <button className="btn btn-success " type="submit">Search</button>
+                  </form>
+                </li>
+              </ul>
+
+              <ul className="navbar -nav ml-auto">
+                <i className="fa fa-shopping-cart" style={{'font-size':36}}>
+                  <Link className="nav-link" to="/cart"></Link>
+                </i>
+                <li className="nav-item">
+                  {navLogin}
+                </li>
+              </ul>
+
+            </div>
+          )
+
+
+        } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
+          //restaurant login
+          links = (
+            <div>
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/order">Orders</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/order">Events</Link>
+                </li>
+              </ul>
+
+              <ul className="navbar-nav mx-auto">
+                <li className="nav-item">
+                  <form className="form-inline" action="/" >
+                    <input className="form-control mr-sm-2" type="text" placeholder="Restaurant" ></input>
+                    <input className="form-control mr-sm-2" type="text" placeholder="Search query"></input>
+                    <button className="btn btn-success " type="submit">Search</button>
+                  </form>
+                </li>
+              </ul>
+              
+              <ul className="navbar -nav ml-auto">
+                <i className="fa fa-shopping-cart" style={{'font-size':36}}>
+                  <Link className="nav-link" to="/cart"></Link>
+                </i>
+                <li className="nav-item">
+                  {navLogin}
+                </li>
+              </ul>
+
+            </div>
+          )
+
+        }
         
         
         return(
+
+
+
+          <nav className="navbar navbar-expand-sm bg-light navbar-light">
+            <Link to="/"><img src={logo}></img></Link>
+
+            {links}
+          </nav>
+
+
+          /*
 
           <nav className="navbar navbar-expand-sm bg-light navbar-light">
             <Link to="/"><img src={logo}></img></Link>
@@ -87,12 +175,16 @@ class Navbar extends Component {
               </li>
             </ul>
 
+            <i className="fa fa-shopping-cart" style={{'font-size':36}}>
+              <Link className="nav-link" to="/cart"></Link>
+            </i>
             <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                 {navLogin}
               </li>
             </ul>
           </nav>
+          */
         )
     }
 }

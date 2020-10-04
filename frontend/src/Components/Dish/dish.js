@@ -5,6 +5,17 @@ import nachospic from './nachospic.png';
 
 
 class Dish extends Component {
+  constructor(props) {
+    super(props);
+
+
+    this.addToCartHandler = this.addToCartHandler.bind(this)
+  }
+
+  addToCartHandler = (event) => {
+    alert("Added to cart");
+  }
+
   render() {
     console.log("=>inside dish" , this.props.dish.dname)
     return (
@@ -33,7 +44,7 @@ class Dish extends Component {
           <p class="card-text">Category: {this.props.dish.dcategory}</p>
           <p class="card-text">Ingredients: {this.props.dish.dingredients}</p>
           <p class="card-text"><h4>{this.props.dish.dprice}$</h4></p>
-          <button class="btn btn-primary">Add to Cart</button>
+          <button onClick = {this.addToCartHandler} class="btn btn-primary">Add to Cart</button>
         </div>
       </div>
       <div class="card-footer">
