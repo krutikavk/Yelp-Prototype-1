@@ -52,7 +52,6 @@ class Restaurants extends Component {
         {this.state.restaurants.map (restaurant => (
           <div>
             <Restaurant restaurant = {restaurant} />
-            <button onClick={this.menuHandler} class="btn btn-primary">View Menu</button>
           </div>
         ))}
       </div>

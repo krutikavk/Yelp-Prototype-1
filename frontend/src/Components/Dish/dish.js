@@ -14,10 +14,19 @@ class Dish extends Component {
 
   addToCartHandler = (event) => {
     alert("Added to cart");
+
   }
 
   render() {
     console.log("=>inside dish" , this.props.dish.dname)
+    let val = {
+      dname: this.props.dish.dname,            //dish name
+      rid: '',              //restaurant
+      dquantity: '',        //dish quantity
+      dprice: this.props.dish.dprice,           //dish price
+      ooption: '',          //Delivery/Pickup
+      oaddress: '' 
+    }
     return (
       
       /*
@@ -34,6 +43,7 @@ class Dish extends Component {
       </div>
       */
       <div>
+      
       <div class="card-horizontal" >
         <div class="img-square-wrapper">
             <img class="img-responsive card-img-top" src={nachospic} alt="dish"></img>

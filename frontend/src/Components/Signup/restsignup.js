@@ -95,6 +95,8 @@ class Restsignup extends Component {
       rpassword: this.state.rpassword,
     }
 
+    
+
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios.post('http://localhost:3001/restaurants', data)

@@ -46,10 +46,32 @@ class Restupdatelocation extends Component {
         console.log('update restaurant endpoint: ', endpoint)
 
         const data = {
+          remail: this.props.remail,
+          rname: this.props.rname,
+          rphone : this.props.rphone,
+          rabout : this.props.rabout,
+          rlocation: this.props.rlocation,
           rlatitude: latLng.lat,
           rlongitude : latLng.lng,
           raddress : this.state.address,
+          rcuisine: this.props.rcuisine,
+          rdelivery: this.props.rdelivery,
+          rid: this.props.rid
         }
+
+        /*
+        remail: this.props.remail,
+      rname: this.props.rname,
+      rphone : this.state.rphone,
+      rabout : this.state.rabout,
+      rlocation: this.props.rlocation,
+      rlatitude: this.props.rlatitude,
+      rlongitude: this.props.rlongitude,
+      raddress: this.props.raddress,
+      rcuisine: this.state.rcuisine,
+      rdelivery: this.state.rdelivery,
+      rid: this.props.rid
+      */
 
         axios.put(endpoint, data)
           .then(response => {

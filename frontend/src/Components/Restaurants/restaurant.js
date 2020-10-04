@@ -13,15 +13,7 @@ class Restaurant extends Component {
     this.state = {
       dishes: false
     }
-    this.menuHandler = this.menuHandler.bind(this);
 
-  }
-
-  menuHandler = (event) => {
-    alert("menu handler")
-    this.setState ({
-      dishes: true
-    });
   }
 
   render() {
@@ -36,10 +28,15 @@ class Restaurant extends Component {
     }
 
     return (
-
+      //Pass restaurant information to display menu and then show when dishes are added to cart
       <Link to ={{
                   pathname: '/dishes',
-                  query: {rid: `${this.props.restaurant.rid}`}
+                  query: {
+                    rid: `${this.props.restaurant.rid}`, 
+                    rname: `${this.props.restaurant.rname}`, 
+                    rphone: `${this.props.restaurant.rphone}`,
+                    rdelivery: `${this.props.restaurant.rdelivery}`,
+                  }
                 }}>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">

@@ -13,17 +13,25 @@ class Dishes extends Component {
     super(props);
 
     this.state = {
-      dishes: []
+      dishes: [],
+      rid: ''
     }
+
   }
+
+
 
 
   componentDidMount(props) {
 
     console.log("rest id: ", this.props.location.query.rid)
+    console.log("rest id: ", this.props.location.query.rname)
+    console.log("rest id: ", this.props.location.query.rphone)
+    console.log("rest id: ", this.props.location.query.rdelivery)
+
     //
     let url = 'http://localhost:3001/dishes/' + this.props.location.query.rid;
-    console.log(url)
+
     axios.get(url)
         .then(response => {
           if(response.status === 200){
@@ -31,7 +39,8 @@ class Dishes extends Component {
             //use JSON.parse(JSON.stringify()) to convert back to JSON object
             let temp = JSON.parse(JSON.stringify(response.data));
             this.setState({
-                dishes: [...temp]
+                dishes: [...temp],
+                rid: this.props.location.query.rid
             })
           }
         }).catch(err =>{
@@ -45,10 +54,10 @@ class Dishes extends Component {
 
       <div>
         {this.state.dishes.map (dish => (
-              <Dish dish = {dish} />
+          <Dish dish = {dish} />
+
         ))}
       </div>
-
 
     )
 

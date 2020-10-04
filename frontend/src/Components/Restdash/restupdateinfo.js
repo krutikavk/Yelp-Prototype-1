@@ -24,14 +24,12 @@ class Restupdateinfo extends Component {
     super(props);
 
     this.state = {
-      rname: '',
       rphone: '',
       rabout: '',
       rcuisine: '',
       rdelivery: '',
       updated: false,
       errors: {
-        rname: '',
         rphone: '',
         rabout: '',
       }
@@ -97,6 +95,7 @@ class Restupdateinfo extends Component {
   }
 
   rdeliveryChangeHandler = (event) => {
+    console.log('button-->', event.target.value)
     this.setState({
       rdelivery : event.target.value
     })
@@ -112,12 +111,32 @@ class Restupdateinfo extends Component {
       console.error('Invalid form')
     }
     const data = {
-      rname: this.state.rname,
+      remail: this.props.remail,
+      rname: this.props.rname,
       rphone : this.state.rphone,
       rabout : this.state.rabout,
+      rlocation: this.props.rlocation,
+      rlatitude: this.props.rlatitude,
+      rlongitude: this.props.rlongitude,
+      raddress: this.props.raddress,
       rcuisine: this.state.rcuisine,
       rdelivery: this.state.rdelivery,
+      rid: this.props.rid
     }
+
+    /*
+    request.body.remail,
+    request.body.rname,
+    request.body.rphone,
+    request.body.rabout,
+    request.body.rlocation,
+    request.body.rlatitude,
+    request.body.rlongitude,
+    request.body.raddress,
+    request.body.rcuisine,
+    request.body.rdelivery,
+    request.params.rid
+    */
 
     let endpoint = 'http://localhost:3001/restaurants/' + this.props.rid;
     console.log('update endpoint: ', endpoint)
