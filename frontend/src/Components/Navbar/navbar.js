@@ -70,7 +70,7 @@ class Navbar extends Component {
               <form className="form-inline" action="/" >
                 <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
                 <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
-                <button className="btn btn-success " type="submit">Search</button>
+                <button className="btn btn-success btn-sm" type="submit">Search</button>
               </form>
             </li>
         )

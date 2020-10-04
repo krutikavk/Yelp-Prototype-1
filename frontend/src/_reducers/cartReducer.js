@@ -44,31 +44,38 @@ const cartReducer = (state = initialCartState, action) => {
       switch(action.field) {
         case 'ADD': {
           //Add to cart
-          //let newcartid = state.length + 1;
-          /*
-          const cartEntry = action.payload;
-          let newContents = [...state.cartContents]
-          newContents.push(cartEntry);
+          let dname = action.payload.dname
+          let newcontents;
+          //Loose equality--match string/number
+          //Q-Why search for index? 
+          /* A-Because when we delete a complete entry from the cart, cart id does not 
+          ** coincide with cartContents' index! 
+          ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
+          */
+          let index = state.cartContents.findIndex(x => x.dname === dname);
+          
+          if (index === -1) {
+        
+            newcontents =  [
+              ...state,
+              {
+                dname: action.payload.dname,            //dish name
+                rid: action.payload.rid,              //restaurant
+                dquantity: action.payload.dquantity,        //dish quantity
+                dprice: action.payload.dprice,           //dish price
+                ooption: action.payload,          //Delivery/Pickup
+                oaddress: action.payload
+              }
+            ]
+          } else {
+          
+            newcontents= [...state.cartContents];
+            newcontents[index].dquantity++;
+          }
           let newState = {
-            cartContents: newContents
+            cartContents: newcontents
           }
           return newState;
-          */
-          /*
-          return [
-            ...state,
-            {
-              cartid: action.id,
-              dname: action.payload.dname,            //dish name
-              rid: action.payload.rid,              //restaurant
-              dquantity: action.payload.dquantity,        //dish quantity
-              dprice: action.payload.dprice,           //dish price
-              ooption: action.payload,          //Delivery/Pickup
-              oaddress: action.payload
-            }
-          ]
-          */
-          return state;
         }
         //send entry number in cart to be deleted
         case 'DELETE': {

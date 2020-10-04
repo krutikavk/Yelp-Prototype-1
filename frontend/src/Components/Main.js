@@ -28,32 +28,31 @@ import notfound from './NotFound/notfound'
 
 //Create a Main Component
 class Main extends Component {
-    render(){
+  render(){
+    //<Route exact path='/dishes' render ={(props) => <dishes {...props} />} />
 
-        // <Route path ='*' component={notfound}/>
-        return(
-            <div>
-                {/*Render Different Component based on Route*/}
+    // <Route path ='*' component={notfound}/>
+    return(
+    <div>
+        {/*Render Different Component based on Route*/}
 
-                <Route path='/' component={Navbar}/>
-                <Route exact path='/login' component={Login}/>
-                <Route exact path='/customer/login' component={Custlogin}/>
-                <Route exact path='/restaurant/login' component={Restlogin}/>
-                <Route exact path='/customer/signup' component={Custsignup}/>
-                <Route exact path='/restaurant/signup' component={Restsignup}/>
-                <Route exact path='/restaurant/updateinfo' component={Restupdateinfo}/>
-                <Route exact path='/restaurant/updatelocation' component={Restupdatelocation}/>
-                <Route exact path='/customer/dashboard' component={Userdash}/>
-                <Route exact path='/restaurant/dashboard' component={Restdash}/>
-                <Route exact path='/dishes' component={dishes}/>
-                <Route exact path='/restaurants' component={restaurants}/>
-                <Route exact path='/cart' component={cart}/>
+        <Route path='/' component={Navbar}/>
+        <Route exact path='/login' component={Login}/>
+        <Route exact path='/customer/login' component={Custlogin}/>
+        <Route exact path='/restaurant/login' component={Restlogin}/>
+        <Route exact path='/customer/signup' component={Custsignup}/>
+        <Route exact path='/restaurant/signup' component={Restsignup}/>
+        <Route exact path='/restaurant/updateinfo' component={Restupdateinfo}/>
+        <Route exact path='/restaurant/updatelocation' component={Restupdatelocation}/>
+        <Route exact path='/customer/dashboard' component={Userdash}/>
+        <Route exact path='/restaurant/dashboard' component={Restdash}/>
+        <Route exact path='/dishes' component={dishes}/>
+        <Route exact path='/restaurants' component={restaurants}/>
+        <Route exact path='/cart' component={cart}/>
 
-
-                   
-            </div>
-        )
-    }
+    </div>
+    )
+  }
 }
 //Export The Main Component
 export default Main;

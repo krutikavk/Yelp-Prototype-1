@@ -15,6 +15,16 @@ class Restaurants extends Component {
     this.state = {
       restaurants: []
     }
+
+    this.menuHandler = this.menuHandler.bind(this);
+  }
+
+  //Menu handler for view dishes has to be here and not on restaurant page (only the render component is returned there)
+  menuHandler = (event) => {
+    alert("menu handler")
+    this.setState ({
+      dishes: true
+    });
   }
 
   componentDidMount() {
@@ -40,7 +50,10 @@ class Restaurants extends Component {
 
       <div>
         {this.state.restaurants.map (restaurant => (
-          <Restaurant restaurant = {restaurant} />
+          <div>
+            <Restaurant restaurant = {restaurant} />
+            <button onClick={this.menuHandler} class="btn btn-primary">View Menu</button>
+          </div>
         ))}
       </div>
 

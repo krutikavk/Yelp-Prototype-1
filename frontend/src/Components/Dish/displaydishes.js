@@ -18,7 +18,10 @@ class Dishes extends Component {
   }
 
 
-  componentDidMount() {
+  componentDidMount(props) {
+
+    alert("here");
+    console.log("rest id: ", this.props.location.state.rid)
     //
     let url = 'http://localhost:3001/dishes/1';
     axios.get(url)
