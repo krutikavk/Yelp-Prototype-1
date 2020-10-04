@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import cookie from 'react-cookies';
-
 //use react-router-dom ONLY
 //see Marko Perendio comment about using react-router-dom
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
@@ -29,244 +27,60 @@ class Login extends Component {
     super(props);
 
     this.state = {
-
-      username: '',
-      password: '',
-      loginOption: '',
-      authFlag: false,
-      errors: {
-      	username: '',
-      	password: '',
-      }
+      custLogin: false,
+      restLogin: false
     };
 
-    this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
-    this.passwordChangeHandler = this.passwordChangeHandler.bind(this);
-    this.submitLogin = this.submitLogin.bind(this);
+    this.customerLoginHandler = this.customerLoginHandler.bind(this);
+    this.restaurantLoginhandler = this.restaurantLoginHandler.bind(this);
   }
 
-  componentWillMount() {
+  customerLoginHandler = (event) => {
     this.setState({
-      authFlag: false,
-    })
+      custLogin: true
+    });
   }
 
-  loginOptionHandler = (event) => {
+  restaurantLoginHandler = (event) => {
     this.setState({
-      loginOption: event.target.value
-    })
-  }
-
-  // Comment
-  usernameChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.username = validText.test(event.target.value) ? "" : "Username-Only alphanumeric word"
-    this.setState({
-            errors: err
-        }, ()=> {
-            console.log(err.username)
-    }) 
-    this.setState({
-        username : event.target.value
-    })
-  }
-
-  passwordChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.password = event.target.value.length >= 5 ? "" : "Password should have 8 or more characters"
-    this.setState({
-      errors: err
-      }, ()=> {
-	    console.log(err.password)
-  	}) 
-  	this.setState({
-  	  password : event.target.value
-  	    
-  	})
-  }
-
-  usernameChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.username = validText.test(event.target.value) ? "" : "Username-Only alphanumeric word"
-    this.setState({
-            errors: err
-        }, ()=> {
-            console.log(err.username)
-    }) 
-    this.setState({
-        username : event.target.value
-    })
-  }
-
-  submitLogin = (event) => {
-  	event.preventDefault();
-
-  	if(validateForm(this.state.errors)) {
-      console.info("Valid form")
-        
-    } else {
-      console.error("Invalid form")
-    }
-
-    const data = {
-      username : this.state.username,
-      password : this.state.password,
-      loginOption: this.state.loginOption,
-    }
-    //set the with credentials to true
-    axios.defaults.withCredentials = true;
-    //make a post request with the user data
-    axios.post('http://localhost:3001/customers/login', data)
-        .then(response => {
-            console.log("Status Code : ",response.status);
-            if(response.status === 200){
-              console.log("Login authorized")
-              console.log(response.data[0]);
-              //call props action
-              this.props.update('CNAME', response.data[0].cname)
-              this.props.update('CEMAIL', response.data[0].cemail)
-              this.props.update('CPASSWORD', response.data[0].cpassword)
-              this.props.login()   //this will update isLogged = true
-              this.setState({
-                  authFlag : true
-              })
-            }
-        }).catch(err =>{
-            alert("Incorrect credentials")
-            this.setState({
-                authFlag : false
-            })
-        });
+      restLogin: true
+    });
   }
 
   render(){
     //redirect based on successful login
 
     let redirectVar = null;
-    /*
-    if(cookie.load('cookie')){
-      console.log(cookie)
-      redirectVar = <Redirect to= "/userdash"/>
-    } 
-    */
-    console.log(this.props.isLogged)
-    if(this.props.isLogged === true) {
-      redirectVar = <Redirect to= "/userdash"/>
+    
+    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      //Customer login
+      redirectVar = <Redirect to= '/customer/dashboard'/>
+    } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
+      //restaurant login
+      redirectVar = <Redirect to= '/restaurant/dashboard'/>
+    } else if(this.props.isLogged === false && this.state.custLogin === true) {
+      redirectVar = <Redirect to= '/customer/login'/>
+    } else if(this.props.isLogged === false && this.state.restLogin === true) {
+      redirectVar = <Redirect to= '/restaurant/login'/>
     }
-
-    const errors = this.state.errors;
+  
 
     return(
 
-      <div> 
-        Default Login page
-      </div>
-
-      /*
       <div>
-        {redirectVar} 
-
-
-        
+        {redirectVar}
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
-        <form>
-        <div class="col d-flex justify-content-center">
 
-        <h3>Customer Sign in</h3>
+          <br />
+          <br />
+          <button id="btnLogin" className="btn btn-success btn-sm" onClick={this.customerLoginHandler}>Customer Login</button> 
+          <br />
+          <br />
+          <button id="btnLogin" className="btn btn-success btn-sm" onClick={this.restaurantLoginHandler}>Restaurant Login</button>
         </div>
-          <div className="auth-wrapper">
-            <div className="auth-inner">
-              <div className = "form-group text-left">
-                <label htmlFor="exampleInputEmail1">Email address</label>
-                <input onChange = {this.usernameChangeHandler} 
-                                    type="email"  
-                                    name="username" 
-                                    className="form-control"
-                                    placeholder="Email ID"
-                                    aria-describedby="emailHelp" 
-                                    required/>
-                                    {errors.username.length > 0 && 
-                                    <span><small id="emailHelp" className="form-text text-muted">{errors.username}</small></span>}
-              </div>
-              <div class="form-group text-left">
-                <label htmlFor="exampleInputPassword1">Password</label>
-                <input onChange = {this.passwordChangeHandler} 
-                                    type="password" 
-                                    name="password" 
-                                    class="form-control"
-                                    placeholder="Password"
-                                    required/>
-                                    {errors.password.length > 0 && 
-                                    <span>{errors.password}</span>}
-              </div>
-              <button disabled={! validateForm(this.state.errors)} class="btn btn-primary" onClick={this.submitLogin}>Login</button>
 
-            </div>
-          </div>
-        </form>
-        </div>
       </div>
-      */
 
-
-
-
-        /*
-        <div>
-            {redirectVar}
-            <span id = "exists"></span>
-            <div class="container">
-                <form onSubmit={this.submitLogin} >
-                    <div class="login-form">
-                        <div class="main-div">
-                            <div class="panel">
-                                <p>Login as:</p>  
-                            </div>
-                            <div class = "form-group">
-                            	<input type="radio" value="customer" 
-                                checked={this.state.loginOption === 'customer'}
-                                onChange={this.loginOptionHandler}/>
-              								<label for="customer">Customer</label><br />
-              								<input type="radio" value="restaurant"
-                                checked={this.state.loginOption === 'restaurant'}
-                                onChange={this.loginOptionHandler}/>
-              								<label for="restaurant">Restaurant</label><br />
-                        	  </div>
-                            
-                            <div class="form-group">
-                                <input onChange = {this.usernameChangeHandler} 
-                                type="text"  
-                                name="username" 
-                                class="form-control"
-                                placeholder="Username"
-                                required/>
-                                {errors.username.length > 0 && 
-                                <span>{errors.username}</span>}
-                            </div>
-                            <div class="form-group">
-                                <input onChange = {this.passwordChangeHandler} 
-                                type="password" 
-                                name="password" 
-                                class="form-control"
-                                placeholder="Password"
-                                required/>
-                                {errors.password.length > 0 && 
-                                <span>{errors.password}</span>}
-                            </div>
-                            
-                            <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Login</button>
-
-                            <div class='forgot'>
-                              Don't have an account yet?<br />
-                              <a href="/custsignup">Customer signup</a> <br />
-                              <a href="/restsignup">Restaurant signup</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        */
     )
   }
 }
@@ -277,11 +91,8 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-      //Customer props
-      cname : state.custProfile.cname,
-      cpassword: state.custProfile.cpassword,
-      cemail: state.custProfile.cemail,
-      isLogged: state.isLogged.isLoggedIn
+      isLogged: state.isLogged.isLoggedIn,
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
     }
 }
 

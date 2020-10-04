@@ -161,7 +161,7 @@ class restLogin extends Component {
                     <input onChange = {this.emailChangeHandler} 
                                         type="email"  
                                         name="email" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="Email ID"
                                         aria-describedby="emailHelp" 
                                         required/>
@@ -173,7 +173,7 @@ class restLogin extends Component {
                     <input onChange = {this.passwordChangeHandler} 
                                         type="password" 
                                         name="password" 
-                                        className="form-control form-control-lg"
+                                        className="form-control form-control-sm"
                                         placeholder="Password"
                                         required/>
                                         {errors.password.length > 0 && 
@@ -181,7 +181,7 @@ class restLogin extends Component {
                   </div>
 
                   <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitLogin}>Login</button>
+                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-sm" onClick={this.submitLogin}>Login</button>
                   </div>
           </form>
         </div>

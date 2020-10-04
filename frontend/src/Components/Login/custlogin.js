@@ -187,7 +187,7 @@ class custLogin extends Component {
                   </div>
 
                   <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-lg" onClick={this.submitLogin}>Login</button>
+                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-sm" onClick={this.submitLogin}>Login</button>
                   </div>
           </form>
         </div>
