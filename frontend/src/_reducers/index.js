@@ -12,7 +12,7 @@ const allReducer = combineReducers({
 	custProfile: custReducer,
   restProfile: restReducer,
   whoIsLogged: whoIsLoggedReducer,
-  cartContents: cartReducer,
+  cart: cartReducer,
 
 })
 
