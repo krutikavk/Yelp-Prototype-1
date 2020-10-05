@@ -126,6 +126,60 @@ router.post('/', (request, response) => {
   //connection.end();
 });
 
+
+//Restaurant signup TESTED
+router.post('/:rid/hours', (request, response) => {
+  //const connection = getMySQLConnection();
+  console.log('\nEndpoint POST: Restaurant signup hours')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `INSERT into resthours (rid) VALUES (?)`);
+  connection.query(dbQuery, request.params.rid, (error, results) => {
+    if(error) {
+      console.log('Could not update time')
+      response.status(404).send('Could not update time');
+    } else {
+      //also let the customer login
+      console.log("Hours added successfully")
+      response.writeHead(200,{
+          'Content-Type' : 'text/plain'
+          //'Content-Type': 'application/json'
+      })
+      //response.end("Successful Login");
+      response.end("Hours added successfully");
+    }
+  });
+
+  //connection.end();
+});
+
+
+router.get('/:rid/hours', (request, response) => {
+  //const connection = getMySQLConnection();
+  console.log('\nEndpoint POST: Restaurant signup hours')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from resthours where rid = ?`);
+  connection.query(dbQuery, request.params.rid, (error, results) => {
+    if(error) {
+      console.log('Could not update time')
+      response.status(404).send('Could not update time');
+    } else {
+      //also let the customer login
+      console.log("Hours added successfully")
+      response.writeHead(200,{
+          //'Content-Type' : 'text/plain'
+          'Content-Type': 'application/json'
+      })
+      //response.end("Successful Login");
+      response.end(JSON.stringify(results));
+    }
+  });
+
+  //connection.end();
+});
+
+
 //restaurant login TESTED
 router.post('/login', (request, response) => {
   //const connection = getMySQLConnection();
@@ -246,13 +300,82 @@ router.put('/:rid/password', (request, response) => {
 
 
 
-//ORDER MANIPULATION
-/*
-1. Get all orders for restaurant
-2. Update order status
-3. Get particular order
+//Reviews--add review
+router.post('/:rid/reviews', (request, response) => {
+  console.log('\nEndpoint POST: restaurant review add')
+  console.log('Req Body: ', request.body)
+
+  var now = new Date();
+  var jsonDate = now.toJSON();
+  var current = new Date(jsonDate);
+
+  var dbQuery = (sql `INSERT into review (retext, rerating, rdate, cid, rid) VALUES (?, ?, ?, ?, ?)`);
+  let data = [request.body.retext, 
+              request.body.rerating, 
+              current, 
+              request.body.cid, 
+              request.params.rid]
+
+  connection.query(dbQuery, data, (error, results) => {
+    if(error) {
+      console.log('Error adding review')
+      response.status(404).send('Error adding review');
+    } else {
+      
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully added review");
+    }
+  });
+
+})
 
 
-*/
+//View review for restaurant
+router.get('/:rid/reviews', (request, response) => {
+  console.log('\nEndpoint GET: restaurant reviews get')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from review WHERE rid = ?`);
+
+  connection.query(dbQuery, request.params.rid, (error, results) => {
+    if(error) {
+      console.log('Error getting review')
+      response.status(404).send('Error getting review');
+    } else {
+      
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+})
+
+
+//Get average rating for restaurant
+router.get('/:rid/reviews', (request, response) => {
+  console.log('\nEndpoint GET: restaurant reviews get')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT AVG(rerating) from review WHERE rid = ?`);
+
+  connection.query(dbQuery, request.params.rid, (error, results) => {
+    if(error) {
+      console.log('Error getting review')
+      response.status(404).send('Error getting review');
+    } else {
+      
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+})
+
 
 

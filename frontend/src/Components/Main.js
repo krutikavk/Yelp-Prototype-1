@@ -18,6 +18,7 @@ import Restlogin from './Login/restlogin';
 import Navbar from './Navbar/navbar';
 import dishes from './Dish/displaydishes'
 import restaurants from './Restaurants/displayRestaurants';
+import restaurant from './Restaurants/restaurantpage';
 import cart from './Cart/cart';
 
 
@@ -51,6 +52,7 @@ class Main extends Component {
             <Route path='/dishes' component={dishes}/>
             <Route path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
+            <Route path='/restaurant' component={restaurant}/>
         </Switch>
 
     </div>

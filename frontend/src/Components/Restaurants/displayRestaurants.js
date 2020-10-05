@@ -4,7 +4,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
-import Restaurant from './restaurant';
+import Restaurant from './restaurantcard';
 
  
 class Restaurants extends Component {
@@ -28,6 +28,7 @@ class Restaurants extends Component {
   }
 
   componentDidMount() {
+    //replace this URL with search URL 
     let url = 'http://localhost:3001/restaurants';
     axios.get(url)
         .then(response => {
@@ -47,7 +48,6 @@ class Restaurants extends Component {
 
   render() {
     return(
-
       <div>
         {this.state.restaurants.map (restaurant => (
           <div>
@@ -56,6 +56,16 @@ class Restaurants extends Component {
         ))}
       </div>
 
+
+      /*
+      <div>
+        {this.state.restaurants.map (restaurant => (
+          <div>
+            <Restaurant restaurant = {restaurant} />
+          </div>
+        ))}
+      </div>
+      */
 
     )
 

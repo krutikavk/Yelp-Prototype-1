@@ -22,13 +22,21 @@ class Restaurant extends Component {
     return (
       //Pass restaurant information to display menu and then show when dishes are added to cart
       <Link to ={{
-                  pathname: '/dishes',
+                  pathname: '/restaurant',
                   query: {
                     rid: `${this.props.restaurant.rid}`, 
-                    rname: `${this.props.restaurant.rname}`, 
+                    remail: `${this.props.restaurant.remail}`,
+                    rname: `${this.props.restaurant.rname}`,
                     rphone: `${this.props.restaurant.rphone}`,
+                    rabout: `${this.props.restaurant.rabout}`,
+                    rlocation: `${this.props.restaurant.rlocation}`,
+                    rlatitude: `${this.props.restaurant.rlatitude}`,
+                    rlongitude: `${this.props.restaurant.rlongitude}`,
+                    raddress: `${this.props.restaurant.raddress}`,
+                    rcuisine: `${this.props.restaurant.rcuisine}`,
                     rdelivery: `${this.props.restaurant.rdelivery}`,
                   }
+                  
                 }}>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">
