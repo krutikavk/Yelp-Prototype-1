@@ -1,26 +1,12 @@
 import React, { Component } from 'react';
 import '../../App.css';
-import axios from 'axios';
 //use react-router-dom ONLY
 //see Marko Perendio comment about using react-router-dom
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions'
 
-
-
-
-
-const validText = RegExp('[A-Za-z0-9]+')
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
 
 class Login extends Component {
   constructor(props) {
@@ -69,14 +55,25 @@ class Login extends Component {
 
       <div>
         {redirectVar}
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
-
+        <br/>
+        <div className="login-form card col-12 col-lg-4 login-card mt-2 hv-center" >
+          <br />
+          <div className="card-header">
+            <h4>Login/Signup</h4>
+          </div>
           <br />
           <br />
-          <button id="btnLogin" className="btn btn-success btn-sm" onClick={this.customerLoginHandler}>Customer Login</button> 
+          <button id="btnLogin" className="btn btn-danger" onClick={this.customerLoginHandler}>Customer Login</button> 
           <br />
           <br />
-          <button id="btnLogin" className="btn btn-success btn-sm" onClick={this.restaurantLoginHandler}>Restaurant Login</button>
+          <button id="btnLogin" className="btn btn-danger" onClick={this.restaurantLoginHandler}>Restaurant Login</button>
+          <br/>
+          New Customer? Sign up here <br/>
+          <Link to="/customer/signup" className="btn btn-danger">Sign up</Link>
+          New Restaurant? Sign up Here <br/>
+          <Link to="/restaurant/signup" className="btn btn-danger">Sign up</Link>
+          <br/>
+          <br/>
         </div>
 
       </div>

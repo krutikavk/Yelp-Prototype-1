@@ -155,40 +155,44 @@ class custLogin extends Component {
       <div>
         {redirectVar} 
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
+
+        <br/>
           <form>
             <div className="col d-flex justify-content-center rounded-0">
-
-            <div className="card-header">
-              <h4>Customer</h4>
+              <div className="card-header">
+                <h4>Customer</h4>
+              </div>
             </div>
-            </div>
-                  <div className = "form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input onChange = {this.emailChangeHandler} 
-                                        type="email"  
-                                        name="email" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Email ID"
-                                        aria-describedby="emailHelp" 
-                                        required/>
-                                        {errors.email.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.email}</small></span>}
-                  </div>
-                  <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input onChange = {this.passwordChangeHandler} 
-                                        type="password" 
-                                        name="password" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Password"
-                                        required/>
-                                        {errors.password.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.password}</small></span>}
-                  </div>
 
-                  <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-sm" onClick={this.submitLogin}>Login</button>
-                  </div>
+            <div className = "form-group text-left">
+              <br/>
+              <label htmlFor="exampleInputEmail1">Email address</label>
+              <input onChange = {this.emailChangeHandler} 
+                                  type="email"  
+                                  name="email" 
+                                  className="form-control form-control-sm"
+                                  placeholder="Email ID"
+                                  aria-describedby="emailHelp" 
+                                  required/>
+                                  {errors.email.length > 0 && 
+                                  <span><small id="emailHelp" className="form-text text-muted">{errors.email}</small></span>}
+            </div>
+            <div className="form-group text-left">
+              <br/>
+              <label htmlFor="exampleInputPassword1">Password</label>
+              <input onChange = {this.passwordChangeHandler} 
+                                  type="password" 
+                                  name="password" 
+                                  className="form-control form-control-sm"
+                                  placeholder="Password"
+                                  required/>
+                                  {errors.password.length > 0 && 
+                                  <span><small id="emailHelp" className="form-text text-muted">{errors.password}</small></span>}
+            </div>
+
+            <div className="col-md-12 text-center">
+            <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-danger" onClick={this.submitLogin}>Login</button>
+            </div>
           </form>
         </div>
       </div>

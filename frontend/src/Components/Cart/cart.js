@@ -77,7 +77,8 @@ class Cart extends Component{
           });
           console.log(data);
 
-          //For each array 
+          //For each array entry as data, have to place an axios request
+          //Axios is asynchronous so have to use promise all to gather all responses and then process them 
           let promiseArray = data.map(dataarr => axios.post('http://localhost:3001/orders/dishes', dataarr));
           Promise.all( promiseArray )
           .then(
