@@ -49,11 +49,20 @@ class Restaurants extends Component {
   render() {
     return(
       <div>
-        {this.state.restaurants.map (restaurant => (
-          <div>
-            <Restaurant restaurant = {restaurant} />
+
+        <section class="container">
+          <div class="left-half">
+            {this.state.restaurants.map (restaurant => (
+              <div>
+                <Restaurant restaurant = {restaurant} />
+              </div>
+            ))}
           </div>
-        ))}
+
+          <div class="right-half">
+            I will put gmap here
+          </div>
+        </section>
       </div>
 
 
