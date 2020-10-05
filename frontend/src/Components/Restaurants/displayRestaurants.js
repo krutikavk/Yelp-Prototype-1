@@ -6,10 +6,6 @@ import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurantcard';
 import GoogleMapReact from 'google-map-react';
-import '../../map.css';
-
-
-import './map.css'
 
  
 class Restaurants extends Component {

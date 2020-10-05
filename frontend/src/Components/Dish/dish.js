@@ -29,7 +29,7 @@ class Dish extends Component {
         ooption: this.props.rdelivery,          //Delivery/Pickup
         oaddress: ''
       }
-
+      
       this.props.updateCart('ADD', data);
       alert("Added to cart")
     }

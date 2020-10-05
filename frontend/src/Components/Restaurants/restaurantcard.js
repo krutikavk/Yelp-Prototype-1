@@ -22,7 +22,7 @@ class Restaurant extends Component {
     return (
       //Pass restaurant information to display menu and then show when dishes are added to cart
       <Link to ={{
-                  pathname: '/restaurant',
+                  pathname: '/dishes',
                   query: {
                     rid: `${this.props.restaurant.rid}`, 
                     remail: `${this.props.restaurant.remail}`,
@@ -36,7 +36,7 @@ class Restaurant extends Component {
                     rcuisine: `${this.props.restaurant.rcuisine}`,
                     rdelivery: `${this.props.restaurant.rdelivery}`,
                   }
-                  
+
                 }}>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">

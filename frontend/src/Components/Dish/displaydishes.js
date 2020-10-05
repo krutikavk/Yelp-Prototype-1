@@ -29,7 +29,7 @@ class Dishes extends Component {
 
     //
     let url = 'http://localhost:3001/dishes/' + this.props.location.query.rid;
-
+    console.log("query id: ", this.props.location.query.rid)
     axios.get(url)
         .then(response => {
           if(response.status === 200){
