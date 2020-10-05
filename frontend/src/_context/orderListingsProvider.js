@@ -28,6 +28,7 @@ export class OrderListingsProvider extends React.Component {
         if(response.status === 200){
           this.setState({ orderListings: response.data })
         }
+        console.log(this.state.orderListings)
       }).catch(err =>{
         //alert("Error fetching orders")
         console.log("Error fetching orders")
@@ -40,20 +41,42 @@ export class OrderListingsProvider extends React.Component {
     })
   }
 
+
+  static applyFilter(orders, filter) {
+    const displayOrder = filter
+    let result = orders
+    console.log("filter", filter);
+    console.log("displayorder", displayOrder);
+    console.log("orders:" , orders)
+    console.log("displayorder: ", displayOrder)
+    if (displayOrder && displayOrder.ooption && displayOrder.ooption !== 'All') {
+       console.log("Here here")
+       result = result.filter(item => item.ooption === displayOrder.ooption)
+    } 
+    
+    console.log(result)
+    return result;
+    
+  }
+
+
+
+
+
   render() {
-    const { children } = this.props
+    let {children} = this.props
+    console.log("children: ", this.props)
     const { orderListings, filter } = this.state
-
     console.log("updateFilter: ", filter)
-
+    let filteredListings = OrderListingsProvider.applyFilter(orderListings, filter)
     return (
       <OrderListingsContext.Provider
         value={{
-          orderListings,
+          orderListings: filteredListings,
           updateFilter: this.updateFilter
         }}
       >
-        {children}
+      {children}
       </OrderListingsContext.Provider>
     )
   }
