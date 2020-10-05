@@ -5,6 +5,11 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurantcard';
+import GoogleMapReact from 'google-map-react';
+import '../../map.css';
+
+
+import './map.css'
 
  
 class Restaurants extends Component {
@@ -61,6 +66,7 @@ class Restaurants extends Component {
 
           <div class="right-half">
             I will put gmap here
+           
           </div>
         </section>
       </div>
@@ -104,5 +110,6 @@ function mapDispatchToProps(dispatch) {
   }
   
 }
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);

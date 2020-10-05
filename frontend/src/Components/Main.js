@@ -34,12 +34,12 @@ class Main extends Component {
 
     // <Route path ='*' component={notfound}/>
     //<Route path='/' component={Navbar}/>
+    //Reference: https://medium.com/@alexfarmer/redirects-in-react-router-dom-46198938eedc
     return(
     <div> 
         {/*Render Different Component based on Route*/}
         <Navbar/>
         <Switch>
-            
             <Route path='/login' component={Login}/>
             <Route path='/customer/login' component={Custlogin}/>
             <Route path='/restaurant/login' component={Restlogin}/>
@@ -53,6 +53,7 @@ class Main extends Component {
             <Route path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
             <Route path='/restaurant' component={restaurant}/>
+            <Route path ='*' component={notfound}/>
         </Switch>
 
     </div>

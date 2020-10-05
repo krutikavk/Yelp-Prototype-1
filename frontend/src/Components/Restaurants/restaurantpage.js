@@ -80,7 +80,7 @@ class Restaurants extends Component {
 
 
       //Get all reviews
-      let getReviews = 'http://localhost:3001/reviews' + this.props.location.query.rid
+      let getReviews = 'http://localhost:3001/' + this.props.location.query.rid + '/reviews'
       axios.get(getReviews)
       .then(response => {
         console.log("Status Code : ",response.data);
@@ -100,6 +100,8 @@ class Restaurants extends Component {
 
 
       //Get all pictures
+      //Display images from array
+      //Reference: https://stackoverflow.com/questions/42410164/display-array-of-images-in-react
       let getPics = 'http://localhost:3001/pictures' + this.props.location.query.rid
       axios.get(getPics)
       .then(response => {
@@ -150,7 +152,10 @@ class Restaurants extends Component {
             </div>
           </div>
         </div>
+        <div class="container-fluid style={{height: 100}}">
+          Add reviews here
 
+        </div>
 
 
 

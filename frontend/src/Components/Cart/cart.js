@@ -78,7 +78,8 @@ class Cart extends Component{
           console.log(data);
 
           //For each array entry as data, have to place an axios request
-          //Axios is asynchronous so have to use promise all to gather all responses and then process them 
+          //Axios is asynchronous so have to use promise all to gather all responses and then process them
+          //Reference: https://stackoverflow.com/questions/44402079/how-to-make-multiple-axios-requests-using-a-dynamic-array-of-links-in-javascript/44403848 
           let promiseArray = data.map(dataarr => axios.post('http://localhost:3001/orders/dishes', dataarr));
           Promise.all( promiseArray )
           .then(
