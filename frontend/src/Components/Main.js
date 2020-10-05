@@ -20,6 +20,7 @@ import dishes from './Dish/displaydishes'
 import restaurants from './Restaurants/displayRestaurants';
 import restaurant from './Restaurants/restaurantpage';
 import cart from './Cart/cart';
+import orders from './Order/ordersDisplay';
 
 
 import notfound from './NotFound/notfound'
@@ -53,6 +54,7 @@ class Main extends Component {
             <Route path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
             <Route path='/restaurant' component={restaurant}/>
+            <Route path='/orders' component={orders}/>
             <Route path ='*' component={notfound}/>
         </Switch>
 

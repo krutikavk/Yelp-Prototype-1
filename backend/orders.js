@@ -120,6 +120,7 @@ router.post('/dishes', (request, response) => {
 router.get('/restaurants/:rid', (request, response) => {
   console.log('Endpoint GET: Get all orders for restaurant')
   console.log('Request Body: ', request.body);
+  console.log(request.params.rid)
 
   let dbQuery = (sql `SELECT * from order_detail where rid = ?`)
   connection.query(dbQuery, request.params.rid, (error, results)=> {
