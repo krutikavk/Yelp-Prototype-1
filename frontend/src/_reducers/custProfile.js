@@ -1,5 +1,5 @@
 const initialCustProfile = {
-  cid: '',
+  cid: 1,
 	cemail: '',
 	cpassword: '',
   cname: '',

@@ -15,29 +15,6 @@ const emptyCart = {
 }
 
 
-const cartEntry = {
-  dname: 'super tasty dish 1',            //dish name
-  rid: '1',              //restaurant
-  dquantity: '3',        //dish quantity
-  dprice: '10',           //dish price
-  ooption: 'Delivery',          //Delivery/Pickup
-  oaddress: 'My home'          //Only if delivery ooption chosen
-}
-
-const cartEntry2 = {
-  dname: 'super tasty dish 2',            //dish name
-  rid: '1',              //restaurant
-  dquantity: '5',        //dish quantity
-  dprice: '8',           //dish price
-  ooption: 'Pickup',          //Delivery/Pickup
-  oaddress: 'My home'          //Only if delivery ooption chosen
-}
-
-//initialCartState.cartContents.push(cartEntry);
-//initialCartState.cartContents.push(cartEntry2);
-
-
-
 const cartReducer = (state = initialCartState, action) => {
   switch(action.type) {
     case 'UPDATECART': {

@@ -15,12 +15,9 @@ class Dishes extends Component {
     this.state = {
       dishes: [],
       rid: '',
-      rdelivery: ''
+      rdelivery: '',
     }
-
   }
-
-
 
 
   componentDidMount(props) {

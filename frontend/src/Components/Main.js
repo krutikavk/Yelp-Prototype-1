@@ -32,23 +32,26 @@ class Main extends Component {
     //<Route exact path='/dishes' render ={(props) => <dishes {...props} />} />
 
     // <Route path ='*' component={notfound}/>
+    //<Route path='/' component={Navbar}/>
     return(
-    <div>
+    <div> 
         {/*Render Different Component based on Route*/}
-
-        <Route path='/' component={Navbar}/>
-        <Route exact path='/login' component={Login}/>
-        <Route exact path='/customer/login' component={Custlogin}/>
-        <Route exact path='/restaurant/login' component={Restlogin}/>
-        <Route exact path='/customer/signup' component={Custsignup}/>
-        <Route exact path='/restaurant/signup' component={Restsignup}/>
-        <Route exact path='/restaurant/updateinfo' component={Restupdateinfo}/>
-        <Route exact path='/restaurant/updatelocation' component={Restupdatelocation}/>
-        <Route exact path='/customer/dashboard' component={Userdash}/>
-        <Route exact path='/restaurant/dashboard' component={Restdash}/>
-        <Route exact path='/dishes' component={dishes}/>
-        <Route exact path='/restaurants' component={restaurants}/>
-        <Route exact path='/cart' component={cart}/>
+        <Navbar/>
+        <Switch>
+            
+            <Route path='/login' component={Login}/>
+            <Route path='/customer/login' component={Custlogin}/>
+            <Route path='/restaurant/login' component={Restlogin}/>
+            <Route path='/customer/signup' component={Custsignup}/>
+            <Route path='/restaurant/signup' component={Restsignup}/>
+            <Route path='/restaurant/updateinfo' component={Restupdateinfo}/>
+            <Route path='/restaurant/updatelocation' component={Restupdatelocation}/>
+            <Route path='/customer/dashboard' component={Userdash}/>
+            <Route path='/restaurant/dashboard' component={Restdash}/>
+            <Route path='/dishes' component={dishes}/>
+            <Route path='/restaurants' component={restaurants}/>
+            <Route path='/cart' component={cart}/>
+        </Switch>
 
     </div>
     )

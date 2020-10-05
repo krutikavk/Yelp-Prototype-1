@@ -21,7 +21,7 @@ global.db = connection;
 
 
 
-//Place a new order
+//Place a new order--> Add to order table
 router.post('/', (request, response) => {
   //const connection = getMySQLConnection();
   console.log('Endpoint POST: Place an new order')
@@ -57,7 +57,12 @@ router.post('/', (request, response) => {
           var oid = results1[0]['MAX(oid)'];
           //console.log('-->', results1[0]['MAX(oid)']);
           //console.log("max oid: ", oid)
-          let data = [oid, request.body.dname, request.body.odquantity]
+
+          /*
+          let data = [oid, 
+                      request.body.dname, 
+                      request.body.odquantity]
+
           console.log("query 2 data", data)
           connection.query(orderDish, data, (error, results2) => {
             if(error) {
@@ -70,12 +75,44 @@ router.post('/', (request, response) => {
               response.end("Order placed");
             }
           })        //end orderDishn
+          */
+          response.writeHead(200,{
+            //'Content-Type' : 'text/plain'
+            'Content-Type': 'application/json'
+          })
+          response.end(JSON.stringify(results1));
         }         
       })        //end getOrderId
     }          //end if-else dbquery
   })          //end insertOrder
+
+
   //connection.end()
 });
+
+
+//Place dishes in order_dish table with OID
+router.post('/dishes', (request, response) => {
+  console.log('Endpoint POST: Place an new orderdish')
+  console.log('Request Body: ', request.body);
+  let data = [request.body.oid, 
+              request.body.dname, 
+              request.body.odquantity ]
+
+  let dbQuery = (sql `INSERT into order_dish (oid, dname, odquantity) values (?, ?, ?)`)
+
+  connection.query(dbQuery, data, (error, results) => {
+    if(error) {
+      response.status(404).send('Could not add order to dishes table');
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+        //'Content-Type': 'application/json'
+      })
+      response.end("Successfully added");
+    }
+  })
+}) 
 
 
 

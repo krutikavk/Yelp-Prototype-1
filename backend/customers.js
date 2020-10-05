@@ -42,7 +42,6 @@ function getMySQLConnection() {
 */
 
 
-
 //get all customers
 router.get('/', (request, response) => {
   //const connection = getMySQLConnection();

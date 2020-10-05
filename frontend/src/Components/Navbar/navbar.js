@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import {Link} from 'react-router-dom';
-import cookie from 'react-cookies';
-import {Redirect} from 'react-router';
+import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions';
 //import * as ReactBootStrap from 'react-bootstrap'
@@ -11,6 +9,7 @@ import logo from './yelp-logo.jpg';
 class Navbar extends Component {
     constructor(props){
         super(props);
+        
         this.handleLogout = this.handleLogout.bind(this);
     }
     //handle logout to destroy the cookie
@@ -43,11 +42,12 @@ class Navbar extends Component {
 
         this.props.logout()
 
-
-
     }
+
+
     render(){
         //if Cookie is set render Logout Button
+
         let navLogin = null;
         if(this.props.isLogged === true){
             console.log("Login is true");
@@ -76,7 +76,7 @@ class Navbar extends Component {
             <form className="form-inline" action="/" >
               <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
               <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
-              <button className="btn btn-success btn-sm" type="submit">Search</button>
+              <button onClick={this.submitSearch} className="btn btn-success btn-sm" type="submit">Search</button>
             </form>
           </li>
         )
@@ -106,37 +106,37 @@ class Navbar extends Component {
         
         return(
 
-          <nav className="navbar navbar-expand-sm bg-light navbar-light">
-            <Link to="/"><img src={logo}></img></Link>
-
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                {dashboard}
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/orders">Orders</Link>
-              </li>
-              <li className="nav-item">
-                {menu}
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/events">Events</Link>
-              </li>
-            </ul>
+          <div>
+            <nav className="navbar navbar-expand-sm bg-light navbar-light">
+              <Link to="/"><img src={logo}></img></Link>
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item">
+                  {dashboard}
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/orders">Orders</Link>
+                </li>
+                <li className="nav-item">
+                  {menu}
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/events">Events</Link>
+                </li>
+              </ul>
+                
+              <ul className="navbar-nav mx-auto">
+                {search}
+              </ul>
               
-            <ul className="navbar-nav mx-auto">
-              {search}
-            </ul>
+              <ul className="navbar-nav ml-auto">
+                {cart}
+                <li className="nav-item">
+                  {navLogin}
+                </li>
+              </ul>
+            </nav>
             
-            <ul className="navbar-nav ml-auto">
-              {cart}
-              <li className="nav-item">
-                {navLogin}
-              </li>
-            </ul>
-          </nav>
-
-
+          </div>
 
 
 
