@@ -9,44 +9,37 @@ import {connect} from 'react-redux';
 class Dish extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      error: ''
+    }
     this.addToCartHandler = this.addToCartHandler.bind(this)
   }
 
   addToCartHandler = (event) => {
-    let data = {
-      dname: this.props.dish.dname,            //dish name
-      rid: this.props.rid,              //restaurant
-      dquantity: 1,        //dish quantity
-      dprice: this.props.dish.dprice,           //dish price
-      ooption: this.props.rdelivery,          //Delivery/Pickup
-      oaddress: ''
+    //Iterate through cartContents and allow to add only if there are no other restaurants' orders
+    let check = this.props.cartContents.filter(array => array.rid !== this.props.rid);
+    if(check.length >= 1) {
+      alert("Please place orders for one restaurant at a time")
+    } else {
+      let data = {
+        dname: this.props.dish.dname,            //dish name
+        rid: this.props.rid,              //restaurant
+        dquantity: 1,        //dish quantity
+        dprice: this.props.dish.dprice,           //dish price
+        ooption: this.props.rdelivery,          //Delivery/Pickup
+        oaddress: ''
+      }
 
+      this.props.updateCart('ADD', data);
+      alert("Added to cart")
     }
-
-    this.props.updateCart('ADD', data);
-    alert("Added to cart")
 
   }
 
   render() {
-    console.log("=>inside dish" , this.props.dish.dname)
-    console.log("rid: " , this.props.rid)
  
     return (
-      
-      /*
-      <div class="card-horizontal" style={{width: 400 }}>
-        <img class="card-img-top" src={nachospic} alt="dish"></img>
-        <div class="card-body">
-          <h4 class="card-title">{this.props.dish.dname}</h4>
-          <p class="card-text">{this.props.dish.ddescription}</p>
-          <p class="card-text">Category: {this.props.dish.dcategory}</p>
-          <p class="card-text">Ingredients: {this.props.dish.dingredients}</p>
-          <p class="card-text"><h4>Price: {this.props.dish.dprice}$</h4></p>
-          <button class="btn btn-primary">Add to Cart</button>
-        </div>
-      </div>
-      */
+
       <div>
       
       <div class="card-horizontal" >

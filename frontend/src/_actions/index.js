@@ -26,8 +26,8 @@ export const restaurantLogin = () => {
 
 //incoming field, data ==> infield, payload
 export const update = (infield, payload) => {
-	console.log(infield)
-	console.log(payload)
+	//console.log(infield)
+	//console.log(payload)
 	return {
 		type  : 'UPDATE',
 		field : infield,
@@ -36,8 +36,8 @@ export const update = (infield, payload) => {
 }
 
 export const updateCart = (infield, payload) => {
-	console.log(infield)
-	console.log(payload)
+	//console.log(infield)
+	//console.log(payload)
 	return {
 		type: 'UPDATECART',
 		field: infield,

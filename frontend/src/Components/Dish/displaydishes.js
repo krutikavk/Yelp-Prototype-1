@@ -53,18 +53,14 @@ class Dishes extends Component {
   render() {
     //{this.state.dishes.length > 0 && <displayDishes dishes={this.state.dishes} />}
     return(
-
       <div>
         {this.state.dishes.map (dish => (
           <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
 
         ))}
       </div>
-
     )
-
   }
-
 }
 
 
