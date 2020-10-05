@@ -2,7 +2,8 @@ import * as React from 'react';
 import axios from 'axios';
 
 const DefaultState = {
-  orderListings: []
+  orderListings: [],
+  filter: {}
 }
 
 const OrderListingsContext = React.createContext(DefaultState)
@@ -33,14 +34,23 @@ export class OrderListingsProvider extends React.Component {
     });
   }
 
+  updateFilter = filter => {
+    this.setState({
+      filter: filter
+    })
+  }
+
   render() {
     const { children } = this.props
-    const { orderListings } = this.state
+    const { orderListings, filter } = this.state
+
+    console.log("updateFilter: ", filter)
 
     return (
       <OrderListingsContext.Provider
         value={{
-          orderListings
+          orderListings,
+          updateFilter: this.updateFilter
         }}
       >
         {children}
