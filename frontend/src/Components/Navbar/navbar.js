@@ -63,16 +63,22 @@ class Navbar extends Component {
 
         let links = null;
         let dashboard = null;
-        let cart = null;
+
+        //let cart = null;
+        let cart = (
+            <Link className="nav-link" to="/cart">
+              <i className="fa fa-shopping-cart" style={{'font-size':36}}></i>
+            </Link>
+          )
         let menu = null;
         let search = (
           <li className="nav-item">
-              <form className="form-inline" action="/" >
-                <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
-                <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
-                <button className="btn btn-success btn-sm" type="submit">Search</button>
-              </form>
-            </li>
+            <form className="form-inline" action="/" >
+              <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
+              <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
+              <button className="btn btn-success btn-sm" type="submit">Search</button>
+            </form>
+          </li>
         )
 
         
@@ -81,17 +87,20 @@ class Navbar extends Component {
         if(this.props.isLogged === true && this.props.whoIsLogged === false) {
           //customer login
           dashboard = <Link className="nav-link" to="/customer/dashboard">Profile</Link>
+          /*
           cart = (
             <Link className="nav-link" to="/cart">
               <i className="fa fa-shopping-cart" style={{'font-size':36}}></i>
             </Link>
           )
+          */
 
         } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
           //restaurant login
           dashboard = <Link className="nav-link" to="/restaurant/dashboard">Profile</Link>
           search = null;
           menu = <Link className="nav-link" to="/dishes">Menu</Link>
+          cart = null;
         }
         
         

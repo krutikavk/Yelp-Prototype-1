@@ -33,8 +33,8 @@ const cartEntry2 = {
   oaddress: 'My home'          //Only if delivery ooption chosen
 }
 
-initialCartState.cartContents.push(cartEntry);
-initialCartState.cartContents.push(cartEntry2);
+//initialCartState.cartContents.push(cartEntry);
+//initialCartState.cartContents.push(cartEntry2);
 
 
 
@@ -53,9 +53,11 @@ const cartReducer = (state = initialCartState, action) => {
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
           let index = state.cartContents.findIndex(x => x.dname === dname);
+          console.log("index: ", index)
           
           if (index === -1) {
-        
+            
+            /*
             newcontents =  [
               ...state,
               {
@@ -67,6 +69,16 @@ const cartReducer = (state = initialCartState, action) => {
                 oaddress: action.payload
               }
             ]
+            */
+
+
+            let newcontents = [...state.cartContents];
+            newcontents.push(action.payload);
+            let newState = {
+              cartContents: newcontents
+            }
+            return newState;
+
           } else {
           
             newcontents= [...state.cartContents];

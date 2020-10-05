@@ -27,7 +27,7 @@ class Cart extends Component{
 
 
   placeOrderHandler = (event) => {
-
+    
   }
 
 

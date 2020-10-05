@@ -2,31 +2,36 @@ import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
 import nachospic from './nachospic.png';
+import {updateCart} from '../../_actions';
+import {connect} from 'react-redux';
 
 
 class Dish extends Component {
   constructor(props) {
     super(props);
-
-
     this.addToCartHandler = this.addToCartHandler.bind(this)
   }
 
   addToCartHandler = (event) => {
-    alert("Added to cart");
+    let data = {
+      dname: this.props.dish.dname,            //dish name
+      rid: this.props.rid,              //restaurant
+      dquantity: 1,        //dish quantity
+      dprice: this.props.dish.dprice,           //dish price
+      ooption: this.props.rdelivery,          //Delivery/Pickup
+      oaddress: ''
+
+    }
+
+    this.props.updateCart('ADD', data);
+    alert("Added to cart")
 
   }
 
   render() {
     console.log("=>inside dish" , this.props.dish.dname)
-    let val = {
-      dname: this.props.dish.dname,            //dish name
-      rid: '',              //restaurant
-      dquantity: '',        //dish quantity
-      dprice: this.props.dish.dprice,           //dish price
-      ooption: '',          //Delivery/Pickup
-      oaddress: '' 
-    }
+    console.log("rid: " , this.props.rid)
+ 
     return (
       
       /*
@@ -63,6 +68,9 @@ class Dish extends Component {
       </div>
 
       /*
+      <td class="border-0 align-middle"><button onClick={()=>this.removeEntryHandler({dname:entry.dname, dprice:entry.dprice})}  class="btn btn-primary">Remove</button></td>
+
+      
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 mt-3">
@@ -94,4 +102,22 @@ class Dish extends Component {
 
 
 
-export default Dish;
+const mapStateToProps = (state) => {
+    return {
+      cartContents: state.cart.cartContents
+
+    }
+}
+
+//const mapDispatchToProps = (dispatch) => { since this does not call a function directly it cannot be a function
+function mapDispatchToProps(dispatch) {  
+  return {
+    updateCart: (field, payload) => dispatch(updateCart(field, payload))
+  }
+  
+}
+
+//export Login Component
+//export default Login;
+//export default connect(mapStateToProps, mapDispatchToProps())(Custsignup);
+export default connect(mapStateToProps, mapDispatchToProps)(Dish);

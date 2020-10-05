@@ -18,14 +18,6 @@ class Restaurant extends Component {
 
   render() {
     console.log("=>inside restaurant" , this.props)
-    let redirectVar = null;
-    if(this.state.dishes === true) {
-      //redirectVar = <Redirect to="/dishes"/>
-      redirectVar = <Redirect to= {{
-                      pathname: "/dishes",
-                      state: {rid: this.props.restaurant.rid}
-                    }} />
-    }
 
     return (
       //Pass restaurant information to display menu and then show when dishes are added to cart

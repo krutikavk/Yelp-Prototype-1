@@ -95,45 +95,43 @@ class Restsignup extends Component {
       rpassword: this.state.rpassword,
     }
 
-    
+
 
     axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios.post('http://localhost:3001/restaurants', data)
-        .then(response => {
+      .then(response => {
 
-          console.log("Status Code : ",response.status);
-          if(response.status === 200){
-            console.log('Restaurant added')
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+          console.log('Restaurant added')
 
-            this.props.update('RID', response.data[0].rid)
-            this.props.update('REMAIL', response.data[0].remail)
-            this.props.update('RPASSWORD', response.data[0].rpassword)
-            this.props.update('RNAME', response.data[0].rname)
-            this.props.update('RPHONE', response.data[0].rphone)
-            this.props.update('RABOUT', response.data[0].rabout)
-            this.props.update('RLOCATION', response.data[0].rlocation)
-            this.props.update('RLATITUDE', response.data[0].rlatitude)
-            this.props.update('RLONGITUDE', response.data[0].rlongitude)
-            this.props.update('RADDRESS', response.data[0].raddress)
-            this.props.update('RCUISINE', response.data[0].rcuisine)
-            this.props.update('RDELIVERY', response.data[0].rdelivery)
+          this.props.update('RID', response.data[0].rid)
+          this.props.update('REMAIL', response.data[0].remail)
+          this.props.update('RPASSWORD', response.data[0].rpassword)
+          this.props.update('RNAME', response.data[0].rname)
+          this.props.update('RPHONE', response.data[0].rphone)
+          this.props.update('RABOUT', response.data[0].rabout)
+          this.props.update('RLOCATION', response.data[0].rlocation)
+          this.props.update('RLATITUDE', response.data[0].rlatitude)
+          this.props.update('RLONGITUDE', response.data[0].rlongitude)
+          this.props.update('RADDRESS', response.data[0].raddress)
+          this.props.update('RCUISINE', response.data[0].rcuisine)
+          this.props.update('RDELIVERY', response.data[0].rdelivery)
 
-            this.props.login()
-            this.props.restaurantLogin()
-            //This is no longer needed, state error only needed
-            this.setState({
-              isAdded : true
-            })
-          }
-        }).catch(err =>{
-            this.setState({
-                isAdded : false
-            })
-            this.props.logout();
-        });
-
-
+          this.props.login()
+          this.props.restaurantLogin()
+          //This is no longer needed, state error only needed
+          this.setState({
+            isAdded : true
+          })
+        }
+      }).catch(err =>{
+          this.setState({
+              isAdded : false
+          })
+          this.props.logout();
+      });
   }
 
   

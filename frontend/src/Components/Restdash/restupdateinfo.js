@@ -229,7 +229,7 @@ class Restupdateinfo extends Component {
                 <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="2" name="optradio"/>Pickup</label>
               </div>
               <div class="radio disabled">
-                <label><input onChange={this.rdeliveryChangeHandler} type="radio" name="optradio" disabled/>Dine In</label>
+                <label><input type="radio" name="optradio" disabled/>Dine In</label>
               </div>
 
               <div className="form-group text-left">

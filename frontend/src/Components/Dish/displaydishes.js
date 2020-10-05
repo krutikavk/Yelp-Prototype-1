@@ -14,7 +14,8 @@ class Dishes extends Component {
 
     this.state = {
       dishes: [],
-      rid: ''
+      rid: '',
+      rdelivery: ''
     }
 
   }
@@ -24,10 +25,10 @@ class Dishes extends Component {
 
   componentDidMount(props) {
 
-    console.log("rest id: ", this.props.location.query.rid)
-    console.log("rest id: ", this.props.location.query.rname)
-    console.log("rest id: ", this.props.location.query.rphone)
-    console.log("rest id: ", this.props.location.query.rdelivery)
+    //console.log("rest id: ", this.props.location.query.rid)
+    //console.log("rest id: ", this.props.location.query.rname)
+    //console.log("rest id: ", this.props.location.query.rphone)
+    //console.log("rest id: ", this.props.location.query.rdelivery)
 
     //
     let url = 'http://localhost:3001/dishes/' + this.props.location.query.rid;
@@ -40,7 +41,8 @@ class Dishes extends Component {
             let temp = JSON.parse(JSON.stringify(response.data));
             this.setState({
                 dishes: [...temp],
-                rid: this.props.location.query.rid
+                rid: this.props.location.query.rid,
+                rdelivery: this.props.location.query.rdelivery
             })
           }
         }).catch(err =>{
@@ -54,7 +56,7 @@ class Dishes extends Component {
 
       <div>
         {this.state.dishes.map (dish => (
-          <Dish dish = {dish} />
+          <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
 
         ))}
       </div>
