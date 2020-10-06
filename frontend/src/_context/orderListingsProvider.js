@@ -68,7 +68,15 @@ export class OrderListingsProvider extends React.Component {
     
     if (displayOrder && displayOrder.ooption && displayOrder.ooption !== 'All') {
        result = result.filter(item => item.ooption === displayOrder.ooption)
+    }
+
+    if (displayOrder && displayOrder.ostatus && displayOrder.ostatus !== 'All') {
+       result = result.filter(item => item.ostatus === displayOrder.ostatus)
     } 
+
+    if (displayOrder && displayOrder.otype && displayOrder.otype !== 'All') {
+       result = result.filter(item => item.otype === displayOrder.otype)
+    }
     
     console.log(result)
     return result;
