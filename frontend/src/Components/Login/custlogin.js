@@ -138,7 +138,8 @@ class custLogin extends Component {
     */
     console.log(this.props.isLogged)
     if(this.props.isLogged === true) {
-      redirectVar = <Redirect to= "/customer/dashboard"/>
+      //This will be changed to Search page
+      redirectVar = <Redirect to= "/customer/profile"/>
     }
 
     const errors = this.state.errors;

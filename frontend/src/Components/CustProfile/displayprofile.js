@@ -41,7 +41,7 @@ class DisplayProfile extends Component {
             <div class="col-12 mt-3">
               <div class="card">
                 <div class="card-horizontal">
-                  <img src={profilepicture} class="img-thumbnail" alt="Cinque Terre" width = "300" height="300"/>
+                  <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
 
                   <div class="card-body">
                     <p class="card-text font-weight-bold font-italic"> {this.props.cname}</p>

@@ -341,7 +341,7 @@ class Userdash extends Component {
     let file = this.uploadInput.files[0];
     // Split the filename to get the name and type
     let fileParts = this.uploadInput.files[0].name.split('.');
-    let fileName = 'custprof_' + fileParts[0];
+    let fileName = 'custprof_' + this.props.cid + '_' + fileParts[0];
     console.log(fileName);
     let fileType = fileParts[1];
     console.log("Preparing the upload");
@@ -372,7 +372,48 @@ class Userdash extends Component {
             });
 
             //Add the URL to database HERE
+            dataToChange = {
+              cemail: this.props.cemail,
+              cname: this.props.cname,
+              cphone: this.props.cphone,
+              cabout: this.props.cabout,
+              cphoto: url,
+              cfavrest: this.props.cfavrest,
+              cfavcuisine: this.props.cfavcuisine,
+            }
 
+            let endpoint = 'http://localhost:3001/customers/' + this.props.cid;
+            axios.put(endpoint, dataToChange)
+              .then(response => {
+                console.log("Status Code : ",response.status);
+                if(response.status === 200){
+
+                  //call props action
+                  this.props.update('CEMAIL', dataToChange.cemail)
+                  this.props.update('CNAME', dataToChange.cname)
+                  this.props.update('CPHONE', dataToChange.cphone)
+                  this.props.update('CABOUT', dataToChange.cabout)
+                  this.props.update('CPHOTO', dataToChange.cphoto)
+                  this.props.update('CFAVREST', dataToChange.cfavrest)
+                  this.props.update('CFAVCUISINE', dataToChange.cfavcuisine)
+
+                  this.setState({
+                    usernameToChange: false,
+                    aboutToChange: false,
+                    phoneToChange: false,
+                    favrestToChange: false,
+                    favcuisineToChange: false,
+                    errors: {
+                      username: '',
+                      password: '',
+                      phone: '',
+                    }
+                  })
+                  alert('Picture added to DB');
+                }
+              }).catch(err =>{
+                alert("Update picture URL to database failed")
+            });
 
 
           })
@@ -525,8 +566,12 @@ class Userdash extends Component {
             <div class="col-12 mt-3">
               <div class="card">
                 <div class="card-horizontal">
-                  <img src={profilepicture} class="img-thumbnail" alt="Cinque Terre" width = "300" height="300"/>
-
+                  
+                  <div class="form-group">
+                    <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
+                    
+                    <input onChange={this.handleFileUpload} ref = {(ref) => {this.uploadInput = ref;}} type = "file"/>
+                  </div>
                   <div class="card-body">
                     <p class="card-text font-weight-bold font-italic"> {this.props.cname} {usernameTextField}</p>  
                     <p class="card-text text-muted font-italic">Here since: {this.props.cjoined} </p>
