@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import '../../App.css';
 //import { OrderListingsProvider, OrderListingsConsumer } from '../../_context/orderListingsProvider';
-import OrderListingsConsumer from '../../_context/orderListingsProvider';
-import OrderListingsProvider from '../../_context/orderListingsProvider';
+import {OrderListingsConsumer, OrderListingsProvider} from '../../_context/orderListingsProvider';
+//import  from '../../_context/orderListingsProvider';
 import Order from './order';
 import Filter from '../Filter/orderfilter';
 import {Redirect} from 'react-router-dom';
@@ -48,8 +48,8 @@ class OrdersDisplay extends Component {
             <OrderListingsConsumer>
               {function(value) {
                 const { orderListings, updateFilter } = value
-                console.log("Inside consumer")
                 return (
+                  
                   <div>
                     <Filter updateFilter={updateFilter}/>
                     <ul>
@@ -58,6 +58,7 @@ class OrdersDisplay extends Component {
                       ))}
                     </ul>
                   </div>
+                  
                 )
               }}
             </OrderListingsConsumer>

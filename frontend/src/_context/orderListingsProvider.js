@@ -10,7 +10,7 @@ const DefaultState = {
 
 const OrderListingsContext = React.createContext(DefaultState)
 
-export default class OrderListingsProvider extends React.Component {
+export class OrderListingsProvider extends React.Component {
   
   constructor(props){
     super(props)
@@ -21,7 +21,7 @@ export default class OrderListingsProvider extends React.Component {
 
   }
 
-  componentDidMount() {
+  componentWillMount() {
     //change this to axios call
     let url = 'http://localhost:3001/orders/';
 
@@ -39,10 +39,11 @@ export default class OrderListingsProvider extends React.Component {
       .then(response => {
         console.log("Status Code : ",response.status);
         if(response.status === 200){
-          this.setState({ orderListings: response.data })
-          console.log("response.data", response.data)
+          this.setState({ 
+            orderListings: response.data 
+          })
+          console.log("orderlistings", this.state.orderListings)
         }
-        console.log("orders output", this.state.orderListings)
       }).catch(err =>{
         //alert("Error fetching orders")
         console.log("Error fetching orders")
@@ -63,10 +64,13 @@ export default class OrderListingsProvider extends React.Component {
     // console.log("displayorder", displayOrder);
     // console.log("orders:" , orders)
     // console.log("displayorder: ", displayOrder)
+    console.log("Inside apply filter")
+    console.log("orders", orders)
+    /*
     if (displayOrder && displayOrder.ooption && displayOrder.ooption !== 'All') {
        result = result.filter(item => item.ooption === displayOrder.ooption)
     } 
-    
+    */
     //console.log(result)
     return result;
     
@@ -81,11 +85,11 @@ export default class OrderListingsProvider extends React.Component {
     console.log("children: ", this.props)
     const { orderListings, filter } = this.state
     console.log("updateFilter: ", filter)
-    let filteredListings = OrderListingsProvider.applyFilter(orderListings, filter)
+    //let filteredListings = OrderListingsProvider.applyFilter(orderListings, filter)
     return (
       <OrderListingsContext.Provider
         value={{
-          orderListings: filteredListings,
+          orderListings: orderListings,
           updateFilter: this.updateFilter
         }}
       >
