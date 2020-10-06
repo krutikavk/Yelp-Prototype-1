@@ -1,5 +1,7 @@
 import * as React from 'react';
 import axios from 'axios';
+import {update, login, logout} from '../_actions';
+import {connect} from 'react-redux';
 
 const DefaultState = {
   orderListings: [],
@@ -8,27 +10,39 @@ const DefaultState = {
 
 const OrderListingsContext = React.createContext(DefaultState)
 
-export class OrderListingsProvider extends React.Component {
+export default class OrderListingsProvider extends React.Component {
   
   constructor(props){
     super(props)
-    this.state = DefaultState
+    this.state = {
+      orderListings: [],
+      filter: {}
+    }
+
   }
 
   componentDidMount() {
     //change this to axios call
-    let url = 'http://localhost:3001/orders/restaurants/' + 1
-    console.log("Component mounted");
+    let url = 'http://localhost:3001/orders/';
 
-    axios.defaults.withCredentials = true;
+    //Type: 'customers' or 'restaurants' 
+    //id: cid or rid
+    url += this.props.type + '/' + this.props.id
+    console.log("props", this.props)
+
+    //let url = 'http://localhost:3001/orders/restaurants/' + id
+    console.log("URL", url);
+
+    //axios.defaults.withCredentials = true;
     //make a post request with the user data
     axios.get(url)
       .then(response => {
         console.log("Status Code : ",response.status);
         if(response.status === 200){
           this.setState({ orderListings: response.data })
+          console.log("response.data", response.data)
         }
-        console.log(this.state.orderListings)
+        console.log("orders output", this.state.orderListings)
       }).catch(err =>{
         //alert("Error fetching orders")
         console.log("Error fetching orders")
@@ -45,16 +59,15 @@ export class OrderListingsProvider extends React.Component {
   static applyFilter(orders, filter) {
     const displayOrder = filter
     let result = orders
-    console.log("filter", filter);
-    console.log("displayorder", displayOrder);
-    console.log("orders:" , orders)
-    console.log("displayorder: ", displayOrder)
+    // console.log("filter", filter);
+    // console.log("displayorder", displayOrder);
+    // console.log("orders:" , orders)
+    // console.log("displayorder: ", displayOrder)
     if (displayOrder && displayOrder.ooption && displayOrder.ooption !== 'All') {
-       console.log("Here here")
        result = result.filter(item => item.ooption === displayOrder.ooption)
     } 
     
-    console.log(result)
+    //console.log(result)
     return result;
     
   }
@@ -82,5 +95,7 @@ export class OrderListingsProvider extends React.Component {
   }
 }
 
+
+//export default connect(mapStateToProps, mapDispatchToProps)(OrderListingsProvider);
 
 export const OrderListingsConsumer = OrderListingsContext.Consumer
