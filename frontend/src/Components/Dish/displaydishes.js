@@ -19,7 +19,6 @@ class Dishes extends Component {
     }
   }
 
-
   componentDidMount(props) {
 
     //console.log("rest id: ", this.props.location.query.rid)

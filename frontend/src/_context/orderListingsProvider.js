@@ -14,10 +14,7 @@ export class OrderListingsProvider extends React.Component {
   
   constructor(props){
     super(props)
-    this.state = {
-      orderListings: [],
-      filter: {}
-    }
+    this.state = DefaultState
 
   }
 
@@ -43,6 +40,8 @@ export class OrderListingsProvider extends React.Component {
             orderListings: response.data 
           })
           console.log("orderlistings", this.state.orderListings)
+          let oid = response.data.oid
+
         }
       }).catch(err =>{
         //alert("Error fetching orders")
@@ -66,12 +65,12 @@ export class OrderListingsProvider extends React.Component {
     // console.log("displayorder: ", displayOrder)
     console.log("Inside apply filter")
     console.log("orders", orders)
-    /*
+    
     if (displayOrder && displayOrder.ooption && displayOrder.ooption !== 'All') {
        result = result.filter(item => item.ooption === displayOrder.ooption)
     } 
-    */
-    //console.log(result)
+    
+    console.log(result)
     return result;
     
   }
@@ -85,11 +84,11 @@ export class OrderListingsProvider extends React.Component {
     console.log("children: ", this.props)
     const { orderListings, filter } = this.state
     console.log("updateFilter: ", filter)
-    //let filteredListings = OrderListingsProvider.applyFilter(orderListings, filter)
+    let filteredListings = OrderListingsProvider.applyFilter(orderListings, filter)
     return (
       <OrderListingsContext.Provider
         value={{
-          orderListings: orderListings,
+          orderListings: filteredListings,
           updateFilter: this.updateFilter
         }}
       >

@@ -7,10 +7,16 @@ class Filter extends Component {
     super(props);
     this.state = {
       ooption: '',
-      ooptionStates: ['All', 'Pickup', 'Delivery']
+      ooptionStates: ['All', 'Pickup', 'Delivery'],
+      ostatus: '',
+      ostatusStates: ['Order received', 'Preparing', 'Pickup ready','Picked up', 'On the way', 'Delivered'],
+      otype: '',
+      otypeStates: ['New', 'Delivered', 'Cancelled']
     }
 
     this.ooptionHandler = this.ooptionHandler.bind(this);
+    this.ostatusHandler = this.ostatusHandler.bind(this);
+    this.otypeHandler = this.otypeHandler.bind(this);
   }
 
   ooptionHandler = (event) => {
@@ -19,12 +25,36 @@ class Filter extends Component {
     this.setState({
       ooption: event.target.value
     })
-    console.log("State bf: ", this.state)
 
+    //The setTimeout is to ensure that React has finished updating the local state 
+    //before we update our provider (to ensure we do not get an old state)
     setTimeout(() => {
       this.props.updateFilter(this.state)
     }, 0);
-    console.log("State af: ", this.state)
+  }
+
+
+  ostatusHandler = (event) => {
+    console.log("selected", event.target.value)
+
+    this.setState({
+      ostatus: event.target.value
+    })
+    setTimeout(() => {
+      this.props.updateFilter(this.state)
+    }, 0);
+  }
+
+
+  otypeHandler = (event) => {
+    console.log("selected", event.target.value)
+
+    this.setState({
+      otype: event.target.value
+    })
+    setTimeout(() => {
+      this.props.updateFilter(this.state)
+    }, 0);
   }
 
   /*
@@ -55,6 +85,7 @@ class Filter extends Component {
   render() {
     return (
       <div>
+
         <div class="form-group">
           <label for="ooption">Ooption: </label>
           <select class="form-control" id="ooption" onChange = {this.ooptionHandler}>>
@@ -66,6 +97,31 @@ class Filter extends Component {
             ))}
           </select>
         </div>
+
+        <div class="form-group">
+          <label for="ooption">Ooption: </label>
+          <select class="form-control" id="ooption" onChange = {this.ostatusHandler}>>
+            <option value = {this.state.ostatus}> Choose...</option>
+            {this.state.ostatusStates.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ooption">Ooption: </label>
+          <select class="form-control" id="ooption" onChange = {this.otypeHandler}>>
+            <option value = {this.state.otype}> Choose...</option>
+            {this.state.otypeStates.map(option => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        </div>
+
       </div>
     )
   }

@@ -153,7 +153,7 @@ class restLogin extends Component {
             <div className="col d-flex justify-content-center rounded-0">
 
             <div className="card-header">
-              <h4>Customer</h4>
+              <h4>Restaurant</h4>
             </div>
             </div>
                   <div className = "form-group text-left">
