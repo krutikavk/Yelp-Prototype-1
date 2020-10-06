@@ -1,14 +1,14 @@
 const initialCustProfile = {
   cid: 1,
-	cemail: '',
-	cpassword: '',
-  cname: '',
-  cphone: '',
-  cabout: '',
-  cjoined: '',
+	cemail: 'user1@user1.com',
+	cpassword: '&^*(*^%',
+  cname: 'toocooltochill',
+  cphone: '38298918',
+  cabout: 'I love blogging. Visit me at blogspot.com/toocooltochill.',
+  cjoined: 'Jan 2013',
   cphoto: '',
-  cfavrest: '',
-  cfavcuisine: '',
+  cfavrest: 'SawasDee Krab',
+  cfavcuisine: 'Thai',
 }
 
 const custReducer = (state = initialCustProfile, action) => {

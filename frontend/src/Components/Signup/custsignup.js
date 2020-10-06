@@ -186,7 +186,7 @@ class Custsignup extends Component {
                             <span>{errors.cpassword}</span>}
                         </div>
                         
-                        <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Sign Up</button>
+                        <button disabled={! validateForm(this.state.errors)} class="btn btn-danger">Sign Up</button>
                     </div>
                 </div>
             </form>

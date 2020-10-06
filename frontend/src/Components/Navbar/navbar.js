@@ -86,7 +86,7 @@ class Navbar extends Component {
 
         if(this.props.isLogged === true && this.props.whoIsLogged === false) {
           //customer login
-          dashboard = <Link className="nav-link" to="/customer/dashboard">Profile</Link>
+          dashboard = <Link className="nav-link" to="/customer/profile">Profile</Link>
           /*
           cart = (
             <Link className="nav-link" to="/cart">

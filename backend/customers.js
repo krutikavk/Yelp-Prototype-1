@@ -357,6 +357,30 @@ router.get('/:cid/orders/:oid', (request, response) => {
 
 
 
+//View reviews added by a customer
+router.get('/:cid/reviews', (request, response) => {
+  console.log('\nEndpoint GET: Customer reviews get')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from review WHERE cid = ?`);
+
+  connection.query(dbQuery, request.params.cid, (error, results) => {
+    if(error) {
+      console.log('Error getting review')
+      response.status(404).send('Error getting review');
+    } else {
+      
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+})
+
+
+
 
 
 

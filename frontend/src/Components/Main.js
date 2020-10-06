@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 //Refer: https://stackoverflow.com/questions/55552147/invariant-failed-you-should-not-use-route-outside-a-router
 
 import {Route,Switch} from 'react-router-dom';
-import {Redirect} from 'react-router-dom';
 import Login from './Login/login';
-import Userdash from './Userdash/userdash';
+import CustProfile from './CustProfile/displayprofile';
+import CustEdit from './CustProfile/editcustprofile';
 import Restdash from './Restdash/restdash';
 import Custsignup from './Signup/custsignup';
 import Restsignup from './Signup/restsignup';
@@ -49,7 +49,8 @@ class Main extends Component {
             <Route path='/restaurant/signup' component={Restsignup}/>
             <Route path='/restaurant/updateinfo' component={Restupdateinfo}/>
             <Route path='/restaurant/updatelocation' component={Restupdatelocation}/>
-            <Route path='/customer/dashboard' component={Userdash}/>
+            <Route path='/customer/profile' component={CustProfile}/>
+            <Route path='/customer/edit' component={CustEdit}/>
             <Route path='/restaurant/dashboard' component={Restdash}/>
             <Route path='/dishes' component={dishes}/>
             <Route path='/restaurants' component={restaurants}/>

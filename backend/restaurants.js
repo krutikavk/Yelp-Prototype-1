@@ -64,7 +64,7 @@ router.get('/', (request, response) => {
 });
 
 
-//Get one restaurants TESTED
+//Get one restaurant TESTED
 router.get('/:rid', (request, response) => {
   //const connection = getMySQLConnection();
   console.log('\nEndpoint GET: Get a restaurant');
@@ -237,15 +237,17 @@ router.put('/:rid', (request, response) => {
   console.log('Request Body: ', request.body);
 
   let updateUserQuery = (sql `UPDATE restaurant SET remail = ?, rname = ?, 
-                                rphone = ?, rabout = ?, rlocation = ?,
-                                rlatitude = ?, rlongitude = ?,
-                                raddress = ?, rcuisine = ?, rdelivery = ? where rid = ?`);
+                                rphone = ?, rabout = ?, rphoto = ?, 
+                                rlocation = ?, rlatitude = ?, rlongitude = ?,
+                                raddress = ?, rcuisine = ?, rdelivery = ? 
+                                where rid = ?`);
 
   var data = [
     request.body.remail,
     request.body.rname,
     request.body.rphone,
     request.body.rabout,
+    request.body.rphoto,
     request.body.rlocation,
     request.body.rlatitude,
     request.body.rlongitude,
@@ -309,12 +311,13 @@ router.post('/:rid/reviews', (request, response) => {
   var jsonDate = now.toJSON();
   var current = new Date(jsonDate);
 
-  var dbQuery = (sql `INSERT into review (retext, rerating, rdate, cid, rid) VALUES (?, ?, ?, ?, ?)`);
+  var dbQuery = (sql `INSERT into review (retext, rerating, rdate, cid, rid, rname) VALUES (?, ?, ?, ?, ?, ?)`);
   let data = [request.body.retext, 
               request.body.rerating, 
               current, 
               request.body.cid, 
-              request.params.rid]
+              request.params.rid, 
+              request.body.rname]
 
   connection.query(dbQuery, data, (error, results) => {
     if(error) {
@@ -332,7 +335,7 @@ router.post('/:rid/reviews', (request, response) => {
 })
 
 
-//View review for restaurant
+//View reviews for restaurant
 router.get('/:rid/reviews', (request, response) => {
   console.log('\nEndpoint GET: restaurant reviews get')
   console.log('Req Body: ', request.body)
