@@ -9,18 +9,6 @@ import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions'
 
 
-
-
-const validEmail = RegExp('\\S+\@\\S+\.\\S+')
-const validateForm = (errors) => {
-  let valid = true;
-  Object.values(errors).forEach(
-    // if we have an error string set valid to false
-    (val) => val.length > 0 && (valid = false)
-  );
-  return valid;
-}
-
 class restLogin extends Component {
   constructor(props) {
     super(props);
@@ -31,10 +19,6 @@ class restLogin extends Component {
       password: '',
       loginOption: '',
       authFlag: false,
-      errors: {
-        email: '',
-        password: '',
-      }
     };
 
     this.emailChangeHandler = this.emailChangeHandler.bind(this);
@@ -50,26 +34,12 @@ class restLogin extends Component {
 
   // Comment
   emailChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.email = validEmail.test(event.target.value) ? "" : "Invalid email ID"
-    this.setState({
-        errors: err
-      }, ()=> {
-        console.log(err.email)
-    }) 
     this.setState({
         email : event.target.value
     })
   }
 
   passwordChangeHandler = (event) => {
-    let err = this.state.errors;
-    err.password = event.target.value.length >= 5 ? "" : "Password should have 8 or more characters"
-    this.setState({
-      errors: err
-      }, ()=> {
-      console.log(err.password)
-    }) 
     this.setState({
       password : event.target.value
         
@@ -78,13 +48,6 @@ class restLogin extends Component {
 
   submitLogin = (event) => {
     event.preventDefault();
-
-    if(validateForm(this.state.errors)) {
-      console.info("Valid form")
-        
-    } else {
-      console.error("Invalid form")
-    }
 
     const data = {
       remail : this.state.email,
@@ -96,10 +59,13 @@ class restLogin extends Component {
     axios.post('http://localhost:3001/restaurants/login', data)
       .then(response => {
         console.log("Status Code : ",response.status);
+        console.log("login here")
         if(response.status === 200){
           console.log("Login authorized")
-          console.log(response.data[0]);
           //call props action
+  
+          //weird--restaurant login works here
+          this.props.restaurantLogin()
           this.props.update('RID', response.data[0].rid)
           this.props.update('REMAIL', response.data[0].remail)
           this.props.update('RPASSWORD', response.data[0].rpassword)
@@ -113,14 +79,17 @@ class restLogin extends Component {
           this.props.update('RADDRESS', response.data[0].raddress)
           this.props.update('RCUISINE', response.data[0].rcuisine)
           this.props.update('RDELIVERY', response.data[0].rdelivery)
-          this.props.login()            //this will update isLogged = true
-          this.props.restaurantLogin()
+          this.props.login()
+          //weird--dosnt work here
+          //this.props.restaurantLogin()
+
+          alert('here')
           this.setState({
               authFlag : true
           })
         }
       }).catch(err =>{
-        alert("Incorrect credentials")
+        console.log("login there")
         this.setState({
             authFlag : false
         })
@@ -131,18 +100,10 @@ class restLogin extends Component {
     //redirect based on successful login
 
     let redirectVar = null;
-    /*
-    if(cookie.load('cookie')){
-      console.log(cookie)
-      redirectVar = <Redirect to= "/userdash"/>
-    } 
-    */
-    console.log(this.props.isLogged)
+    console.log("whoislogged: ", this.props.whoIsLogged)
     if(this.props.isLogged === true) {
-      redirectVar = <Redirect to= "/restaurant/dashboard"/>
+      redirectVar = <Redirect to= "/restaurant"/>
     }
-
-    const errors = this.state.errors;
 
     return(
 
@@ -166,8 +127,7 @@ class restLogin extends Component {
                                         placeholder="Email ID"
                                         aria-describedby="emailHelp" 
                                         required/>
-                                        {errors.email.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.email}</small></span>}
+                                        
                   </div>
                   <div className="form-group text-left">
                     <label htmlFor="exampleInputPassword1">Password</label>
@@ -177,12 +137,11 @@ class restLogin extends Component {
                                         className="form-control form-control-sm"
                                         placeholder="Password"
                                         required/>
-                                        {errors.password.length > 0 && 
-                                        <span><small id="emailHelp" className="form-text text-muted">{errors.password}</small></span>}
+                                        
                   </div>
 
                   <div className="col-md-12 text-center">
-                  <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-success btn-sm" onClick={this.submitLogin}>Login</button>
+                  <button id="btn btnLogin" className="btn btn-danger" onClick={this.submitLogin}>Login</button>
                   </div>
           </form>
         </div>
@@ -221,7 +180,7 @@ function mapDispatchToProps(dispatch) {
     update : (field, payload) => dispatch(update(field, payload)),
     login: () => dispatch(login()),
     logout: () => dispatch(logout()),
-    restaurantLogin: () => dispatch(restaurantLogin())
+    restaurantLogin: () => dispatch(restaurantLogin()),
   }
   
 }

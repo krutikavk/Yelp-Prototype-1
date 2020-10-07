@@ -195,6 +195,7 @@ router.post('/login', (request, response) => {
       bcrypt.compare(request.body.rpassword, results[0].rpassword, (err, result) => {
         console.log('in db: ', results[0].rpassword);
         if(result === true ) {
+          console.log("Login successful")
           response.writeHead(200,{
             //'Content-Type' : 'text/plain'
             'Content-Type': 'application/json'

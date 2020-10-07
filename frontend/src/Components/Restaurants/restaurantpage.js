@@ -23,15 +23,15 @@ class Restaurants extends Component {
   //Menu handler for view dishes has to be here and not on restaurant page (only the render component is returned there)
 
   componentWillMount() {
-    console.log("component did mount")
-
-    let rid = (this.props.whoIsLogged === true) ? this.props.rid : this.props.location.query.rid;
-
+    console.log(" restaurantpage component did mount rid", this.props.rid)
+    console.log(" restaurantpage component did mount whoIsLogged", this.props.whoIsLogged)
+    let rid = 6;
+    //let rid = (this.props.whoIsLogged === true) ? this.props.rid : this.props.location.query.rid;
+    console.log("rid on restaurantpage", rid)
     //Get working hours
-    let getHours = 'http://localhost:3001/restaurants/' + rid + '/hours'
+    let getHours = 'http://localhost:3001/restaurants/' + 6 + '/hours'
     axios.get(getHours)
     .then(response => {
-      console.log("Status Code : ",response.data);
       if(response.status === 200){
         //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
         //use JSON.parse(JSON.stringify()) to convert back to JSON object
@@ -51,7 +51,6 @@ class Restaurants extends Component {
     let getReviews = 'http://localhost:3001/restaurants/' + rid + '/reviews'
     axios.get(getReviews)
     .then(response => {
-      console.log("Status Code : ",response.data);
       if(response.status === 200){
         //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
         //use JSON.parse(JSON.stringify()) to convert back to JSON object
@@ -70,7 +69,6 @@ class Restaurants extends Component {
     let getAvgRating = 'http://localhost:3001/restaurants/' + rid + '/average'
     axios.get(getAvgRating)
     .then(response => {
-      console.log("Status Code : ",response.data);
       if(response.status === 200){
         //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
         //use JSON.parse(JSON.stringify()) to convert back to JSON object
