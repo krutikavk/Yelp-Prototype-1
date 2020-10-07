@@ -13,26 +13,14 @@ class Restaurants extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rid: '',
-      remail: '',
-      rname: '',
-      rphone: '',
-      rabout: '',
-      rlocation: '',
-      rlatitude: '',
-      rlongitude: '',
-      raddress: '',
-      rcuisine: '',
-      rdelivery: '',
-      reviews: [],
-      pictures: [],
-      hours: []
+      restaurant: {}
     }
   }
 
   //Menu handler for view dishes has to be here and not on restaurant page (only the render component is returned there)
 
   componentDidMount() {
+    /*
     let url = 'http://localhost:3001/restaurants/' + this.props.location.query.rid;
     axios.get(url)
       .then(response => {
@@ -60,8 +48,53 @@ class Restaurants extends Component {
           console.log("No response")
       });
 
+      */
+
+      //If customer is logged in, take information from props passed to the page
+
+      let restaurantprofile = {
+        rid: this.props.location.query.rid,
+        remail: this.props.location.query.remail,
+        rpassword: this.props.location.query.rpassword,
+        rname: this.props.location.query.rname,
+        rphone: this.props.location.query.rphone,
+        rabout: this.props.location.query.rabout,
+        rlocation: this.props.location.query.rlocation,
+        rlatitude: this.props.location.query.rlatitude,
+        rlongitude: this.props.location.query.rlongitude,
+        raddress: this.props.location.query.raddress,
+        rcuisine: this.props.location.query.rcuisine,
+        rdelivery: this.props.location.query.rdelivery,
+      }
+
+      console.log("restaurant profile before: ", restaurantprofile);
+
+      //If restaurant is logged in, take this info from redux state
+      if(this.props.whoIsLogged === true) {
+        restaurantprofile = {
+          rid: this.props.rid,
+          remail: this.props.remail,
+          rpassword: this.props.rpassword,
+          rname: this.props.rname,
+          rphone: this.props.rphone,
+          rabout: this.props.rabout,
+          rlocation: this.props.rlocation,
+          rlatitude: this.props.rlatitude,
+          rlongitude: this.props.rlongitude,
+          raddress: this.props.raddress,
+          rcuisine: this.props.rcuisine,
+          rdelivery: this.props.rdelivery,
+        }
+      }
+
+      this.setState({
+        restaurant: restaurantprofile
+      })
+
+      console.log("restaurant profile after: ", restaurantprofile);
+      console.log("restaurant state: ", this.state.restaurant)
       //Get working hours
-      let getHours = 'http://localhost:3001/' + this.props.location.query.rid + '/hours'
+      let getHours = 'http://localhost:3001/' + this.state.restaurant.rid + '/hours'
       axios.get(getHours)
       .then(response => {
         console.log("Status Code : ",response.data);
@@ -75,12 +108,12 @@ class Restaurants extends Component {
         }
 
       }).catch(err =>{
-          console.log("No response")
+          console.log("No response hours")
       });
 
 
       //Get all reviews
-      let getReviews = 'http://localhost:3001/' + this.props.location.query.rid + '/reviews'
+      let getReviews = 'http://localhost:3001/' + this.state.restaurant.rid + '/reviews'
       axios.get(getReviews)
       .then(response => {
         console.log("Status Code : ",response.data);
@@ -99,10 +132,11 @@ class Restaurants extends Component {
 
 
 
-      //Get all pictures
+      //Get all pictures--FOR NOW, SINGLE IMAGE
       //Display images from array
       //Reference: https://stackoverflow.com/questions/42410164/display-array-of-images-in-react
-      let getPics = 'http://localhost:3001/pictures' + this.props.location.query.rid
+      /*
+      let getPics = 'http://localhost:3001/pictures' + this.state.restaurant.rid
       axios.get(getPics)
       .then(response => {
         console.log("Status Code : ",response.data);
@@ -115,16 +149,58 @@ class Restaurants extends Component {
           })
         }
 
+
       }).catch(err =>{
           console.log("No response")
       });
+
+      */
   }
 
   render() {
 
+    /*
     var pictures = this.state.pictures.map(function(image) {
       return (<img src={image} alt="" rounded ></img>);
     });
+    */
+
+    /*
+
+    //If customer is logged in, take information from props passed to the page
+    let restaurantprofile = {
+      rid: this.props.location.query.rid,
+      remail: this.props.location.query.remail,
+      rpassword: this.props.location.query.rpassword,
+      rname: this.props.location.query.rname,
+      rphone: this.props.location.query.rphone,
+      rabout: this.props.location.query.rabout,
+      rlocation: this.props.location.query.rlocation,
+      rlatitude: this.props.location.query.rlatitude,
+      rlongitude: this.props.location.query.rlongitude,
+      raddress: this.props.location.query.raddress,
+      rcuisine: this.props.location.query.rcuisine,
+      rdelivery: this.props.location.query.rdelivery,
+    }
+
+    //If restaurant is logged in, take this info from redux state
+    if(this.props.whoIsLogged === true) {
+      restaurantprofile = {
+        rid: this.props.rid,
+        remail: this.props.remail,
+        rpassword: this.props.rpassword,
+        rname: this.props.rname,
+        rphone: this.props.rphone,
+        rabout: this.props.rabout,
+        rlocation: this.props.rlocation,
+        rlatitude: this.props.rlatitude,
+        rlongitude: this.props.rlongitude,
+        raddress: this.props.raddress,
+        rcuisine: this.props.rcuisine,
+        rdelivery: this.props.rdelivery,
+      }
+    }
+    */
 
     return(
 
@@ -136,13 +212,12 @@ class Restaurants extends Component {
               <div class="card">
                 <div class="card-horizontal">
                   <div class="card-body">
-                      <p class="card-text">Name: {this.props.location.query.rname}</p>
-                      <p class="card-text">Phone: {this.props.location.query.rphone}</p>
-                      <p class="card-text">About us: {this.props.location.query.rabout}</p>
-                      <p class="card-text">Address: {this.props.location.query.raddress}</p>
-                      <p class="card-text">Cuisine: {this.props.location.query.rcuisine}</p>
-                      <p class="card-text">Service: {this.props.location.query.rdelivery}</p>
-
+                      <p class="card-text">Name: {this.state.restaurant.rname}</p>
+                      <p class="card-text">Phone: {this.state.restaurant.rphone}</p>
+                      <p class="card-text">About us: {this.state.restaurant.rabout}</p>
+                      <p class="card-text">Address: {this.state.restaurant.raddress}</p>
+                      <p class="card-text">Cuisine: {this.state.restaurant.rcuisine}</p>
+                      <p class="card-text">Service: {this.state.restaurant.rdelivery}</p>
                   </div>
                 </div>
                 <div class="card-footer">

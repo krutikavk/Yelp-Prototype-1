@@ -17,12 +17,11 @@ class Restaurant extends Component {
   }
 
   render() {
-    console.log("=>inside restaurant" , this.props)
 
     return (
       //Pass restaurant information to display menu and then show when dishes are added to cart
       <Link to ={{
-                  pathname: '/dishes',
+                  pathname: '/restaurant',
                   query: {
                     rid: `${this.props.restaurant.rid}`, 
                     remail: `${this.props.restaurant.remail}`,

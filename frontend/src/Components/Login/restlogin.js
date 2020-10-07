@@ -106,6 +106,7 @@ class restLogin extends Component {
           this.props.update('RNAME', response.data[0].rname)
           this.props.update('RPHONE', response.data[0].rphone)
           this.props.update('RABOUT', response.data[0].rabout)
+          this.props.update('RPHOTO', response.data[0].rphoto)
           this.props.update('RLOCATION', response.data[0].rlocation)
           this.props.update('RLATITUDE', response.data[0].rlatitude)
           this.props.update('RLONGITUDE', response.data[0].rlongitude)
@@ -201,6 +202,7 @@ const mapStateToProps = (state) => {
       rname: state.restProfile.rname,
       rphone: state.restProfile.rphone,
       rabout: state.restProfile.rabout,
+      rphoto: state.restProfile.rphoto,
       rlocation: state.restProfile.rlocation,
       rlatitude: state.restProfile.rlatitude,
       rlongitude: state.restProfile.rlongitude,

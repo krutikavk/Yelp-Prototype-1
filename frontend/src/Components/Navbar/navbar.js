@@ -97,7 +97,7 @@ class Navbar extends Component {
 
         } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
           //restaurant login
-          dashboard = <Link className="nav-link" to="/restaurant/dashboard">Profile</Link>
+          dashboard = <Link className="nav-link" to="/restaurant">Profile</Link>
           search = null;
           menu = <Link className="nav-link" to="/dishes">Menu</Link>
           cart = null;
