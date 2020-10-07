@@ -48,18 +48,7 @@ class DisplayProfile extends Component {
     }
 
     //If customer is logged in, get data from redux state
-    let customerprofile = {
-      cid: this.props.cid,
-      cemail: this.props.cemail,
-      cpassword: this.props.cpassword,
-      cname: this.props.cname,
-      cphone: this.props.cphone,
-      cabout: this.props.cabout,
-      cjoined: this.props.cjoined,
-      cphoto: this.props.cphoto,
-      cfavrest: this.props.cfavrest,
-      cfavcuisine: this.props.cfavcuisine,
-    }
+    let customerprofile = {}
 
     //If restaurant is logged in, get display data from props passed from another page
     if(this.props.whoIsLogged === true) {
@@ -77,11 +66,25 @@ class DisplayProfile extends Component {
         cfavcuisine: this.props.location.query.cfavcuisine,
       }
 
+    } else {
+      customerprofile = {
+        cid: this.props.cid,
+        cemail: this.props.cemail,
+        cpassword: this.props.cpassword,
+        cname: this.props.cname,
+        cphone: this.props.cphone,
+        cabout: this.props.cabout,
+        cjoined: this.props.cjoined,
+        cphoto: this.props.cphoto,
+        cfavrest: this.props.cfavrest,
+        cfavcuisine: this.props.cfavcuisine,
+      }
     }
 
     return (
 
       <div>
+        {redirectVar}
         <div class="container-fluid style={{height: 100}}">
           <div class="row">
             <div class="col-12 mt-3">
@@ -104,15 +107,12 @@ class DisplayProfile extends Component {
                   <p class="card-text font-italic">{customerprofile.cfavrest}</p>
                   <p class="card-text font-weight-bold">Favourite Cusine:</p>
                   <p class="card-text font-italic">{customerprofile.cfavcuisine}</p>
-                  <small class="text-muted">muted</small>
                 </div>
                 <h3>Reviews</h3>
                 {this.state.reviews.map (entry => (
                   <Review review={entry} />
-
                 ))}
                 
-
               </div>
             </div>
           </div>

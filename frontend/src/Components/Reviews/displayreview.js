@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../../App.css';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 
@@ -16,7 +17,7 @@ class Review extends Component {
   componentDidMount() {
 
     let url = '';
-
+    console.log("review component mounted")
     if(this.props.whoIsLogged === true) {
       //for restaurant login, link review to customer
       url = 'http://localhost:3001/customers/' + this.props.review.cid
@@ -46,29 +47,64 @@ class Review extends Component {
   render() {
 
 
-    let linkto = '/restaurant';
+    let linkto = '';
     let query = this.state.linkReviewTo;
-    console.log("query data: ", query)
-
+    let name = ''
+    
+    console.log(this.props.whoIsLogged)
 
     if(this.props.whoIsLogged === false) {
       //customer login--link to restaurant
-      linkto = '/customer/profile ';
-      
+      linkto = '/restaurant '; 
+      console.log("here")  
+      console.log("query data: ", query) 
+      name = this.state.linkReviewTo.rname
+    } else {
+      linkto = '/customer/profile';
+      console.log("there")
+      name = this.state.linkReviewTo.cname
     }
 
     return (
+
+      
+        <div class="container-fluid style={{height: 100}}">
+            <div class="row">
+              <div class="col-12 mt-3">
+                <div class="card">
+                  <div class="card-horizontal">
+                    <div class="card-body">
+                      <Link to ={{
+                          pathname: linkto , query: query
+                        }}>
+                        <p class="card-text font-weight-bold">{name}</p>
+                      </Link>
+                      <p class="card-text font-weight-bold font-italic"> * {this.props.review.rerating}/5</p>
+                      <small class="text-muted">Reviewed: {this.props.review.rdate}</small>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <p class="card-text font-italic">{this.props.review.retext}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      /*
       <Link to ={{
                   pathname: linkto , query: query
                 }}>
         <div class="card-horizontal" >
           <div class="card-body">
-            <h4 class="card-title">{this.props.review.rerating}</h4>
+            <h4 class="card-title">{name} </h4>
+            <small class="text-muted">{this.props.review.rerating}</small>
             <p class="card-text">{this.props.review.retext}</p>
             <p class="card-text">Category: {this.props.review.rdate}</p>
           </div>
         </div>
       </Link>
+      */
     )
   }
 
@@ -83,4 +119,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default Review;
+export default connect(mapStateToProps)(Review);

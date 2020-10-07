@@ -1,14 +1,14 @@
 const initialCustProfile = {
-  cid: 1,
-	cemail: 'user1@user1.com',
-	cpassword: '&^*(*^%',
-  cname: 'toocooltochill',
-  cphone: '38298918',
-  cabout: 'I love blogging. Visit me at blogspot.com/toocooltochill.',
-  cjoined: 'Jan 2013',
+  cid: '',
+	cemail: '',
+	cpassword: '',
+  cname: '',
+  cphone: '',
+  cabout: '',
+  cjoined: '',
   cphoto: '',
-  cfavrest: 'SawasDee Krab',
-  cfavcuisine: 'Thai',
+  cfavrest: '',
+  cfavcuisine: '',
 }
 
 const custReducer = (state = initialCustProfile, action) => {
@@ -18,7 +18,7 @@ const custReducer = (state = initialCustProfile, action) => {
 	  switch(action.field) {
 
       case 'CID' : {
-        console.log(action);
+
         return {
           cid: action.payload,
           cemail: state.cemail,
@@ -34,7 +34,6 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CEMAIL' : {
-        console.log(action);
         return {
           cid: state.cid,
           cemail: action.payload,
@@ -50,7 +49,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CPASSWORD' : {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,
@@ -66,7 +65,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
       
 	  	case 'CNAME' : {
-	    	console.log(action);
+
 	    	return {
     		  cid: state.cid,
           cemail: state.cemail,
@@ -82,7 +81,7 @@ const custReducer = (state = initialCustProfile, action) => {
 	    }
 
       case 'CPHONE': {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,
@@ -98,7 +97,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CABOUT': {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,
@@ -114,7 +113,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CPHOTO': {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,
@@ -130,7 +129,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CFAVREST': {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,
@@ -146,7 +145,7 @@ const custReducer = (state = initialCustProfile, action) => {
       }
 
       case 'CFAVCUISINE': {
-        console.log(action);
+
         return {
           cid: state.cid,
           cemail: state.cemail,

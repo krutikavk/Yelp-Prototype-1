@@ -167,6 +167,7 @@ router.get('/:rid/hours', (request, response) => {
     } else {
       //also let the customer login
       console.log("Hours added successfully")
+      console.log("result:", results)
       response.writeHead(200,{
           //'Content-Type' : 'text/plain'
           'Content-Type': 'application/json'
@@ -359,7 +360,7 @@ router.get('/:rid/reviews', (request, response) => {
 
 
 //Get average rating for restaurant
-router.get('/:rid/reviews', (request, response) => {
+router.get('/:rid/average', (request, response) => {
   console.log('\nEndpoint GET: restaurant reviews get')
   console.log('Req Body: ', request.body)
 

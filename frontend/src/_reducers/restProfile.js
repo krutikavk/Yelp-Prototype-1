@@ -23,7 +23,7 @@ const restReducer = (state = initialRestProfile, action) => {
       switch(action.field) {
 
         case 'RID': {
-          console.log(action);
+
           return {
             rid: action.payload,
             remail: state.remail,
@@ -42,7 +42,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'REMAIL': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: action.payload,
@@ -61,7 +61,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RPASSWORD': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -80,7 +80,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RNAME': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -99,7 +99,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RPHONE': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -118,7 +118,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RABOUT': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -137,7 +137,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RPHOTO': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -156,7 +156,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RLOCATION': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -175,7 +175,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RLATITUDE': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -194,7 +194,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RLONGITUDE': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -213,7 +213,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RADDRESS': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -232,7 +232,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RCUISINE': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
@@ -251,7 +251,7 @@ const restReducer = (state = initialRestProfile, action) => {
         }
 
         case 'RDELIVERY': {
-          console.log(action);
+
           return {
             rid: state.rid,
             remail: state.remail,
