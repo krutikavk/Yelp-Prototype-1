@@ -205,6 +205,31 @@ router.put('/:oid', (request, response)=> {
       response.status(404).send('No such order');
     }
   });
+})
+
+
+//Get all dishes in an order
+router.get('/:oid/dishes', (request, response) => {
+  console.log('Endpoint GET: Dishes in an order')
+  console.log('Request Body: ', request.body);
+  let dbQuery = (sql `SELECT * from order_dish where oid = ?`);
+
+  connection.query(dbQuery, request.params.oid, (error, results)=> {
+    if( error) {
+      console.log("Error fetching order")
+      response.status(404).send('Error fetching order');
+    } else if (results.length >= 1) {
+      response.writeHead(200,{
+          //'Content-Type' : 'text/plain'
+          'Content-Type': 'application/json'
+      })
+      console.log("response: ", results)
+      response.end(JSON.stringify(results));
+    } else {
+      
+      response.status(404).send('Could not find order');
+    }
+  });
 
 })
 

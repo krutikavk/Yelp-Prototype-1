@@ -104,7 +104,7 @@ router.put('/:did', (request, response) => {
 
 
 
-
+//Edit dishes (restaurant)
 router.put('/:cid', (request, response) => {
 
   //const connection = getMySQLConnection();
@@ -141,8 +141,6 @@ router.put('/:cid', (request, response) => {
 })
 
 
-
-
 //delete a dish
 router.delete('/:did', (request, response) => {
   console.log('Endpoint DELETE: delete a dish')
@@ -160,3 +158,4 @@ router.delete('/:did', (request, response) => {
     }
   })
 })
+

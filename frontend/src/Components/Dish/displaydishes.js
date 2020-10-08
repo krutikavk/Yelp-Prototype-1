@@ -59,7 +59,7 @@ class Dishes extends Component {
 
 
     let warning = null;
-    if(this.state.dishes.length == 0) {
+    if(this.state.dishes.length === 0) {
       warning = <p class="card-text font-italic">No dishes added by restaurant</p>
     }
 

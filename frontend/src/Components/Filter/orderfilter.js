@@ -9,9 +9,9 @@ class Filter extends Component {
       ooption: '',
       ooptionStates: ['All', 'Pickup', 'Delivery'],
       ostatus: '',
-      ostatusStates: ['Order received', 'Preparing', 'Pickup ready','Picked up', 'On the way', 'Delivered'],
+      ostatusStates: ['All', 'Order received', 'Preparing', 'Pickup ready','Picked up', 'On the way', 'Delivered'],
       otype: '',
-      otypeStates: ['New', 'Delivered', 'Cancelled']
+      otypeStates: ['All', 'New', 'Delivered', 'Cancelled']
     }
 
     this.ooptionHandler = this.ooptionHandler.bind(this);

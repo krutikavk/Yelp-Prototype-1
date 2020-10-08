@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
 import '../../App.css';
+import Navbar from '../Navbar/navbar';
 
 
 class Orderpage extends Component {
@@ -40,6 +41,7 @@ class Orderpage extends Component {
 
 
       <div>
+        <Navbar/>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">
             <div class="col-12 mt-3">

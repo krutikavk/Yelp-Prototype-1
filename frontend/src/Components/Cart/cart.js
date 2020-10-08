@@ -4,7 +4,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, updateCart, login, logout, customerLogin} from '../../_actions';
-
+import Navbar from '../Navbar/navbar';
 
 class Cart extends Component{
 
@@ -14,7 +14,8 @@ class Cart extends Component{
     this.state = {
       ordered: false,
       orderdetail: false,
-      orderdish: false
+      orderdish: false,
+      placed: false
     };
 
     this.removeEntryHandler = this.removeEntryHandler.bind(this);
@@ -90,6 +91,12 @@ class Cart extends Component{
 
               if(err.length === 0) {
                 this.props.updateCart('ORDER');
+                this.setState({
+                  placed: true
+                })
+                console.log("Order placed")
+                alert("Order Placed")
+
               }
             }
           )
@@ -121,31 +128,18 @@ class Cart extends Component{
       subTotal += item.dprice * item.dquantity
     ))
 
+    if(this.state.placed === true) {
+      redirectVar = <Redirect to='/orders'/>
+    }
 
     let total = subTotal + 5;
 
     return (
-      /*
+
+
       <div>
         {redirectVar}
-        <div>
-          {this.props.cartContents.map (entry => (
-            <div>
-              <div class="card-horizontal" >
-                <div class="card-body">
-                  <h4 class="card-title">{entry.dname}</h4>
-                  <p class="card-text">{entry.dprice}</p>
-                  <button class="btn btn-primary">Add to Cart</button>
-                </div>
-              </div>
-            </div>
-          ))}
-
-        </div>
-      </div>
-      */
-
-      <div>
+        <Navbar/>
         <div class="pb-5">
           <div class="container">
             <div class="row">

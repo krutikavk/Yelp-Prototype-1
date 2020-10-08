@@ -217,17 +217,26 @@ class Dish extends Component {
 
     //For customer login, give an option to add to cart
     let addToCartButton = null;
+    let dnameTextField = null;
+    let ddescriptionTextField = null;
+    let dcategoryTextField = null;
+    let dingredientsTextField = null;
+    let dpriceTextField = null;
+
     if(this.props.isLogged === true && this.props.whoIsLogged === false) {
       //customer login
       addToCartButton = <button onClick = {this.addToCartHandler} class="btn btn-primary">Add to Cart</button>
     }
 
+    if(this.props.isLogged === true && this.props.whoIsLogged === true) {
     //For restaurant login, give an option to edit the dish
-    let dnameTextField = <button class="btn btn-danger btn-sm" onClick = {this.dnameEditTextFieldHandler}>Edit</button>;
-    let ddescriptionTextField = <button class="btn btn-danger btn-sm" onClick = {this.ddescriptionEditTextFieldHandler}>Edit</button>;
-    let dcategoryTextField = <button class="btn btn-danger btn-sm" onClick = {this.dcategoryEditTextFieldHandler}>Edit</button>;
-    let dingredientsTextField = <button class="btn btn-danger btn-sm" onClick = {this.dingredientsEditTextFieldHandler}>Edit</button>;
-    let dpriceTextField = <button class="btn btn-danger btn-sm" onClick = {this.dpriceEditTextFieldHandler}>Edit</button>;
+      dnameTextField = <button class="btn btn-danger btn-sm" onClick = {this.dnameEditTextFieldHandler}>Edit</button>;
+      ddescriptionTextField = <button class="btn btn-danger btn-sm" onClick = {this.ddescriptionEditTextFieldHandler}>Edit</button>;
+      dcategoryTextField = <button class="btn btn-danger btn-sm" onClick = {this.dcategoryEditTextFieldHandler}>Edit</button>;
+      dingredientsTextField = <button class="btn btn-danger btn-sm" onClick = {this.dingredientsEditTextFieldHandler}>Edit</button>;
+      dpriceTextField = <button class="btn btn-danger btn-sm" onClick = {this.dpriceEditTextFieldHandler}>Edit</button>;
+
+    }
 
     if(this.state.dnameToChange === true) {
       dnameTextField = (
