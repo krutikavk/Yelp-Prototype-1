@@ -7,6 +7,7 @@ import {login} from '../../_actions';
 import {Redirect, Link} from 'react-router-dom';
 import profilepicture from './profile-picture.png';
 import Review from '../Reviews/displayreview';
+import Navbar from '../Navbar/navbar';
 
 
 const validText = RegExp('[A-Za-z0-9]+')
@@ -82,37 +83,39 @@ class DisplayProfile extends Component {
     }
 
     return (
-
       <div>
-        {redirectVar}
-        <div class="container-fluid style={{height: 100}}">
-          <div class="row">
-            <div class="col-12 mt-3">
-              <div class="card">
-                <div class="card-horizontal">
-                  <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
+        <Navbar/>
+        <div>
+          {redirectVar}
+          <div class="container-fluid style={{height: 100}}">
+            <div class="row">
+              <div class="col-12 mt-3">
+                <div class="card">
+                  <div class="card-horizontal">
+                    <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
 
-                  <div class="card-body">
-                    <p class="card-text font-weight-bold font-italic"> {customerprofile.cname}</p>
-                    <p class="card-text text-muted font-italic">Here since: {customerprofile.cjoined.split("T")[0]}</p>
-                    <p class="card-text text-muted font-italic">Reviews given: {this.state.reviews.length}</p>
-                    <p class="card-text text-muted font-italic">Friends: 4728</p>
-                    <Link to='/customer/edit' class="btn btn-danger">Edit profile</Link> 
+                    <div class="card-body">
+                      <p class="card-text font-weight-bold font-italic"> {customerprofile.cname}</p>
+                      <p class="card-text text-muted font-italic">Here since: {customerprofile.cjoined.split("T")[0]}</p>
+                      <p class="card-text text-muted font-italic">Reviews given: {this.state.reviews.length}</p>
+                      <p class="card-text text-muted font-italic">Friends: 4728</p>
+                      <Link to='/customer/edit' class="btn btn-danger">Edit profile</Link> 
+                    </div>
                   </div>
+                  <div class="card-footer">
+                    <p class="card-text font-weight-bold">About Me:</p>
+                    <p class="card-text font-italic">{customerprofile.cabout}</p>
+                    <p class="card-text font-weight-bold">Favourite Restaurant:</p>
+                    <p class="card-text font-italic">{customerprofile.cfavrest}</p>
+                    <p class="card-text font-weight-bold">Favourite Cusine:</p>
+                    <p class="card-text font-italic">{customerprofile.cfavcuisine}</p>
+                  </div>
+                  <h3>Reviews</h3>
+                  {this.state.reviews.map (entry => (
+                    <Review review={entry} />
+                  ))}
+                  
                 </div>
-                <div class="card-footer">
-                  <p class="card-text font-weight-bold">About Me:</p>
-                  <p class="card-text font-italic">{customerprofile.cabout}</p>
-                  <p class="card-text font-weight-bold">Favourite Restaurant:</p>
-                  <p class="card-text font-italic">{customerprofile.cfavrest}</p>
-                  <p class="card-text font-weight-bold">Favourite Cusine:</p>
-                  <p class="card-text font-italic">{customerprofile.cfavcuisine}</p>
-                </div>
-                <h3>Reviews</h3>
-                {this.state.reviews.map (entry => (
-                  <Review review={entry} />
-                ))}
-                
               </div>
             </div>
           </div>

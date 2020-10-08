@@ -76,7 +76,7 @@ class Navbar extends Component {
             <form className="form-inline" action="/" >
               <input className="form-control mr-sm-2" type="text" placeholder="Restaurants" ></input>
               <input className="form-control mr-sm-2" type="text" placeholder="Location" ></input>
-              <button onClick={this.submitSearch} className="btn btn-success btn-sm" type="submit">Search</button>
+              <Link to='/restaurants'><button className="btn btn-danger" type="submit">Search</button></Link>
             </form>
           </li>
         )

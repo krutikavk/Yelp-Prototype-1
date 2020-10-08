@@ -9,6 +9,7 @@ import GoogleMapReact from 'google-map-react';
 import '../Map/map.css';
 import { Icon } from '@iconify/react';
 import locationIcon from '@iconify/icons-mdi/map-marker';
+import Navbar from '../Navbar/navbar';
 
  
 
@@ -81,7 +82,7 @@ class Restaurants extends Component {
 
     return(
       <div>
-
+        <Navbar/>
         <section class="container">
           <div class="left-half">
             {this.state.restaurants.map (restaurant => (

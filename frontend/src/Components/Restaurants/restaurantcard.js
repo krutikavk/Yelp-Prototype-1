@@ -43,7 +43,7 @@ class Restaurant extends Component {
               <div class="card">
                 <div class="card-horizontal">
                   <div class="img-square-wrapper">
-                      <img class="img-responsive card-img-top" src={restropic} alt="restro"></img>
+                      <img class="img-responsive img-thumbnail" src={restropic} alt="restro" width="400"/>
                   </div>
                   <div class="card-body">
                       <p class="card-text">Name: {this.props.restaurant.rname}</p>

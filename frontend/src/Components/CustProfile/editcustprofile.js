@@ -6,6 +6,7 @@ import {update} from '../../_actions'
 import {login} from '../../_actions';
 import {Redirect} from 'react-router-dom';
 import profilepicture from './profile-picture.png';
+import Navbar from '../Navbar/navbar';
 
 
 const validText = RegExp('[A-Za-z0-9]+')
@@ -562,31 +563,34 @@ class Userdash extends Component {
     return (
 
       <div>
-        {redirectVar}
-        <div class="container-fluid style={{height: 100}}">
-            <div class="row">
-              <div class="col-12 mt-3">
-                <div class="card">
-                  <div class="card-horizontal">
-                    
-                    <div class="form-group">
-                      <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
+        <Navbar/>
+        <div>
+          {redirectVar}
+          <div class="container-fluid style={{height: 100}}">
+              <div class="row">
+                <div class="col-12 mt-3">
+                  <div class="card">
+                    <div class="card-horizontal">
                       
-                      <input onChange={this.handleFileUpload} ref = {(ref) => {this.uploadInput = ref;}} type = "file"/>
+                      <div class="form-group">
+                        <img src={this.props.cphoto} class="img-thumbnail" alt="Cinque Terre" width = "300" />
+                        
+                        <input onChange={this.handleFileUpload} ref = {(ref) => {this.uploadInput = ref;}} type = "file"/>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text font-weight-bold font-italic"> {this.props.cname} {usernameTextField}</p>  
+                      </div>
                     </div>
-                    <div class="card-body">
-                      <p class="card-text font-weight-bold font-italic"> {this.props.cname} {usernameTextField}</p>  
+                    <div class="card-footer">
+                      <p class="card-text font-weight-bold font-italic"> Password {passwordTextField} </p>
+                      <p class="card-text font-weight-bold">About Me: {aboutTextField}</p>
+                      <p class="card-text font-italic">{this.props.cabout}</p>
+                      <p class="card-text font-weight-bold">Favourite Restaurant: {favrestTextField}</p>
+                      <p class="card-text font-italic">{this.props.cfavrest}</p>
+                      <p class="card-text font-weight-bold">Favourite Cusine: {favcuisineTextField}</p>
+                      <p class="card-text font-italic">{this.props.cfavcuisine}</p>
+                      <small class="text-muted">muted</small>
                     </div>
-                  </div>
-                  <div class="card-footer">
-                    <p class="card-text font-weight-bold font-italic"> Password {passwordTextField} </p>
-                    <p class="card-text font-weight-bold">About Me: {aboutTextField}</p>
-                    <p class="card-text font-italic">{this.props.cabout}</p>
-                    <p class="card-text font-weight-bold">Favourite Restaurant: {favrestTextField}</p>
-                    <p class="card-text font-italic">{this.props.cfavrest}</p>
-                    <p class="card-text font-weight-bold">Favourite Cusine: {favcuisineTextField}</p>
-                    <p class="card-text font-italic">{this.props.cfavcuisine}</p>
-                    <small class="text-muted">muted</small>
                   </div>
                 </div>
               </div>

@@ -41,7 +41,7 @@ class Main extends Component {
     return(
     <div> 
         {/*Render Different Component based on Route*/}
-        <Navbar/>
+        
         <Switch>
             <Route path='/login' component={Login}/>
             <Route path='/customer/login' component={Custlogin}/>

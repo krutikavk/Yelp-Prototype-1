@@ -6,6 +6,7 @@ import '../../App.css';
 import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions'
+import Navbar from '../Navbar/navbar';
 
 
 class Login extends Component {
@@ -54,28 +55,30 @@ class Login extends Component {
     return(
 
       <div>
-        {redirectVar}
-        <br/>
-        <div className="login-form card col-12 col-lg-4 login-card mt-2 hv-center" >
-          <br />
-          <div className="card-header">
-            <h4>Login/Signup</h4>
+        <Navbar/>
+        <div>
+          {redirectVar}
+          <br/>
+          <div className="login-form card col-12 col-lg-4 login-card mt-2 hv-center" >
+            <br />
+            <div className="card-header">
+              <h4>Login/Signup</h4>
+            </div>
+            <br />
+            <br />
+            <button id="btnLogin" className="btn btn-danger" onClick={this.customerLoginHandler}>Customer Login</button> 
+            <br />
+            <br />
+            <button id="btnLogin" className="btn btn-danger" onClick={this.restaurantLoginHandler}>Restaurant Login</button>
+            <br/>
+            New Customer? Sign up here <br/>
+            <Link to="/customer/signup" className="btn btn-danger">Sign up</Link>
+            New Restaurant? Sign up Here <br/>
+            <Link to="/restaurant/signup" className="btn btn-danger">Sign up</Link>
+            <br/>
+            <br/>
           </div>
-          <br />
-          <br />
-          <button id="btnLogin" className="btn btn-danger" onClick={this.customerLoginHandler}>Customer Login</button> 
-          <br />
-          <br />
-          <button id="btnLogin" className="btn btn-danger" onClick={this.restaurantLoginHandler}>Restaurant Login</button>
-          <br/>
-          New Customer? Sign up here <br/>
-          <Link to="/customer/signup" className="btn btn-danger">Sign up</Link>
-          New Restaurant? Sign up Here <br/>
-          <Link to="/restaurant/signup" className="btn btn-danger">Sign up</Link>
-          <br/>
-          <br/>
         </div>
-
       </div>
 
     )

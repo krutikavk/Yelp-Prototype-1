@@ -3,6 +3,7 @@ import '../../App.css';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
+import Navbar from '../Navbar/navbar';
 
 
 
@@ -108,69 +109,72 @@ class AddDish extends Component {
     return (
 
       <div>
-        {redirectVar} 
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
+        <Navbar/>
+        <div>
+          {redirectVar} 
+          <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
 
-          <br/>
-          <form>
-            <div className="col d-flex justify-content-center rounded-0">
-              <div className="card-header">
-                <h4>New Dish: </h4>
+            <br/>
+            <form>
+              <div className="col d-flex justify-content-center rounded-0">
+                <div className="card-header">
+                  <h4>New Dish: </h4>
+                </div>
               </div>
-            </div>
 
-            <div className = "form-group text-left">
-              <br/>
-              <label htmlFor="exampleInputEmail1">Dish Name</label>
-              <input onChange = {this.dnameChangeHandler} 
-                                  type="text"  
-                                  name="dname" 
-                                  className="form-control form-control-sm"
-                                  placeholder="Dish Name"
-                                  aria-describedby="emailHelp" 
-                                  required/>
-            </div>
+              <div className = "form-group text-left">
+                <br/>
+                <label htmlFor="exampleInputEmail1">Dish Name</label>
+                <input onChange = {this.dnameChangeHandler} 
+                                    type="text"  
+                                    name="dname" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Dish Name"
+                                    aria-describedby="emailHelp" 
+                                    required/>
+              </div>
 
-            <div className = "form-group text-left">
-              <br/>
-              <label htmlFor="exampleInputEmail1">Dish Ingredients</label>
-              <input onChange = {this.dingredientsChangeHandler} 
-                                  type="text"  
-                                  name="dingredients" 
-                                  className="form-control form-control-sm"
-                                  placeholder="Ingredients"
-                                  aria-describedby="emailHelp" 
-                                  />
-            </div>
-            <div className="form-group text-left">
-              <br/>
-              <label htmlFor="exampleInputPassword1">Dish Description</label>
-              <input onChange = {this.ddescriptionChangeHandler} 
-                                  type="password" 
-                                  name="cpassword" 
-                                  className="form-control form-control-sm"
-                                  placeholder="Password" 
-                                  rows="5"
-                                  required/>
-                                  
-            </div>
-            <div className="form-group text-left">
-              <br/>
-              <label htmlFor="exampleInputPassword1">Dish Price</label>
-              <input onChange = {this.dpriceChangeHandler} 
-                                  type="number" 
-                                  name="dprice" 
-                                  className="form-control form-control-sm"
-                                  placeholder="Price"
-                                  step="0.01"
-                                  required/>
-                                  
-            </div>
+              <div className = "form-group text-left">
+                <br/>
+                <label htmlFor="exampleInputEmail1">Dish Ingredients</label>
+                <input onChange = {this.dingredientsChangeHandler} 
+                                    type="text"  
+                                    name="dingredients" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Ingredients"
+                                    aria-describedby="emailHelp" 
+                                    />
+              </div>
+              <div className="form-group text-left">
+                <br/>
+                <label htmlFor="exampleInputPassword1">Dish Description</label>
+                <input onChange = {this.ddescriptionChangeHandler} 
+                                    type="password" 
+                                    name="cpassword" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Password" 
+                                    rows="5"
+                                    required/>
+                                    
+              </div>
+              <div className="form-group text-left">
+                <br/>
+                <label htmlFor="exampleInputPassword1">Dish Price</label>
+                <input onChange = {this.dpriceChangeHandler} 
+                                    type="number" 
+                                    name="dprice" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Price"
+                                    step="0.01"
+                                    required/>
+                                    
+              </div>
 
-            <div className="col-md-12 text-center">
-            <button id="btnLogin" className="btn btn-danger" onClick={this.addDish}>Add Dish</button>
-            </div>
-          </form>
+              <div className="col-md-12 text-center">
+              <button id="btnLogin" className="btn btn-danger" onClick={this.addDish}>Add Dish</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 

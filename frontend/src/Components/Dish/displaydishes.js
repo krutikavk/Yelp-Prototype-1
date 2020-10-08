@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import {nachospic} from './nachospic.png';
 import Dish from './dish';
+import Navbar from '../Navbar/navbar';
 
  
 class Dishes extends Component {
@@ -50,28 +51,46 @@ class Dishes extends Component {
 
   render() {
     //{this.state.dishes.length > 0 && <displayDishes dishes={this.state.dishes} />}
+
+    let addDishes = null;
+    if(this.props.isLogged === true && this.props.whoIsLogged === true) {
+      addDishes = <Link to= '/dishes/add'> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
+    }
+
+
+    let warning = null;
+    if(this.state.dishes.length == 0) {
+      warning = <p class="card-text font-italic">No dishes added by restaurant</p>
+    }
+
+
     return(
 
-      <div class="container-fluid style={{height: 100}}">
-          <div class="row">
-            <div class="col-12 mt-3">
-              <div class="card">
-                <div class="card-horizontal">
-                  <img src={nachospic} style={{width: 250}} alt="" width></img>
-                  <div class="card-body">
-                    <p class="card-text font-weight-bold">{this.props.location.query.rname}</p>
-                    <p class="card-text font-italic">Phone: {this.props.location.query.rphone}</p>
-                    <p class="card-text font-italic">Address: {this.props.location.query.raddress}</p>
-                    <p class="card-text font-italic">Service: {this.props.location.query.rdelivery}</p>
-                    <Link to= '/dishes/add'> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
+      <div>
+        <Navbar/>
+        <div class="container-fluid style={{height: 100}}">
+            <div class="row">
+              <div class="col-12 mt-3">
+                <div class="card">
+                  <div class="card-horizontal">
+                    <img src={nachospic} style={{width: 250}} alt="" width></img>
+                    <div class="card-body">
+                      <p class="card-text font-weight-bold">{this
+                        .props.location.query.rname}</p>
+                      <p class="card-text font-italic">Phone: {this.props.location.query.rphone}</p>
+                      <p class="card-text font-italic">Address: {this.props.location.query.raddress}</p>
+                      <p class="card-text font-italic">Service: {this.props.location.query.rdelivery}</p>
+                      {addDishes}
+                    </div>
                   </div>
-                </div>
-                <div class="card-footer">
-                    <p class="card-text">
-                      {this.state.dishes.map (dish => (
-                        <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
-                      ))} 
-                    </p>
+                  <div class="card-footer">
+                    {warning}
+                      <p class="card-text">
+                        {this.state.dishes.map (dish => (
+                          <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
+                        ))} 
+                      </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -82,6 +101,17 @@ class Dishes extends Component {
   }
 }
 
-export default Dishes;
+
+const mapStateToProps = (state) => {
+    return {
+      isLogged: state.isLogged.isLoggedIn,
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
+    }
+}
+
+//const mapDispatchToProps = (dispatch) => { since this does not call a function directly it cannot be a function
+
+export default connect(mapStateToProps)(Dishes);
+
 
 

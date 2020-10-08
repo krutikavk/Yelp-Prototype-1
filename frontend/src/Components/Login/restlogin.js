@@ -7,6 +7,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions'
+import Navbar from '../Navbar/navbar';
 
 
 class restLogin extends Component {
@@ -105,43 +106,47 @@ class restLogin extends Component {
 
     return(
 
-
       <div>
-        {redirectVar} 
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
-          <form>
-            <div className="col d-flex justify-content-center rounded-0">
+        <Navbar/>
+        <div>
+          {redirectVar} 
+          <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
+            <form>
+              <div className="col d-flex justify-content-center rounded-0">
+                <div className="card-header">
+                  <h4>Restaurant</h4>
+                </div>
+              </div>
 
-            <div className="card-header">
-              <h4>Restaurant</h4>
-            </div>
-            </div>
-                  <div className = "form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input onChange = {this.emailChangeHandler} 
-                                        type="email"  
-                                        name="email" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Email ID"
-                                        aria-describedby="emailHelp" 
-                                        required/>
-                                        
-                  </div>
-                  <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input onChange = {this.passwordChangeHandler} 
-                                        type="password" 
-                                        name="password" 
-                                        className="form-control form-control-sm"
-                                        placeholder="Password"
-                                        required/>
-                                        
-                  </div>
+              
+              <div className = "form-group text-left">
+                <label htmlFor="exampleInputEmail1">Email address</label>
+                <input onChange = {this.emailChangeHandler} 
+                                    type="email"  
+                                    name="email" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Email ID"
+                                    aria-describedby="emailHelp" 
+                                    required/>
+                                    
+              </div>
 
-                  <div className="col-md-12 text-center">
-                  <button id="btn btnLogin" className="btn btn-danger" onClick={this.submitLogin}>Login</button>
-                  </div>
-          </form>
+              <div className="form-group text-left">
+                <label htmlFor="exampleInputPassword1">Password</label>
+                <input onChange = {this.passwordChangeHandler} 
+                                    type="password" 
+                                    name="password" 
+                                    className="form-control form-control-sm"
+                                    placeholder="Password"
+                                    required/>
+                                    
+              </div>
+
+              <div className="col-md-12 text-center">
+              <button id="btn btnLogin" className="btn btn-danger" onClick={this.submitLogin}>Login</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     )

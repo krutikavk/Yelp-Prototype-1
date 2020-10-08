@@ -9,6 +9,7 @@ import Filter from '../Filter/orderfilter';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout} from '../../_actions';
+import Navbar from '../Navbar/navbar';
 
 class OrdersDisplay extends Component {
   constructor(props) {
@@ -40,29 +41,31 @@ class OrdersDisplay extends Component {
 
     return (
 
-
       <div>
-        {redirectVar}
-        <div className="container">
-          <OrderListingsProvider id = {id} type = {type} >
-            <OrderListingsConsumer>
-              {function(value) {
-                const { orderListings, updateFilter } = value
-                return (
-                  
-                  <div>
-                    <Filter updateFilter={updateFilter}/>
-                    <ul>
-                      {orderListings.map(listing => (
-                        <Order order = {listing}/>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                )
-              }}
-            </OrderListingsConsumer>
-          </OrderListingsProvider >
+        <Navbar/>
+        <div>
+          {redirectVar}
+          <div className="container">
+            <OrderListingsProvider id = {id} type = {type} >
+              <OrderListingsConsumer>
+                {function(value) {
+                  const { orderListings, updateFilter } = value
+                  return (
+                    
+                    <div>
+                      <Filter updateFilter={updateFilter}/>
+                      <ul>
+                        {orderListings.map(listing => (
+                          <Order order = {listing}/>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                  )
+                }}
+              </OrderListingsConsumer>
+            </OrderListingsProvider >
+          </div>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurant';
 import restro from './restro.jpg';
 import Review from '../Reviews/displayreview';
+import Navbar from '../Navbar/navbar';
 
  
 class Restaurants extends Component {
@@ -189,7 +190,7 @@ class Restaurants extends Component {
     return(
 
       <div>
-        
+        <Navbar/>
         <div class="container-fluid style={{height: 100}}">
           <div class="row">
             <div class="col-12 mt-3">
