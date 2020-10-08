@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurantcard';
 import GoogleMapReact from 'google-map-react';
+import Map from '../Map/map'
 
  
 class Restaurants extends Component {
@@ -48,6 +49,26 @@ class Restaurants extends Component {
   }
 
   render() {
+
+    const location = {
+      address: '1600 Amphitheatre Parkway, Mountain View, california.',
+      lat: 37.42216,
+      lng: -122.08427,
+    }
+
+    let locations = [];
+    this.state.restaurants.forEach(item => {
+      console.log(item)
+      let location = {
+        address: item.raddress,
+        lat: item.rlatitude,
+        lng: item.rlongitude
+      }
+      locations.push(location)
+    });
+
+    console.log("locations:", locations)
+
     return(
       <div>
 
@@ -62,7 +83,8 @@ class Restaurants extends Component {
 
           <div class="right-half">
             I will put gmap here
-           
+
+            <Map location={location} zoomLevel={17} />
           </div>
         </section>
       </div>
