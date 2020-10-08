@@ -10,6 +10,7 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
+import Navbar from '../Navbar/navbar';
 
 
 class Restupdatelocation extends Component {
@@ -123,7 +124,7 @@ class Restupdatelocation extends Component {
       <div>
 
         {redirectVar}
-
+        <Navbar/>
         <div>
           <PlacesAutocomplete
           value={this.state.address}

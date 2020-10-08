@@ -127,6 +127,7 @@ class Custsignup extends Component {
             isAdded : false
         })
         this.props.logout();
+        alert('Email ID is already registered')
     });
   }
 

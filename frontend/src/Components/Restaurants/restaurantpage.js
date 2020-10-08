@@ -166,6 +166,7 @@ class Restaurants extends Component {
                       }}> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
 
     } else {
+
       restaurantprofile = {
         rid: this.props.location.query.rid,
         remail: this.props.location.query.remail,

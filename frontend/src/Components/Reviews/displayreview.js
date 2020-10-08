@@ -55,7 +55,7 @@ class Review extends Component {
 
     if(this.props.whoIsLogged === false) {
       //customer login--link to restaurant
-      linkto = '/restaurant '; 
+      linkto = '/restaurant'; 
       console.log("here")  
       console.log("query data: ", query) 
       name = this.state.linkReviewTo.rname
@@ -80,7 +80,7 @@ class Review extends Component {
                         <p class="card-text font-weight-bold">{name}</p>
                       </Link>
                       <p class="card-text font-weight-bold font-italic"> * {this.props.review.rerating}/5</p>
-                      <small class="text-muted">Reviewed: {this.props.review.rdate}</small>
+                      <small class="text-muted">Reviewed: {this.props.review.rdate.split("T")[0]}</small>
                     </div>
                   </div>
                   <div class="card-footer">

@@ -4,6 +4,7 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions'
+import Navbar from '../Navbar/navbar';
 
 
 const validText = RegExp('[A-Za-z0-9]+')
@@ -188,7 +189,8 @@ class Restupdateinfo extends Component {
       
       
       <div>
-        {redirectVar} 
+        {redirectVar}
+        <Navbar/>
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
           <form>
             <div className="col d-flex justify-content-center rounded-0">

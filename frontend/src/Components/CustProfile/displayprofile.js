@@ -109,16 +109,19 @@ class DisplayProfile extends Component {
                     <p class="card-text font-italic">{customerprofile.cfavrest}</p>
                     <p class="card-text font-weight-bold">Favourite Cusine:</p>
                     <p class="card-text font-italic">{customerprofile.cfavcuisine}</p>
-                  </div>
-                  <h3>Reviews</h3>
-                  {this.state.reviews.map (entry => (
-                    <Review review={entry} />
-                  ))}
-                  
+                  </div>                
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="container-fluid ">
+          <p class="card-text font-weight-bold">Reviews Given</p>
+          {this.state.reviews.map (entry => (
+            <Review review={entry} />
+
+          ))}
+
         </div>
       </div>
     )
