@@ -34,6 +34,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+
 aws.config.update({
   region: process.env.region, // Put your aws region here
   accessKeyId: process.env.AWSAccessKeyId,
@@ -41,16 +42,19 @@ aws.config.update({
   signatureVersion:'v4'
 })
 
+
 var customers = require('./customers.js')
 var restaurants = require('./restaurants.js')
 var orders = require('./orders.js')
 var dishes = require('./dishes.js')
+var events = require('./events.js')
+
 
 app.use('/customers', customers);
 app.use('/restaurants', restaurants);
 app.use('/orders', orders);
 app.use('/dishes', dishes);
-
+app.use('/events', events);
 
 
 //reference : https://medium.com/@khelif96/uploading-files-from-a-react-app-to-aws-s3-the-right-way-541dd6be689

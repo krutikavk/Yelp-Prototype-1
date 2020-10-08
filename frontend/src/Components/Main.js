@@ -23,6 +23,7 @@ import restaurant from './Restaurants/restaurantpage';
 import cart from './Cart/cart';
 import orders from './Order/ordersDisplay';
 import orderpage from './Order/orderpage'
+import Eventadd from './Events/addevent';
 
 
 import notfound from './NotFound/notfound'
@@ -38,6 +39,7 @@ class Main extends Component {
     // <Route path ='*' component={notfound}/>
     //<Route path='/' component={Navbar}/>
     //Reference: https://medium.com/@alexfarmer/redirects-in-react-router-dom-46198938eedc
+    //If any trouble routing in matching paths 
     return(
     <div> 
         {/*Render Different Component based on Route*/}
@@ -53,13 +55,14 @@ class Main extends Component {
             <Route path='/customer/profile' component={CustProfile}/>
             <Route path='/customer/edit' component={CustEdit}/>
             <Route path='/restaurant/dashboard' component={Restdash}/>
-            <Route path='/dishes' component={dishes}/>
-            <Route path='/dishes/add' component={dishesadd}/>
+            <Route exact path='/dishes' component={dishes}/>
+            <Route exact path='/dishes/add' component={dishesadd}/>
             <Route path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
             <Route path='/restaurant' component={restaurant}/>
             <Route path='/orders' component={orders}/>
             <Route path='/orderpage' component={orderpage}/>
+            <Route exact path='/events/add' component={Eventadd}/>
             <Route path ='*' component={notfound}/>
         </Switch>
 

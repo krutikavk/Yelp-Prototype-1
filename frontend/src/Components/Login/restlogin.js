@@ -100,8 +100,9 @@ class restLogin extends Component {
 
     let redirectVar = null;
     console.log("whoislogged: ", this.props.whoIsLogged)
-    if(this.props.isLogged === true) {
+    if(this.state.authFlag === true) {
       redirectVar = <Redirect to= "/restaurant"/>
+      //redirectVar = <Redirect to= "/events/add"/>
     }
 
     return(
