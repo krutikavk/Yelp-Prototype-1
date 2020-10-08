@@ -5,20 +5,26 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurantcard';
+/*
 import GoogleMapReact from 'google-map-react';
 import '../Map/map.css';
 import { Icon } from '@iconify/react';
 import locationIcon from '@iconify/icons-mdi/map-marker';
+
+*/
+
+import MapSection from '../Map/map'
 import Navbar from '../Navbar/navbar';
 
  
-
+/*
 const LocationPin = ({ text }) => (
   <div className="pin">
     <Icon icon={locationIcon} className="pin-icon" color="#ff6347" width="40" height="40" />
     <p className="pin-text" style={{color:"#ff6347"}}>{text}</p>
   </div>
 )
+*/
 
 class Restaurants extends Component {
 
@@ -65,16 +71,22 @@ class Restaurants extends Component {
     this.state.restaurants.forEach(item => {
       console.log(item)
       let location = {
-        address: item.raddress,
+        name: item.rname,
         lat: item.rlatitude,
         lng: item.rlongitude
       }
       locations.push(location)
     });
 
+    let pins = {
+      restaurants: locations
+    }
+
     console.log("locations:", locations)
 
     return(
+
+      /*
       <div>
         <Navbar/>
         <section class="container">
@@ -112,16 +124,29 @@ class Restaurants extends Component {
         </section>
       </div>
 
-
-      /*
-      <div>
-        {this.state.restaurants.map (restaurant => (
-          <div>
-            <Restaurant restaurant = {restaurant} />
-          </div>
-        ))}
-      </div>
       */
+
+      <div>
+        <Navbar/>
+        <section class="container">
+          <div class="left-half">
+            {this.state.restaurants.map (restaurant => (
+              <div>
+                <Restaurant restaurant = {restaurant} />
+              </div>
+            ))}
+          </div>
+
+          <div class="right-half">
+            <div className="map">
+              <div className="google-map">
+                <MapSection location={pins} zoomLevel={17} />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
 
     )
 

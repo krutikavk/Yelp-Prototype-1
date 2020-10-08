@@ -7,30 +7,43 @@ import locationIcon from '@iconify/icons-mdi/map-marker'
 
 const LocationPin = ({ text }) => (
   <div className="pin">
-    <Icon icon={locationIcon} className="pin-icon" />
-    <p className="pin-text">{text}</p>
+    <Icon icon={locationIcon} className="pin-icon" color="#ff6347" width="40" height="40" />
+    <p className="pin-text"  style={{color:"#ff6347"}}>{text}</p>
   </div>
 )
 
 const Map = ({ location, zoomLevel }) => (
   <div className="map">
-    <h2 className="map-h2">Come Visit Us At Our Campus</h2>
 
     <div className="google-map">
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyCXEQ_Jm1T3Ha7dpvHBYbqMXnNaQmCbKn8' }}
-        defaultCenter={location}
+        center={location.restaurants[0]}
         defaultZoom={zoomLevel}
       >
       
-        <LocationPin
-          lat={location.lat}
-          lng={location.lng}
-          text={location.address}
-        />
+      
+      {location.restaurants.map (item => {  
+        return (       
+          <LocationPin
+            lat={item.lat}
+            lng={item.lng}
+            text={item.name}
+          />
+        )}
+      )}
+        
       </GoogleMapReact>
     </div>
   </div>
 )
 
 export default Map
+
+/*
+  <LocationPin
+    lat={location.lat}
+    lng={location.lng}
+    text={location.address}
+  />
+*/
