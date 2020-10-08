@@ -106,6 +106,10 @@ class Restsignup extends Component {
         if(response.status === 200){
           console.log('Restaurant added')
 
+          
+          //This is no longer needed, state error only needed
+
+          let url = 'http://localhost:3001/restaurants/' + response.data[0].rid + '/hours';
           this.props.update('RID', response.data[0].rid)
           this.props.update('REMAIL', response.data[0].remail)
           this.props.update('RPASSWORD', response.data[0].rpassword)
@@ -122,10 +126,28 @@ class Restsignup extends Component {
 
           this.props.login()
           this.props.restaurantLogin()
-          //This is no longer needed, state error only needed
+
           this.setState({
             isAdded : true
           })
+          
+          axios.post(url, {rid: response.data[0].rid})
+            .then (response => {
+
+              console.log("updated hours code : ",response.status);
+              if(response.status === 200){
+
+                console.log("Updated hours for restaurant")
+                
+
+              }
+
+            }).catch(err => {
+
+            });
+
+          //add hours to restaurant
+          
         }
       }).catch(err =>{
           this.setState({
@@ -149,7 +171,7 @@ class Restsignup extends Component {
     console.log("islogged props: ", this.props.isLogged)
     console.log("whoIsLogged props: ", this.props.whoIsLogged)
     if(this.props.isLogged === true && this.props.whoIsLogged === true) {
-      redirectVar = <Redirect to= "/restaurant"/>
+      redirectVar = <Redirect to= "/restaurant/updateinfo"/>
     }
     const errors = this.state.errors;
 
@@ -245,6 +267,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Restsignup);
-
 
 

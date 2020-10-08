@@ -35,6 +35,7 @@ class Dishes extends Component {
             //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
             //use JSON.parse(JSON.stringify()) to convert back to JSON object
             let temp = JSON.parse(JSON.stringify(response.data));
+            console.log("temp: ", temp);
             this.setState({
                 dishes: [...temp],
                 rid: this.props.location.query.rid,

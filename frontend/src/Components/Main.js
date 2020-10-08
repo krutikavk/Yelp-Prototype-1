@@ -16,7 +16,8 @@ import Restupdatelocation from './Restdash/restupdatelocation';
 import Custlogin from './Login/custlogin';
 import Restlogin from './Login/restlogin';
 import Navbar from './Navbar/navbar';
-import dishes from './Dish/displaydishes'
+import dishes from './Dish/displaydishes';
+import Editdish from './Dish/editdish';
 import restaurants from './Restaurants/displayRestaurants';
 import restaurant from './Restaurants/restaurantpage';
 import cart from './Cart/cart';
@@ -53,6 +54,7 @@ class Main extends Component {
             <Route path='/customer/edit' component={CustEdit}/>
             <Route path='/restaurant/dashboard' component={Restdash}/>
             <Route path='/dishes' component={dishes}/>
+            <Route path='/dishes/edit' component={Editdish}/>
             <Route path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
             <Route path='/restaurant' component={restaurant}/>

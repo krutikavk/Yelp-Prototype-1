@@ -30,7 +30,6 @@ const cartReducer = (state = initialCartState, action) => {
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
           let index = state.cartContents.findIndex(x => x.dname === dname);
-          console.log("index: ", index)
           
           if (index === -1) {
             
@@ -81,7 +80,6 @@ const cartReducer = (state = initialCartState, action) => {
           if(state.cartContents[index].dquantity === 1) {
             //Loose equality--match string/number
             newcontents = newcontents.filter(entry => (entry.dname !== dname))
-            console.log("-->", newcontents)
             
           } else {
             newcontents= [...state.cartContents];
@@ -91,7 +89,6 @@ const cartReducer = (state = initialCartState, action) => {
           let newState = {
             cartContents: newcontents
           }
-          console.log('new state', newState)
           return newState;
 
         }

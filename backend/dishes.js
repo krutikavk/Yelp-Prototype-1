@@ -52,8 +52,8 @@ router.post('/', (request, response) => {
 
 //Get dishes for restaurant
 router.get('/:rid', (request, response) => {
-  console.log('Endpoint POST: Get dishes')
-
+  console.log('Endpoint GET: Get dishes')
+  console.log("rid: ", request.params.rid)
   var dbQuery = (sql `SELECT * from dish WHERE rid = ?`);
 
   connection.query(dbQuery, request.params.rid, (error, results) => {
@@ -64,8 +64,59 @@ router.get('/:rid', (request, response) => {
       response.writeHead(200,{
         'Content-Type' : 'application/json'
       })
-      console.log(results);
+      console.log('results: ', results);
       response.end(JSON.stringify(results));
+    }
+  })
+})
+
+
+//edit a dish
+router.put('/:did', (request, response) => {
+  console.log('Endpoint PUT: Edit a dish')
+  let updateUserQuery = (sql `UPDATE dish SET dname = ?, dingredients = ?, 
+                                dprice = ?, ddescription = ?, dcategory = ?,
+                                where did = ?`);
+
+  var data = [
+    request.body.dname,
+    request.body.dingredients,
+    request.body.dprice,
+    request.body.ddescription,
+    request.body.dcategory,
+    request.params.dname
+  ]
+
+  connection.query(updateUserQuery, data, (error, results, fields) => {
+    if (error) {
+      console.log('Could not update the resource')
+      response.status(404).send('Could not update the resource'); 
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully updated");
+    }
+  })
+})
+
+
+
+
+//delete a dish
+router.delete('/:did', (request, response) => {
+  console.log('Endpoint DELETE: delete a dish')
+  let delQuery = (sql `DELETE from dish where did = ?`);
+
+  connection.query(delQuery, data, (error, results, fields) => {
+    if (error) {
+      console.log('Could not delete the resource')
+      response.status(404).send('Could not delete the resource'); 
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully deleted");
     }
   })
 })

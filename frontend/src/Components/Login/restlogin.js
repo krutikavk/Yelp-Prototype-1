@@ -82,8 +82,6 @@ class restLogin extends Component {
           this.props.login()
           //weird--dosnt work here
           //this.props.restaurantLogin()
-
-          alert('here')
           this.setState({
               authFlag : true
           })

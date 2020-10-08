@@ -6,53 +6,226 @@ import {updateCart} from '../../_actions';
 import {connect} from 'react-redux';
 
 
+var dataToChange = {
+  dname: '',
+  ddescription: '',
+  dcategory: '',
+  dingredients: '',
+  dprice: '',
+  durl: '',
+}
+
 class Dish extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: ''
+      dname: '',
+      ddescription: '',
+      dcategory: '',
+      dingredients: '',
+      dprice: '',
+
+      dnameToChange: false,
+      ddescriptionToChange: false,
+      dcategoryToChange: false,
+      dingredientsToChange: false,
+      dpriceToChange: false,
+
     }
+
+
+    //for customer
     this.addToCartHandler = this.addToCartHandler.bind(this)
+
+    //for restaurant
+    this.dnameEditTextFieldHandler = this.dnameEditTextFieldHandler.bind(this);
+    this.ddescriptionEditTextFieldHandler = this.ddescriptionEditTextFieldHandler.bind(this);
+    this.dcategoryEditTextFieldHandler = this.dcategoryEditTextFieldHandler.bind(this);
+    this.dingredientsEditTextFieldHandler = this.dingredientsEditTextFieldHandler.bind(this);
+    this.dpriceEditTextFieldHandler = this.dpriceEditTextFieldHandler.bind(this);
+
+    this.dnameChangeHandler = this.dnameChangeHandler.bind(this);
+    this.ddescriptionChangeHandler = this.ddescriptionChangeHandler.bind(this);
+    this.dcategoryChangeHandler = this.dcategoryChangeHandler.bind(this);
+    this.dingredientsChangeHandler = this.dingredientsChangeHandler.bind(this);
+    this.dpriceChangeHandler = this.dpriceChangeHandler.bind(this);
+
+    this.submitDishChange = this.submitDishChange.bind(this);
+
   }
 
   addToCartHandler = (event) => {
-    //Iterate through cartContents and allow to add only if there are no other restaurants' orders
-    let check = this.props.cartContents.filter(array => array.rid !== this.props.rid);
-    if(check.length >= 1) {
-      alert("Please place orders for one restaurant at a time")
-    } else {
-      let data = {
-        dname: this.props.dish.dname,            //dish name
-        rid: this.props.rid,              //restaurant
-        dquantity: 1,        //dish quantity
-        dprice: this.props.dish.dprice,           //dish price
-        ooption: this.props.rdelivery,          //Delivery/Pickup
-        oaddress: ''
-      }
-      
-      this.props.updateCart('ADD', data);
-      alert("Added to cart")
-    }
 
+    if(this.props.isLogged === true) {
+    //Iterate through cartContents and allow to add only if there are no other restaurants' orders
+      let check = this.props.cartContents.filter(array => array.rid !== this.props.rid);
+      if(check.length >= 1) {
+        alert("Please place orders for one restaurant at a time")
+      } else {
+        let data = {
+          dname: this.props.dish.dname,            //dish name
+          rid: this.props.rid,              //restaurant
+          dquantity: 1,        //dish quantity
+          dprice: this.props.dish.dprice,           //dish price
+          ooption: this.props.rdelivery,          //Delivery/Pickup
+          oaddress: ''
+        }
+        
+        this.props.updateCart('ADD', data);
+        alert("Added to cart")
+      }
+    } else {
+      //If not one is logged in, 
+      alert('Please login before placing an order');
+    }
   }
 
+  dnameEditTextFieldHandler = (event) => {
+    this.setState({
+      dnameToChange: true,
+    })
+  }
+
+
+  ddescriptionEditTextFieldHandler = (event) => {
+    this.setState({
+      ddescriptionToChange: true,
+    })
+  }
+
+  dcategoryEditTextFieldHandler = (event) => {
+    this.setState({
+      dcategoryToChange: true,
+    })
+  }
+
+  dingredientsEditTextFieldHandler = (event) => {
+    this.setState({
+      dingredientsToChange: true,
+    })
+  }
+
+  dpriceEditTextFieldHandler = (event) => {
+    this.setState({
+      dpriceToChange: true,
+    })
+  }
+
+  dnameChangeHandler = (event) => {
+    dataToChange = {
+      dname: event.target.value,
+      ddescription: this.props.dish.ddescription,
+      dcategory: this.props.dish.dcategory,
+      dingredients: this.props.dish.dingredients,
+      dprice: this.props.dish.dprice,
+      durl: this.props.dish.durl,
+    }
+  }
+
+
+  ddescriptionChangeHandler = (event) => {
+    dataToChange = {
+      dname: this.props.dish.dname,
+      ddescription: event.target.value,
+      dcategory: this.props.dish.dcategory,
+      dingredients: this.props.dish.dingredients,
+      dprice: this.props.dish.dprice,
+      durl: this.props.dish.durl,
+    }
+  }
+
+  dcategoryChangeHandler = (event) => {
+    dataToChange = {
+      dname: this.props.dish.dname,
+      ddescription: this.props.dish.ddescription,
+      dcategory: event.target.value,
+      dingredients: this.props.dish.dingredients,
+      dprice: this.props.dish.dprice,
+      durl: this.props.dish.durl,
+    }
+  }
+
+  dingredientsChangeHandler = (event) => {
+    dataToChange ={
+      dname: this.props.dish.dname,
+      ddescription: this.props.dish.ddescription,
+      dcategory: this.props.dish.dcategory,
+      dingredients: event.target.value,
+      dprice: this.props.dish.dprice,
+      durl: this.props.dish.durl,
+    }
+  }
+
+  dpriceChangeHandler = (event) => {
+    dataToChange = {
+      dname: this.props.dish.dname,
+      ddescription: this.props.dish.ddescription,
+      dcategory: this.props.dish.dcategory,
+      dingredients: this.props.dish.dingredients,
+      dprice: event.target.value,
+      durl: this.props.dish.durl,
+    }
+  }
+
+  submitDishChange = (event) => {
+    event.preventDefault();
+    axios.defaults.withCredentials = true;
+
+
+    console.log(dataToChange);
+    let url = 'http://localhost:3001/dishes/' + this.props.dish.did;
+    axios.put(url, dataToChange)
+      .then(response => {
+        console.log("Status Code : ",response.status);
+        if(response.status === 200){
+
+          this.setState({
+            dnameToChange: false,
+            ddescriptionToChange: false,
+            dcategoryToChange: false,
+            dingredientsToChange: false,
+            dpriceToChange: false,
+          })
+        }
+      }).catch(err =>{
+        alert("Update failed")
+    });
+  }
+
+
+
+
   render() {
- 
+
+    //For customer login, give an option to add to cart
+    let addToCartButton = null;
+    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      //customer login
+      addToCartButton = <button onClick = {this.addToCartHandler} class="btn btn-primary">Add to Cart</button>
+    }
+
+    //For restaurant login, give an option to edit the dish
+    let dnameTextField = <button class="btn btn-danger btn-sm" onClick = {this.dnameEditTextFieldHandler}>Edit</button>;
+    let ddescriptionTextField = <button class="btn btn-danger btn-sm" onClick = {this.ddescriptionEditTextFieldHandler}>Edit</button>;
+    let dcategoryTextField = <button class="btn btn-danger btn-sm" onClick = {this.dcategoryEditTextFieldHandler}>Edit</button>;
+    let dingredientsTextField = <button class="btn btn-danger btn-sm" onClick = {this.dingredientsEditTextFieldHandler}>Edit</button>;
+    let dpriceTextField = <button class="btn btn-danger btn-sm" onClick = {this.dpriceEditTextFieldHandler}>Edit</button>;
+
     return (
 
       <div>
       
       <div class="card-horizontal" >
         <div class="img-square-wrapper">
-            <img class="img-responsive card-img-top" src={nachospic} alt="dish"></img>
+            <img class="img-responsive card-img-top" src={this.props.dish.durl} alt="dish"></img>
         </div>
         <div class="card-body">
-          <h4 class="card-title">{this.props.dish.dname}</h4>
-          <p class="card-text">{this.props.dish.ddescription}</p>
-          <p class="card-text">Category: {this.props.dish.dcategory}</p>
-          <p class="card-text">Ingredients: {this.props.dish.dingredients}</p>
-          <p class="card-text"><h4>{this.props.dish.dprice}$</h4></p>
-          <button onClick = {this.addToCartHandler} class="btn btn-primary">Add to Cart</button>
+          <h4 class="card-title">{this.props.dish.dname} {dnameTextField}</h4>
+          <p class="card-text">{this.props.dish.ddescription} {ddescriptionTextField}</p>
+          <p class="card-text">Category: {this.props.dish.dcategory} {dcategoryTextField}</p>
+          <p class="card-text">Ingredients: {this.props.dish.dingredients} {dingredientsTextField}</p>
+          <p class="card-text"><h4>{this.props.dish.dprice}$ </h4>{dpriceTextField}</p>
+          {addToCartButton}
         </div>
       </div>
       <div class="card-footer">
@@ -97,6 +270,8 @@ class Dish extends Component {
 
 const mapStateToProps = (state) => {
     return {
+      isLogged: state.isLogged.isLoggedIn,
+      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
       cartContents: state.cart.cartContents
 
     }

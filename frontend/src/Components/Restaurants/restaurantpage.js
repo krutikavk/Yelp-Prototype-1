@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurant';
@@ -25,14 +25,15 @@ class Restaurants extends Component {
   componentWillMount() {
     console.log(" restaurantpage component did mount rid", this.props.rid)
     console.log(" restaurantpage component did mount whoIsLogged", this.props.whoIsLogged)
-    let rid = 6;
-    //let rid = (this.props.whoIsLogged === true) ? this.props.rid : this.props.location.query.rid;
+
+    let rid = (this.props.whoIsLogged === true) ? this.props.rid : this.props.location.query.rid;
     console.log("rid on restaurantpage", rid)
     //Get working hours
-    let getHours = 'http://localhost:3001/restaurants/' + 6 + '/hours'
+    let getHours = 'http://localhost:3001/restaurants/' + rid + '/hours'
     axios.get(getHours)
     .then(response => {
       if(response.status === 200){
+
         //When results return multiple rows, rowdatapacket object needs to be converted to JSON object again 
         //use JSON.parse(JSON.stringify()) to convert back to JSON object
         let temp = JSON.parse(JSON.stringify(response.data));
@@ -116,8 +117,7 @@ class Restaurants extends Component {
       return (<img src={image} alt="" rounded ></img>);
     });
     */
-
-    
+ 
 
     //If customer is logged in, take information from props passed to the page
 
@@ -175,6 +175,16 @@ class Restaurants extends Component {
                     <p class="card-text font-italic">Address: {restaurantprofile.raddress}</p>
                     <p class="card-text font-italic">Cuisine: {restaurantprofile.rcuisine}</p>
                     <p class="card-text font-italic">Service: {restaurantprofile.rdelivery}</p>
+                    <Link to ={{
+                        pathname: '/dishes',
+                        query: {
+                          rid: `${restaurantprofile.rid}`, 
+                          rname: `${restaurantprofile.rname}`, 
+                          rphone: `${restaurantprofile.rphone}`,
+                          rdelivery: `${restaurantprofile.rdelivery}`,
+                        }
+                      }}><button id="btnLogin" className="btn btn-danger">Place order</button>
+                    </Link>
                   </div>
                 </div>
                 <div class="card-footer">
