@@ -50,12 +50,32 @@ class Dishes extends Component {
   render() {
     //{this.state.dishes.length > 0 && <displayDishes dishes={this.state.dishes} />}
     return(
-      <div>
-        {this.state.dishes.map (dish => (
-          <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
 
-        ))}
-      </div>
+      <div class="container-fluid style={{height: 100}}">
+          <div class="row">
+            <div class="col-12 mt-3">
+              <div class="card">
+                <div class="card-horizontal">
+                  <img src={this.props.location.query.rphoto} style={{width: 250}} alt=""></img>
+                  <div class="card-body">
+                    <p class="card-text font-weight-bold">{this.props.location.query.rname}</p>
+                    <p class="card-text font-italic">Phone: {this.props.location.query.rphone}</p>
+                    <p class="card-text font-italic">Address: {this.props.location.query.raddress}</p>
+                    <p class="card-text font-italic">Service: {this.props.location.query.rdelivery}</p>
+                  </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text">
+                      {this.state.dishes.map (dish => (
+                        <Dish dish = {dish} rid = {this.state.rid} rdelivery = {this.state.rdelivery} />
+                      ))} 
+                    </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
     )
   }
 }

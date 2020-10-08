@@ -75,7 +75,7 @@ router.get('/:rid', (request, response) => {
 router.put('/:did', (request, response) => {
   console.log('Endpoint PUT: Edit a dish')
   let updateUserQuery = (sql `UPDATE dish SET dname = ?, dingredients = ?, 
-                                dprice = ?, ddescription = ?, dcategory = ?,
+                                dprice = ?, ddescription = ?, dcategory = ?
                                 where did = ?`);
 
   var data = [
@@ -84,7 +84,46 @@ router.put('/:did', (request, response) => {
     request.body.dprice,
     request.body.ddescription,
     request.body.dcategory,
-    request.params.dname
+    request.params.did
+  ]
+
+  console.log("received", data);
+
+  connection.query(updateUserQuery, data, (error, results) => {
+    if (error) {
+      console.log('Could not update the resource')
+      response.status(404).send('Could not update the resource'); 
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully updated");
+    }
+  })
+})
+
+
+
+
+router.put('/:cid', (request, response) => {
+
+  //const connection = getMySQLConnection();
+  console.log('Endpoint PUT: customer update')
+  console.log('Request Body: ', request.body);
+
+  let updateUserQuery = (sql `UPDATE customer SET cemail = ?, cname = ?, 
+                                cphone = ?, cabout = ?, cphoto = ?,
+                                cfavrest = ?, cfavcuisine = ? where cid = ?`);
+
+  var data = [
+    request.body.cemail,
+    request.body.cname,
+    request.body.cphone,
+    request.body.cabout,
+    request.body.cphoto,
+    request.body.cfavrest,
+    request.body.cfavcuisine,
+    request.params.cid
   ]
 
   connection.query(updateUserQuery, data, (error, results, fields) => {
@@ -97,7 +136,8 @@ router.put('/:did', (request, response) => {
       })
       response.end("Successfully updated");
     }
-  })
+  });
+  //connection.end();
 })
 
 

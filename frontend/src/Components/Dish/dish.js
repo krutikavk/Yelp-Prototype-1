@@ -33,6 +33,15 @@ class Dish extends Component {
 
     }
 
+    dataToChange = {
+      dname: this.props.dish.dname,
+      ddescription: this.props.dish.ddescription,
+      dcategory: this.props.dish.dcategory,
+      dingredients: this.props.dish.dingredients,
+      dprice: this.props.dish.dprice,
+      durl: this.props.dish.durl,
+    }
+
 
     //for customer
     this.addToCartHandler = this.addToCartHandler.bind(this)
@@ -85,7 +94,6 @@ class Dish extends Component {
       dnameToChange: true,
     })
   }
-
 
   ddescriptionEditTextFieldHandler = (event) => {
     this.setState({
@@ -174,18 +182,28 @@ class Dish extends Component {
 
     console.log(dataToChange);
     let url = 'http://localhost:3001/dishes/' + this.props.dish.did;
+    console.log("Update dish at ", url)
+
     axios.put(url, dataToChange)
       .then(response => {
         console.log("Status Code : ",response.status);
         if(response.status === 200){
-
+          alert("Update done")
           this.setState({
+            dname: dataToChange.dname,
+            ddescription: dataToChange.dname,
+            dcategory: dataToChange.dcategory,
+            dingredients: dataToChange.dingredients,
+            dprice: dataToChange.dprice,
+            durl: dataToChange.durl,
+
             dnameToChange: false,
             ddescriptionToChange: false,
             dcategoryToChange: false,
             dingredientsToChange: false,
             dpriceToChange: false,
           })
+
         }
       }).catch(err =>{
         alert("Update failed")
@@ -211,25 +229,97 @@ class Dish extends Component {
     let dingredientsTextField = <button class="btn btn-danger btn-sm" onClick = {this.dingredientsEditTextFieldHandler}>Edit</button>;
     let dpriceTextField = <button class="btn btn-danger btn-sm" onClick = {this.dpriceEditTextFieldHandler}>Edit</button>;
 
+    if(this.state.dnameToChange === true) {
+      dnameTextField = (
+        <div class = 'login-form'>
+        <input onChange = {this.dnameChangeHandler} 
+                                type="text"  
+                                name="dname" 
+                                class="form-control"
+                                placeholder="New dish name"
+                                required/>
+        <button class="btn btn-danger btn-sm" onClick = {this.submitDishChange}>Submit change</button>
+        </div>
+      )
+    }
+
+    if(this.state.ddescriptionToChange === true) {
+      ddescriptionTextField = (
+        <div class = 'login-form'>
+        <input onChange = {this.ddescriptionChangeHandler} 
+                                type="text"  
+                                name="dname" 
+                                class="form-control"
+                                placeholder="New dish name"
+                                required/>
+        <button class="btn btn-danger btn-sm" onClick = {this.submitDishChange}>Submit change</button>
+        </div>
+      )
+    }
+
+    if(this.state.dcategoryToChange === true) {
+      dcategoryTextField = (
+        <div class = 'login-form'>
+        <input onChange = {this.dcategoryChangeHandler} 
+                                type="text"  
+                                name="dname" 
+                                class="form-control"
+                                placeholder="New dish name"
+                                required/>
+        <button class="btn btn-danger btn-sm" onClick = {this.submitDishChange}>Submit change</button>
+        </div>
+      )
+    }
+
+    if(this.state.dingredientsToChange === true) {
+      dingredientsTextField = (
+        <div class = 'login-form'>
+        <input onChange = {this.dingredientsChangeHandler} 
+                                type="text"  
+                                name="dname" 
+                                class="form-control"
+                                placeholder="New dish name"
+                                required/>
+        <button class="btn btn-danger btn-sm" onClick = {this.submitDishChange}>Submit change</button>
+        </div>
+      )
+    }
+
+    if(this.state.dpriceToChange === true) {
+      dpriceTextField = (
+        <div class = 'login-form'>
+        <input onChange = {this.dpriceChangeHandler} 
+                                type="text"  
+                                name="dname" 
+                                class="form-control"
+                                placeholder="New dish name"
+                                required/>
+        <button class="btn btn-danger btn-sm" onClick = {this.submitDishChange}>Submit change</button>
+        </div>
+      )
+    }
+
+
+
     return (
 
       <div>
       
       <div class="card-horizontal" >
         <div class="img-square-wrapper">
-            <img class="img-responsive card-img-top" src={this.props.dish.durl} alt="dish"></img>
+            <img class="img-responsive img-thumbnail" src={nachospic} alt="dish" width="200" height="200"></img>
         </div>
         <div class="card-body">
-          <h4 class="card-title">{this.props.dish.dname} {dnameTextField}</h4>
-          <p class="card-text">{this.props.dish.ddescription} {ddescriptionTextField}</p>
-          <p class="card-text">Category: {this.props.dish.dcategory} {dcategoryTextField}</p>
-          <p class="card-text">Ingredients: {this.props.dish.dingredients} {dingredientsTextField}</p>
-          <p class="card-text"><h4>{this.props.dish.dprice}$ </h4>{dpriceTextField}</p>
+          <h4 class="card-title">{dataToChange.dname} {dnameTextField}</h4>
+          <div class="card-text">{dataToChange.ddescription} {ddescriptionTextField}</div>
+          <p class="card-text">{dataToChange.dcategory} {dcategoryTextField}</p>
+          <p class="card-text">Ingredients: {dataToChange.dingredients} {dingredientsTextField}</p>
+          <p class="card-text"><h4>{dataToChange.dprice}$ {dpriceTextField}</h4></p>
           {addToCartButton}
         </div>
       </div>
       <div class="card-footer">
-          <small class="text-muted">Featured!</small>
+
       </div>
       </div>
 

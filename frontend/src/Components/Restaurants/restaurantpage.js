@@ -134,6 +134,7 @@ class Restaurants extends Component {
         rname: this.props.rname,
         rphone: this.props.rphone,
         rabout: this.props.rabout,
+        rphoto: this.props.rphoto,
         rlocation: this.props.rlocation,
         rlatitude: this.props.rlatitude,
         rlongitude: this.props.rlongitude,
@@ -152,6 +153,7 @@ class Restaurants extends Component {
         rname: this.props.location.query.rname,
         rphone: this.props.location.query.rphone,
         rabout: this.props.location.query.rabout,
+        rphoto: this.props.location.query.rphoto,
         rlocation: this.props.location.query.rlocation,
         rlatitude: this.props.location.query.rlatitude,
         rlongitude: this.props.location.query.rlongitude,
@@ -172,7 +174,7 @@ class Restaurants extends Component {
             <div class="col-12 mt-3">
               <div class="card">
                 <div class="card-horizontal">
-                  <img src={restro} style={{width: 250}} alt="" rounded ></img>
+                  <img src={restaurantprofile.rphoto} style={{width: 250}} alt=""></img>
                   <div class="card-body">
                     <p class="card-text font-weight-bold">{restaurantprofile.rname}</p>
                     <p class="card-text font-weight-bold font-italic"> * {this.state.avgrating}/5</p>
@@ -184,9 +186,12 @@ class Restaurants extends Component {
                         pathname: '/dishes',
                         query: {
                           rid: `${restaurantprofile.rid}`, 
+                          remail: `${restaurantprofile.remail}`,
                           rname: `${restaurantprofile.rname}`, 
+                          raddress: `${restaurantprofile.raddress}`,
                           rphone: `${restaurantprofile.rphone}`,
                           rdelivery: `${restaurantprofile.rdelivery}`,
+
                         }
                       }}><button id="btnLogin" className="btn btn-danger">{buttonDisplay}</button>
                     </Link>
@@ -210,7 +215,6 @@ class Restaurants extends Component {
                         </div>
 
                     </p>
-                  <small class="text-muted">Featured!</small>
                 </div>
               </div>
             </div>
