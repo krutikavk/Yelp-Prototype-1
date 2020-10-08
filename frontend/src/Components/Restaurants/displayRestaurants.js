@@ -6,9 +6,19 @@ import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
 import Restaurant from './restaurantcard';
 import GoogleMapReact from 'google-map-react';
-import Map from '../Map/map'
+import '../Map/map.css';
+import { Icon } from '@iconify/react';
+import locationIcon from '@iconify/icons-mdi/map-marker';
 
  
+
+const LocationPin = ({ text }) => (
+  <div className="pin">
+    <Icon icon={locationIcon} className="pin-icon" color="#ff6347" width="40" height="40" />
+    <p className="pin-text" style={{color:"#ff6347"}}>{text}</p>
+  </div>
+)
+
 class Restaurants extends Component {
 
   constructor(props) {
@@ -82,9 +92,27 @@ class Restaurants extends Component {
           </div>
 
           <div class="right-half">
-            I will put gmap here
+            <div className="map">
+              <div className="google-map">
+                <GoogleMapReact
+                  bootstrapURLKeys={{ key: 'AIzaSyCXEQ_Jm1T3Ha7dpvHBYbqMXnNaQmCbKn8' }}
+                  center={locations[0]}
+                  defaultZoom={17}
+                >
 
-            <Map location={location} zoomLevel={17} />
+                {this.state.restaurants.map (location => {  
+                  return (       
+                    <LocationPin
+                      lat={location.rlatitude}
+                      lng={location.rlongitude}
+                      text={location.rname}
+                    />
+                  )}
+                )}
+
+                </GoogleMapReact>
+              </div>
+            </div>
           </div>
         </section>
       </div>
