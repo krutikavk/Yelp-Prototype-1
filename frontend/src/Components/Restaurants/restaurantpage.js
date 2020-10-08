@@ -123,6 +123,8 @@ class Restaurants extends Component {
 
     let restaurantprofile = {};
 
+    let buttonDisplay = '';
+
     //If restaurant is logged in, take this info from redux state
     if(this.props.whoIsLogged === true) {
       restaurantprofile = {
@@ -140,6 +142,8 @@ class Restaurants extends Component {
         rdelivery: this.props.rdelivery,
       }
 
+      buttonDisplay = 'View Menu'
+
     } else {
       restaurantprofile = {
         rid: this.props.location.query.rid,
@@ -155,6 +159,7 @@ class Restaurants extends Component {
         rcuisine: this.props.location.query.rcuisine,
         rdelivery: this.props.location.query.rdelivery,
       }
+      buttonDisplay = 'Place Order'
     }
     
 
@@ -183,7 +188,7 @@ class Restaurants extends Component {
                           rphone: `${restaurantprofile.rphone}`,
                           rdelivery: `${restaurantprofile.rdelivery}`,
                         }
-                      }}><button id="btnLogin" className="btn btn-danger">Place order</button>
+                      }}><button id="btnLogin" className="btn btn-danger">{buttonDisplay}</button>
                     </Link>
                   </div>
                 </div>

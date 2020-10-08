@@ -94,8 +94,8 @@ class DisplayProfile extends Component {
 
                   <div class="card-body">
                     <p class="card-text font-weight-bold font-italic"> {customerprofile.cname}</p>
-                    <p class="card-text text-muted font-italic">Here since: {customerprofile.cjoined}</p>
-                    <p class="card-text text-muted font-italic">Reviews: {this.state.reviews.length}</p>
+                    <p class="card-text text-muted font-italic">Here since: {customerprofile.cjoined.split("T")[0]}</p>
+                    <p class="card-text text-muted font-italic">Reviews given: {this.state.reviews.length}</p>
                     <p class="card-text text-muted font-italic">Friends: 4728</p>
                     <Link to='/customer/edit' class="btn btn-danger">Edit profile</Link> 
                   </div>

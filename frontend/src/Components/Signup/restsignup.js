@@ -130,7 +130,7 @@ class Restsignup extends Component {
           this.setState({
             isAdded : true
           })
-          
+
           axios.post(url, {rid: response.data[0].rid})
             .then (response => {
 
@@ -176,55 +176,66 @@ class Restsignup extends Component {
     const errors = this.state.errors;
 
     return (
+
       <div>
+        {redirectVar} 
+        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" >
 
-        {redirectVar}
+        <br/>
+          <form>
+            <div className="col d-flex justify-content-center rounded-0">
+              <div className="card-header">
+                <h4>Restaurant</h4>
+              </div>
+            </div>
 
-        <div class="container">
-            <form onSubmit={this.registerRestaurant} >
-                <div class="login-form">
-                    <div class="main-div">
-                        <div class="panel">
-                            <p>Restaurant Signup</p>  
-                        </div>
-                        <div class="form-group">
-                            <input onChange = {this.rnameChangeHandler} 
-                            type="text"  
-                            name="rname" 
-                            class="form-control"
-                            placeholder="Restaurant Name"
-                            required/>
-                            {errors.rname.length > 0 && 
-                            <span>{errors.rname}</span>}
-                        </div>
-                        
-                        <div class="form-group">
-                            <input onChange = {this.remailChangeHandler} 
-                            type="text"  
-                            name="remail" 
-                            class="form-control"
-                            placeholder="Email ID"
-                            required/>
-                            {errors.remail.length > 0 && 
-                            <span>{errors.remail}</span>}
-                        </div>
-                        <div class="form-group">
-                            <input onChange = {this.rpasswordChangeHandler} 
-                            type="password" 
-                            name="rpassword" 
-                            class="form-control"
-                            placeholder="Password"
-                            required/>
-                            {errors.rpassword.length > 0 && 
-                            <span>{errors.rpassword}</span>}
-                        </div>
-                        
-                        <button disabled={! validateForm(this.state.errors)} class="btn btn-primary">Sign Up</button>
-                    </div>
-                </div>
-            </form>
+            <div className = "form-group text-left">
+              <br/>
+              <label htmlFor="exampleInputEmail1">Restaurant Name</label>
+              <input onChange = {this.rnameChangeHandler} 
+                                  type="text"  
+                                  name="rname" 
+                                  className="form-control form-control-sm"
+                                  placeholder="Restaurant Name"
+                                  aria-describedby="emailHelp" 
+                                  required/>
+                                  {errors.rname.length > 0 && 
+                                  <span><small id="emailHelp" className="form-text text-muted">{errors.rname}</small></span>}
+            </div>
+
+            <div className = "form-group text-left">
+              <br/>
+              <label htmlFor="exampleInputEmail1">Email address</label>
+              <input onChange = {this.remailChangeHandler} 
+                                  type="email"  
+                                  name="email" 
+                                  className="form-control form-control-sm"
+                                  placeholder="Email ID"
+                                  aria-describedby="emailHelp" 
+                                  required/>
+                                  {errors.remail.length > 0 && 
+                                  <span><small id="emailHelp" className="form-text text-muted">{errors.remail}</small></span>}
+            </div>
+            <div className="form-group text-left">
+              <br/>
+              <label htmlFor="exampleInputPassword1">Password</label>
+              <input onChange = {this.rpasswordChangeHandler} 
+                                  type="password" 
+                                  name="password" 
+                                  className="form-control form-control-sm"
+                                  placeholder="Password"
+                                  required/>
+                                  {errors.rpassword.length > 0 && 
+                                  <span><small id="emailHelp" className="form-text text-muted">{errors.rpassword}</small></span>}
+            </div>
+
+            <div className="col-md-12 text-center">
+            <button disabled={! validateForm(this.state.errors)} id="btnLogin" className="btn btn-danger" onClick={this.registerRestaurant}>Sign up</button>
+            </div>
+          </form>
         </div>
       </div>
+
     )
   }
 

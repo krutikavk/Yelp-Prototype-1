@@ -101,6 +101,7 @@ class custLogin extends Component {
         if(response.status === 200){
           console.log("Login authorized")
           console.log(response.data[0]);
+          console.log("cjoined: ", response.data[0].cjoined)
           //call props action
           this.props.update('CID', response.data[0].cid)
           this.props.update('CEMAIL', response.data[0].cemail)

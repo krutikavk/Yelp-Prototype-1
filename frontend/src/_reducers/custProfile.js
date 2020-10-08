@@ -96,6 +96,22 @@ const custReducer = (state = initialCustProfile, action) => {
         }
       }
 
+      case 'CJOINED': {
+
+        return {
+          cid: state.cid,
+          cemail: state.cemail,
+          cpassword: state.cpassword,
+          cname: state.cname,
+          cphone: state.cphone,
+          cabout: state.cabout,
+          cjoined: action.payload,
+          cphoto: state.cphoto,
+          cfavrest: state.cfavrest,
+          cfavcuisine: state.cfavcuisine,
+        }
+      }
+
       case 'CABOUT': {
 
         return {
