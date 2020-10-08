@@ -15,7 +15,6 @@ import Restupdateinfo from './Restdash/restupdateinfo';
 import Restupdatelocation from './Restdash/restupdatelocation';
 import Custlogin from './Login/custlogin';
 import Restlogin from './Login/restlogin';
-import Navbar from './Navbar/navbar';
 import dishes from './Dish/displaydishes';
 import dishesadd from './Dish/adddish'
 import restaurants from './Restaurants/displayRestaurants';
@@ -24,6 +23,7 @@ import cart from './Cart/cart';
 import orders from './Order/ordersDisplay';
 import orderpage from './Order/orderpage'
 import Eventadd from './Events/addevent';
+import Events from './Events/displayEvents'
 
 
 import notfound from './NotFound/notfound'
@@ -63,6 +63,7 @@ class Main extends Component {
             <Route path='/orders' component={orders}/>
             <Route path='/orderpage' component={orderpage}/>
             <Route exact path='/events/add' component={Eventadd}/>
+            <Route exact path='/events' component={Events}/>
             <Route path ='*' component={notfound}/>
         </Switch>
 

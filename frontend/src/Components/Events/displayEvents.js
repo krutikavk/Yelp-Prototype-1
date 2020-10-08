@@ -4,19 +4,29 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, customerLogin} from '../../_actions';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {
-  geocodeByAddress,
-  geocodeByPlaceId,
-  getLatLng,
-} from 'react-places-autocomplete';
+import Event from './eventcard';
+import GoogleMapReact from 'google-map-react';
+import '../Map/map.css';
+import { Icon } from '@iconify/react';
+import locationIcon from '@iconify/icons-mdi/map-marker';
 import Navbar from '../Navbar/navbar';
 
 
 
+
+const LocationPin = ({ text }) => (
+  <div className="pin">
+    <Icon icon={locationIcon} className="pin-icon" color="#ff6347" width="40" height="40" />
+    <p className="pin-text" style={{color:"#ff6347"}}>{text}</p>
+  </div>
+)
+
 class DisplayEvents extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      events: []
+    }
   }
 
   componentDidMount() {
@@ -30,12 +40,45 @@ class DisplayEvents extends Component {
             //use JSON.parse(JSON.stringify()) to convert back to JSON object
             let temp = JSON.parse(JSON.stringify(response.data));
             this.setState({
-                restaurants: [...temp]
+                events: [...temp]
             })
           }
         }).catch(err =>{
             console.log("No response")
         });
+  }
+
+
+
+  render() {
+
+    let locations = [];
+    this.state.events.forEach(item => {
+      console.log(item)
+      let location = {
+        address: item.raddress,
+        lat: item.rlatitude,
+        lng: item.rlongitude
+      }
+      locations.push(location)
+    });
+
+    console.log("locations:", locations)
+
+    return (
+      <div>
+        <Navbar/>
+
+        {this.state.events.map (event => (
+              <div>
+                <Event event={event} />
+              </div>
+        ))}
+        
+      </div>
+
+    )
+
   }
 
 
@@ -73,4 +116,4 @@ function mapDispatchToProps(dispatch) {
   
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddEvent);
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayEvents);

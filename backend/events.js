@@ -52,6 +52,27 @@ router.post('/', (request, response) => {
 });
 
 
+//Get all events
+router.get('/', (request, response) => {
+  console.log('Endpoint GET: Get all events')
+  console.log('Request Body: ', request.body);
+  var dbQuery = (sql `SELECT * from event`);
+
+  connection.query(dbQuery, (error, results) => {
+    if(error) {
+      console.log('Could not get events')
+      response.status(404).send('Could not get events');    
+    } else {
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  })
+});
+
+
 //Get all events by a restaurant
 router.get('/restaurant/:rid', (request, response) => {
   console.log('Endpoint POST: Add event')
@@ -71,6 +92,7 @@ router.get('/restaurant/:rid', (request, response) => {
     }
   })
 });
+
 
 
 

@@ -61,12 +61,6 @@ class Restaurants extends Component {
 
   render() {
 
-    const location = {
-      address: '1600 Amphitheatre Parkway, Mountain View, california.',
-      lat: 37.42216,
-      lng: -122.08427,
-    }
-
     let locations = [];
     this.state.restaurants.forEach(item => {
       console.log(item)
