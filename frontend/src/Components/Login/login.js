@@ -40,7 +40,7 @@ class Login extends Component {
     
     if(this.props.isLogged === true && this.props.whoIsLogged === false) {
       //Customer login
-      redirectVar = <Redirect to= '/customer/dashboard'/>
+      redirectVar = <Redirect to= '/customer/profile'/>
     } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
       //restaurant login
       redirectVar = <Redirect to= '/restaurant/dashboard'/>

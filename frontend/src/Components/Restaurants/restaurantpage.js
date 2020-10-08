@@ -124,6 +124,7 @@ class Restaurants extends Component {
     let restaurantprofile = {};
 
     let buttonDisplay = '';
+    let menuOption = null;
 
     //If restaurant is logged in, take this info from redux state
     if(this.props.whoIsLogged === true) {
@@ -143,7 +144,25 @@ class Restaurants extends Component {
         rdelivery: this.props.rdelivery,
       }
 
-      buttonDisplay = 'View Menu'
+      buttonDisplay = 'View/Edit Menu'
+      menuOption = <Link to= {{
+                        pathname: '/dishes/add',
+                        query: {
+                          rid: `${restaurantprofile.rid}`, 
+                          remail: `${restaurantprofile.remail}`,
+                          rname: `${restaurantprofile.rname}`, 
+                          rphone: `${restaurantprofile.rphone}`, 
+                          rabout: `${restaurantprofile.rabout}`, 
+                          rphoto: `${restaurantprofile.rphoto}`,
+                          rlocation: `${restaurantprofile.rlocation}`,
+                          rlatitude: `${restaurantprofile.rlatitude}`, 
+                          rlongitude: `${restaurantprofile.rlongitude}`, 
+                          raddress: `${restaurantprofile.raddress}`,
+                          rcuisine: `${restaurantprofile.rcuisine}`,
+                          rdelivery: `${restaurantprofile.rdelivery}`,
+
+                        }
+                      }}> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
 
     } else {
       restaurantprofile = {
@@ -163,6 +182,8 @@ class Restaurants extends Component {
       }
       buttonDisplay = 'Place Order'
     }
+
+    console.log("restaurant page restaurantprofile: ", restaurantprofile)
     
 
     return(
@@ -173,9 +194,9 @@ class Restaurants extends Component {
           <div class="row">
             <div class="col-12 mt-3">
               <div class="card">
-                <div class="card-horizontal">
-                  <img src={restaurantprofile.rphoto} style={{width: 250}} alt=""></img>
-                  <div class="card-body">
+                <div class="card-horizontal shadow-sm p-3 mb-5 bg-white rounded">
+                  <img src={restaurantprofile.rphoto} class="img-thumbnail" width = "300" alt=""></img> <br/>
+                  <div class="card-body shadow-sm p-3 mb-5 bg-white rounded">
                     <p class="card-text font-weight-bold">{restaurantprofile.rname}</p>
                     <p class="card-text font-weight-bold font-italic"> * {this.state.avgrating}/5</p>
                     <p class="card-text font-italic">Phone: {restaurantprofile.rphone}</p>
@@ -188,13 +209,19 @@ class Restaurants extends Component {
                           rid: `${restaurantprofile.rid}`, 
                           remail: `${restaurantprofile.remail}`,
                           rname: `${restaurantprofile.rname}`, 
+                          rphone: `${restaurantprofile.rphone}`, 
+                          rabout: `${restaurantprofile.rabout}`, 
+                          rphoto: `${restaurantprofile.rphoto}`,
+                          rlocation: `${restaurantprofile.rlocation}`,
+                          rlatitude: `${restaurantprofile.rlatitude}`, 
+                          rlongitude: `${restaurantprofile.rlongitude}`, 
                           raddress: `${restaurantprofile.raddress}`,
-                          rphone: `${restaurantprofile.rphone}`,
+                          rcuisine: `${restaurantprofile.rcuisine}`,
                           rdelivery: `${restaurantprofile.rdelivery}`,
 
                         }
                       }}><button id="btnLogin" className="btn btn-danger">{buttonDisplay}</button>
-                    </Link>
+                    </Link> {menuOption}
                   </div>
                 </div>
                 <div class="card-footer">
@@ -228,9 +255,6 @@ class Restaurants extends Component {
           ))}
 
         </div>
-
-
-
       </div>
 
     )

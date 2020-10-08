@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {Redirect ,Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {update, login, logout, restaurantLogin} from '../../_actions';
+import {nachospic} from './nachospic.png';
 import Dish from './dish';
 
  
@@ -56,12 +57,13 @@ class Dishes extends Component {
             <div class="col-12 mt-3">
               <div class="card">
                 <div class="card-horizontal">
-                  <img src={this.props.location.query.rphoto} style={{width: 250}} alt=""></img>
+                  <img src={nachospic} style={{width: 250}} alt="" width></img>
                   <div class="card-body">
                     <p class="card-text font-weight-bold">{this.props.location.query.rname}</p>
                     <p class="card-text font-italic">Phone: {this.props.location.query.rphone}</p>
                     <p class="card-text font-italic">Address: {this.props.location.query.raddress}</p>
                     <p class="card-text font-italic">Service: {this.props.location.query.rdelivery}</p>
+                    <Link to= '/dishes/add'> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
                   </div>
                 </div>
                 <div class="card-footer">
@@ -80,27 +82,6 @@ class Dishes extends Component {
   }
 }
 
+export default Dishes;
 
-const mapStateToProps = (state) => {
-    return {
 
-      //Get global state to get cid, rid and login details to fetch dishes for customer/restaurant
-
-      cid: state.custProfile.cid,
-      rid: state.restProfile.rid,
-      isLogged: state.isLogged.isLoggedIn,
-      whoIsLogged: state.whoIsLogged.whoIsLoggedIn,
-
-    }
-}
-
-function mapDispatchToProps(dispatch) {  
-  return {
-    update : (field, payload) => dispatch(update(field, payload)),
-    login: () => dispatch(login()),
-    logout: () => dispatch(logout()),
-  }
-  
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Dishes);
