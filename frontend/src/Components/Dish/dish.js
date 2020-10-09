@@ -5,7 +5,7 @@ import nachospic from './nachospic.png';
 import {updateCart} from '../../_actions';
 import {connect} from 'react-redux';
 
-
+/*
 var dataToChange = {
   dname: '',
   ddescription: '',
@@ -14,11 +14,13 @@ var dataToChange = {
   dprice: '',
   durl: '',
 }
+*/
 
 class Dish extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
       dname: '',
       ddescription: '',
       dcategory: '',
@@ -31,15 +33,16 @@ class Dish extends Component {
       dingredientsToChange: false,
       dpriceToChange: false,
 
-    }
 
-    dataToChange = {
-      dname: this.props.dish.dname,
-      ddescription: this.props.dish.ddescription,
-      dcategory: this.props.dish.dcategory,
-      dingredients: this.props.dish.dingredients,
-      dprice: this.props.dish.dprice,
-      durl: this.props.dish.durl,
+      dataToChange: {
+        dname: this.props.dish.dname,
+        ddescription: this.props.dish.ddescription,
+        dcategory: this.props.dish.dcategory,
+        dingredients: this.props.dish.dingredients,
+        dprice: this.props.dish.dprice,
+        durl: this.props.dish.durl,
+      }
+
     }
 
 
@@ -121,41 +124,54 @@ class Dish extends Component {
   }
 
   dnameChangeHandler = (event) => {
-    dataToChange = {
+    this.setState({
+      dataToChange: {
       dname: event.target.value,
       ddescription: this.props.dish.ddescription,
       dcategory: this.props.dish.dcategory,
       dingredients: this.props.dish.dingredients,
       dprice: this.props.dish.dprice,
       durl: this.props.dish.durl,
-    }
+      }
+    })
+
+    
   }
 
 
   ddescriptionChangeHandler = (event) => {
-    dataToChange = {
-      dname: this.props.dish.dname,
-      ddescription: event.target.value,
-      dcategory: this.props.dish.dcategory,
-      dingredients: this.props.dish.dingredients,
-      dprice: this.props.dish.dprice,
-      durl: this.props.dish.durl,
-    }
+    this.setState({
+      dataToChange: {
+        dname: this.props.dish.dname,
+        ddescription: event.target.value,
+        dcategory: this.props.dish.dcategory,
+        dingredients: this.props.dish.dingredients,
+        dprice: this.props.dish.dprice,
+        durl: this.props.dish.durl,
+      }
+
+    })
+    
   }
 
   dcategoryChangeHandler = (event) => {
-    dataToChange = {
-      dname: this.props.dish.dname,
-      ddescription: this.props.dish.ddescription,
-      dcategory: event.target.value,
-      dingredients: this.props.dish.dingredients,
-      dprice: this.props.dish.dprice,
-      durl: this.props.dish.durl,
-    }
+    this.setState({
+      dataToChange: {
+        dname: this.props.dish.dname,
+        ddescription: this.props.dish.ddescription,
+        dcategory: event.target.value,
+        dingredients: this.props.dish.dingredients,
+        dprice: this.props.dish.dprice,
+        durl: this.props.dish.durl,
+      }
+    })
+    
   }
 
   dingredientsChangeHandler = (event) => {
-    dataToChange ={
+
+    this.setState({
+      dataToChange: {
       dname: this.props.dish.dname,
       ddescription: this.props.dish.ddescription,
       dcategory: this.props.dish.dcategory,
@@ -163,17 +179,22 @@ class Dish extends Component {
       dprice: this.props.dish.dprice,
       durl: this.props.dish.durl,
     }
+    })
+    
   }
 
   dpriceChangeHandler = (event) => {
-    dataToChange = {
-      dname: this.props.dish.dname,
-      ddescription: this.props.dish.ddescription,
-      dcategory: this.props.dish.dcategory,
-      dingredients: this.props.dish.dingredients,
-      dprice: event.target.value,
-      durl: this.props.dish.durl,
-    }
+    this.setState({
+      dataToChange: {
+        dname: this.props.dish.dname,
+        ddescription: this.props.dish.ddescription,
+        dcategory: this.props.dish.dcategory,
+        dingredients: this.props.dish.dingredients,
+        dprice: event.target.value,
+        durl: this.props.dish.durl,
+      }
+    })
+    
   }
 
   submitDishChange = (event) => {
@@ -181,22 +202,22 @@ class Dish extends Component {
     axios.defaults.withCredentials = true;
 
 
-    console.log(dataToChange);
+    console.log(this.state.dataToChange);
     let url = 'http://localhost:3001/dishes/' + this.props.dish.did;
     console.log("Update dish at ", url)
 
-    axios.put(url, dataToChange)
+    axios.put(url, this.state.dataToChange)
       .then(response => {
         console.log("Status Code : ",response.status);
         if(response.status === 200){
           alert("Update done")
           this.setState({
-            dname: dataToChange.dname,
-            ddescription: dataToChange.dname,
-            dcategory: dataToChange.dcategory,
-            dingredients: dataToChange.dingredients,
-            dprice: dataToChange.dprice,
-            durl: dataToChange.durl,
+            dname: this.state.dataToChange.dname,
+            ddescription: this.state.dataToChange.dname,
+            dcategory: this.state.dataToChange.dcategory,
+            dingredients: this.state.dataToChange.dingredients,
+            dprice: this.state.dataToChange.dprice,
+            durl: this.state.dataToChange.durl,
 
             dnameToChange: false,
             ddescriptionToChange: false,
@@ -320,11 +341,11 @@ class Dish extends Component {
             <img class="img-responsive img-thumbnail" src={nachospic} alt="dish" width="200" height="200"></img>
         </div>
         <div class="card-body">
-          <h4 class="card-title">{dataToChange.dname} {dnameTextField}</h4>
-          <div class="card-text">{dataToChange.ddescription} {ddescriptionTextField}</div>
-          <p class="card-text">{dataToChange.dcategory} {dcategoryTextField}</p>
-          <p class="card-text">Ingredients: {dataToChange.dingredients} {dingredientsTextField}</p>
-          <p class="card-text"><h4>{dataToChange.dprice}$ {dpriceTextField}</h4></p>
+          <h4 class="card-title">{this.state.dataToChange.dname} {dnameTextField}</h4>
+          <div class="card-text">{this.state.dataToChange.ddescription} {ddescriptionTextField}</div>
+          <p class="card-text">{this.state.dataToChange.dcategory} {dcategoryTextField}</p>
+          <p class="card-text">Ingredients: {this.state.dataToChange.dingredients} {dingredientsTextField}</p>
+          <p class="card-text"><h4>{this.state.dataToChange.dprice}$ {dpriceTextField}</h4></p>
           {addToCartButton}
         </div>
       </div>
