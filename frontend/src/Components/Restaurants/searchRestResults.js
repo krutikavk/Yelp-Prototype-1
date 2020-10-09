@@ -43,12 +43,12 @@ class SearchRestResults extends Component {
 
     */
 
+    //Accessing props from Navbar as this.props.location.state.xxx
+    console.log("Passed props", this.props)
+
     return (
 
-
-
       <div>
-        <Navbar/>
         <section class="container">
           <RestaurantListingsProvider >
             <RestaurantListingsConsumer>

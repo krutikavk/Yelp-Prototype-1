@@ -25,7 +25,7 @@ import orderpage from './Order/orderpage'
 import Eventadd from './Events/addevent';
 import Events from './Events/displayEvents';
 import notfound from './NotFound/notfound';
-import SearchRest from './Restaurants/searchRestResults';
+import SearchRest from './SearchRest/searchrest';
 
 //import Navbar from './Navbar/navbar';
 //import Userdash from './Userdash/userdash';

@@ -30,7 +30,8 @@ const cartReducer = (state = initialCartState, action) => {
           ** coincide with cartContents' index! 
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
-          let index = state.cartContents.findIndex(x => x.did === did);
+          // eslint-disable-next-line eqeqeq
+          let index = state.cartContents.findIndex(x => x.did == did);
           
           if (index === -1) {
             
@@ -77,10 +78,11 @@ const cartReducer = (state = initialCartState, action) => {
           ** coincide with cartContents' index! 
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
-          let index = state.cartContents.findIndex(x => x.did === did);
+          // eslint-disable-next-line eqeqeq
+          let index = state.cartContents.findIndex(x => x.did == did);
           if(state.cartContents[index].dquantity === 1) {
             //Loose equality--match string/number
-            newcontents = newcontents.filter(entry => (entry.did !== did))
+            newcontents = newcontents.filter(entry => (entry.did != did))
             
           } else {
             newcontents= [...state.cartContents];

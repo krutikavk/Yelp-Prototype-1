@@ -384,3 +384,37 @@ router.get('/:rid/average', (request, response) => {
 
 
 
+
+/************* Search queries ******************/
+
+
+router.get('/search/cuisine', (request, response) => {
+  console.log('\nEndpoint GET: restaurant reviews get')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from restaurant WHERE cuisine = ?`);
+
+  connection.query(dbQuery, request.body.cuisine, (error, results) => {
+    if(error) {
+      console.log('Error getting review')
+      response.status(404).send('Error getting review');
+    } else {
+      
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+})
+
+
+
+
+
+
+
+
+
+
