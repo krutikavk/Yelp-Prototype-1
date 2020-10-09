@@ -2,7 +2,8 @@ import * as React from 'react';
 import axios from 'axios';
 
 const DefaultState = {
-  restaurantListings: []
+  restaurantListings: [],
+  filter: {}
 }
 
 export class RestaurantListingsProvider extends React.Component {
@@ -40,14 +41,43 @@ export class RestaurantListingsProvider extends React.Component {
     
   }
 
+
+  updateFilter = filter => {
+    this.setState({
+      filter: filter
+    })
+  }
+
+
+
+  static applyFilter(restaurants, filter) {
+    const displayRestaurant = filter
+    let result = restaurants
+    // console.log("filter", filter);
+    // console.log("displayorder", displayOrder);
+    // console.log("orders:" , orders)
+    // console.log("displayorder: ", displayOrder)
+    console.log("Inside apply filter")
+    console.log("restaurants", restaurants)
+    
+    if (displayRestaurant && displayRestaurant.method && displayRestaurant.method  !== 'All') {
+       result = result.filter(item => item.rdelivery === displayRestaurant.method)
+    }
+    
+    console.log(result)
+    return result;
+  }
+
+
   render() {
     const { children } = this.props
-    const { restaurantListings } = this.state
-
+    const { restaurantListings, filter } = this.state
+    let filteredListings = RestaurantListingsProvider.applyFilter(restaurantListings, filter)
     return (
       <RestaurantListingsContext.Provider
         value={{
-          restaurantListings
+          restaurantListings: filteredListings,
+          updateFilter: this.updateFilter
         }} 
       >
         {children}

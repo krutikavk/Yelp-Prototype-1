@@ -7,7 +7,8 @@ import Navbar from '../Navbar/navbar';
 
 import { RestaurantListingsProvider, RestaurantListingsConsumer} from '../../_context/restaurantListingsProvider';
 import Restaurant from './restaurantcard';
-import MapSection from '../Map/map'
+import MapSection from '../Map/map';
+import RestFilter from '../Filter/restaurantfilter';
 
 
 
@@ -54,7 +55,7 @@ class SearchRestResults extends Component {
             <RestaurantListingsConsumer>
               
                 {function(value) {
-                  const { restaurantListings } = value
+                  const { restaurantListings, updateFilter } = value
                   console.log("listings: ", restaurantListings);
                   
                   
@@ -77,6 +78,7 @@ class SearchRestResults extends Component {
                   return (
                     <div>
                       <div class="left-half">
+                      <RestFilter updateFilter={updateFilter}/>
                         <ul>
                           {restaurantListings.map(listing => (
                             <div>
