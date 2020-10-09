@@ -28,7 +28,7 @@ class Dishes extends Component {
     //console.log("rest id: ", this.props.location.query.rphone)
     //console.log("rest id: ", this.props.location.query.rdelivery)
 
-    //
+    //get all dishes for a restaurant
     let url = 'http://localhost:3001/dishes/' + this.props.location.query.rid;
     console.log("query id: ", this.props.location.query.rid)
     axios.get(url)
