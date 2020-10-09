@@ -3,6 +3,8 @@ import '../../App.css';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import { Icon, InlineIcon } from '@iconify/react';
+import starIcon from '@iconify/icons-typcn/star';
 
 class Review extends Component {
 
@@ -79,7 +81,10 @@ class Review extends Component {
                         }}>
                         <p class="card-text font-weight-bold">{name}</p>
                       </Link>
-                      <p class="card-text font-weight-bold font-italic"> * {this.props.review.rerating}/5</p>
+                      <p class="card-text font-weight-bold font-italic"> 
+                        <Icon icon={starIcon} color="red" width="40" height="40" />
+                        {this.props.review.rerating}/5
+                      </p>
                       <small class="text-muted">Reviewed: {this.props.review.rdate.split("T")[0]}</small>
                     </div>
                   </div>

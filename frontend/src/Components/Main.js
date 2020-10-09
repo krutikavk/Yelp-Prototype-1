@@ -45,6 +45,7 @@ class Main extends Component {
         {/*Render Different Component based on Route*/}
         
         <Switch>
+            <Route exact path= '/' component={restaurants}/>
             <Route path='/login' component={Login}/>
             <Route path='/customer/login' component={Custlogin}/>
             <Route path='/restaurant/login' component={Restlogin}/>

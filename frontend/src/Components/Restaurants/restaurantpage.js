@@ -8,6 +8,9 @@ import Restaurant from './restaurant';
 import restro from './restro.jpg';
 import Review from '../Reviews/displayreview';
 import Navbar from '../Navbar/navbar';
+import { Icon, InlineIcon } from '@iconify/react';
+import starIcon from '@iconify/icons-typcn/star';
+
 
  
 class Restaurants extends Component {
@@ -200,7 +203,10 @@ class Restaurants extends Component {
                   <img src={restaurantprofile.rphoto} class="img-thumbnail" width = "300" alt=""></img> <br/>
                   <div class="card-body shadow-sm p-3 mb-5 bg-white rounded">
                     <p class="card-text font-weight-bold">{restaurantprofile.rname}</p>
-                    <p class="card-text font-weight-bold font-italic"> * {this.state.avgrating}/5</p>
+                    <p class="card-text font-weight-bold font-italic"> 
+                      <Icon icon={starIcon} color="red" width="40" height="40" /> 
+                      {this.state.avgrating}/5
+                    </p>
                     <p class="card-text font-italic">Phone: {restaurantprofile.rphone}</p>
                     <p class="card-text font-italic">Address: {restaurantprofile.raddress}</p>
                     <p class="card-text font-italic">Cuisine: {restaurantprofile.rcuisine}</p>
