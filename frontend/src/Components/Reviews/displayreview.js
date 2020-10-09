@@ -82,7 +82,7 @@ class Review extends Component {
                         <p class="card-text font-weight-bold">{name}</p>
                       </Link>
                       <p class="card-text font-weight-bold font-italic"> 
-                        <Icon icon={starIcon} color="red" width="40" height="40" />
+                        <Icon icon={starIcon} color="red" width="30" height="30" />
                         {this.props.review.rerating}/5
                       </p>
                       <small class="text-muted">Reviewed: {this.props.review.rdate.split("T")[0]}</small>

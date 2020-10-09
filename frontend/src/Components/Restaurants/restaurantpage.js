@@ -204,7 +204,7 @@ class Restaurants extends Component {
                   <div class="card-body shadow-sm p-3 mb-5 bg-white rounded">
                     <p class="card-text font-weight-bold">{restaurantprofile.rname}</p>
                     <p class="card-text font-weight-bold font-italic"> 
-                      <Icon icon={starIcon} color="red" width="40" height="40" /> 
+                      <Icon icon={starIcon} color="red" width="30" height="30" /> 
                       {this.state.avgrating}/5
                     </p>
                     <p class="card-text font-italic">Phone: {restaurantprofile.rphone}</p>

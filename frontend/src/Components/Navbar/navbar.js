@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {update, login, logout} from '../../_actions';
 import logo from './yelp-logo.jpg';
 import PlacesAutocomplete from 'react-places-autocomplete';
@@ -9,6 +10,9 @@ import {
   geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
+
+
+
 
 //create the Navbar Component
 class Navbar extends Component {
@@ -40,6 +44,7 @@ class Navbar extends Component {
     this.handleAddressChange = this.handleAddressChange.bind(this);
     this.handleSelectAddress = this.handleSelectAddress.bind(this);
 
+    this.submitSearch = this.submitSearch.bind(this)
 
   }
 
@@ -127,6 +132,46 @@ class Navbar extends Component {
       this.props.update('RDELIVERY', '')
 
       this.props.logout()
+
+  }
+
+
+  submitSearch = (event) => {
+    event.preventDefault();
+    //set the with credentials to true
+    axios.defaults.withCredentials = true;
+
+    //searchStates: ['Location', 'Cuisine', 'Delivery Type', 'Dish Name']
+    switch(this.state.searchBy) {
+
+      case 'Location': {
+
+
+        break;
+      }
+
+      case 'Cuisine': {
+
+
+        break;
+      }
+
+      case 'Delivery Type': {
+
+
+        break;
+      }
+
+      case 'Dish Name': {
+
+
+        break;
+      }
+
+      default: 
+        break;
+
+    }
 
   }
 
@@ -322,47 +367,7 @@ class Navbar extends Component {
             </li>
           </ul>
         </nav>
-        
       </div>
-
-
-
-      
-      /*
-      <nav className="navbar navbar-expand-sm bg-light navbar-light">
-        <Link to="/"><img src={logo}></img></Link>
-
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/userdash">Profile</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/orders">Orders</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/events">Events</Link>
-          </li>
-        </ul>
-          
-        <ul className="navbar-nav mx-auto">
-          <li className="nav-item">
-            <form className="form-inline" action="/" >
-              <input className="form-control mr-sm-2" type="text" placeholder="Search" ></input>
-              <button className="btn btn-success " type="submit">Search</button>
-            </form>
-          </li>
-        </ul>
-
-        <i className="fa fa-shopping-cart" style={{'font-size':36}}>
-          <Link className="nav-link" to="/cart"></Link>
-        </i>
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            {navLogin}
-          </li>
-        </ul>
-      </nav>
-      */
       
     )
   }

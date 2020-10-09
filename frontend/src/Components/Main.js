@@ -23,10 +23,9 @@ import cart from './Cart/cart';
 import orders from './Order/ordersDisplay';
 import orderpage from './Order/orderpage'
 import Eventadd from './Events/addevent';
-import Events from './Events/displayEvents'
-
-
-import notfound from './NotFound/notfound'
+import Events from './Events/displayEvents';
+import notfound from './NotFound/notfound';
+import SearchRest from './Restaurants/searchRestResults';
 
 //import Navbar from './Navbar/navbar';
 //import Userdash from './Userdash/userdash';
@@ -45,7 +44,6 @@ class Main extends Component {
         {/*Render Different Component based on Route*/}
         
         <Switch>
-            <Route exact path= '/' component={restaurants}/>
             <Route path='/login' component={Login}/>
             <Route path='/customer/login' component={Custlogin}/>
             <Route path='/restaurant/login' component={Restlogin}/>
@@ -58,13 +56,14 @@ class Main extends Component {
             <Route path='/restaurant/dashboard' component={Restdash}/>
             <Route exact path='/dishes' component={dishes}/>
             <Route exact path='/dishes/add' component={dishesadd}/>
-            <Route path='/restaurants' component={restaurants}/>
+            <Route exact path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
             <Route path='/restaurant' component={restaurant}/>
             <Route path='/orders' component={orders}/>
             <Route path='/orderpage' component={orderpage}/>
             <Route exact path='/events/add' component={Eventadd}/>
             <Route exact path='/events' component={Events}/>
+            <Route exact path='/restaurants/search' component={SearchRest}/>
             <Route path ='*' component={notfound}/>
         </Switch>
 

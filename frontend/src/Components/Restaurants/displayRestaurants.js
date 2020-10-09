@@ -83,10 +83,17 @@ class Restaurants extends Component {
     }
 
     console.log("locations:", locations)
+    console.log("displayrestaurants pins", pins)
 
     return(
 
       /*
+
+      
+
+
+
+
       <div>
         <Navbar/>
         <section class="container">
