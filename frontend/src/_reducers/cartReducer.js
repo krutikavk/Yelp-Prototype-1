@@ -6,6 +6,7 @@ const initialCartState = {
 };
 
 const emptyCart = {
+  did: '',
   dname: '',            //dish name
   rid: '',              //restaurant
   dquantity: '',        //dish quantity
@@ -21,7 +22,7 @@ const cartReducer = (state = initialCartState, action) => {
       switch(action.field) {
         case 'ADD': {
           //Add to cart
-          let dname = action.payload.dname
+          let did = action.payload.did
           let newcontents;
           //Loose equality--match string/number
           //Q-Why search for index? 
@@ -29,7 +30,7 @@ const cartReducer = (state = initialCartState, action) => {
           ** coincide with cartContents' index! 
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
-          let index = state.cartContents.findIndex(x => x.dname === dname);
+          let index = state.cartContents.findIndex(x => x.did === did);
           
           if (index === -1) {
             
@@ -69,17 +70,17 @@ const cartReducer = (state = initialCartState, action) => {
         case 'DELETE': {
          
           let newcontents = [...state.cartContents]
-          let dname = action.payload.dname;
+          let did = action.payload.did;
 
           //Q-Why search for index? 
           /* A-Because when we delete a complete entry from the cart, cart id does not 
           ** coincide with cartContents' index! 
           ** (delete entry 0 and then try to delete 1--will not find state.cartContents[cartid].dquantity)
           */
-          let index = state.cartContents.findIndex(x => x.dname === dname);
+          let index = state.cartContents.findIndex(x => x.did === did);
           if(state.cartContents[index].dquantity === 1) {
             //Loose equality--match string/number
-            newcontents = newcontents.filter(entry => (entry.dname !== dname))
+            newcontents = newcontents.filter(entry => (entry.did !== did))
             
           } else {
             newcontents= [...state.cartContents];

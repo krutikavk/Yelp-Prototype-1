@@ -96,10 +96,10 @@ router.post('/dishes', (request, response) => {
   console.log('Endpoint POST: Place an new orderdish')
   console.log('Request Body: ', request.body);
   let data = [request.body.oid, 
-              request.body.dname, 
+              request.body.did, 
               request.body.odquantity ]
 
-  let dbQuery = (sql `INSERT into order_dish (oid, dname, odquantity) values (?, ?, ?)`)
+  let dbQuery = (sql `INSERT into order_dish (oid, did, odquantity) values (?, ?, ?)`)
 
   connection.query(dbQuery, data, (error, results) => {
     if(error) {

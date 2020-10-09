@@ -25,7 +25,7 @@ class Cart extends Component{
 
   removeEntryHandler = (event) => {
     console.log("remove ID", event.target.value)
-    this.props.updateCart('DELETE', {dname: event.target.value})
+    this.props.updateCart('DELETE', {did: event.target.value})
   }
 
 
@@ -48,7 +48,7 @@ class Cart extends Component{
 
     let orderdish = {
       oid: '',
-      dname: '',
+      did: '',
       dquantity: '',
     }
 
@@ -69,7 +69,7 @@ class Cart extends Component{
             console.log("Dish quantity: ", dish.dquantity)
             let temp = {
               oid: oid,
-              dname: dish.dname,
+              did: dish.did,
               odquantity: dish.dquantity
             }
 
@@ -182,7 +182,7 @@ class Cart extends Component{
                             <td class="border-0 align-middle"><strong>{entry.dprice}</strong></td>
                             <td class="border-0 align-middle"><strong>{entry.dquantity}</strong></td>
                             <td class="border-0 align-middle"><strong>{entry.dquantity * entry.dprice}</strong></td>
-                            <td class="border-0 align-middle"><button onClick={this.removeEntryHandler} value = {entry.dname} class="btn btn-primary">Remove</button></td>
+                            <td class="border-0 align-middle"><button onClick={this.removeEntryHandler} value = {entry.did} class="btn btn-primary">Remove</button></td>
                           </tr>
                         ))}
 
