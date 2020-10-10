@@ -388,15 +388,16 @@ router.get('/:rid/average', (request, response) => {
 /************* Search queries ******************/
 
 
-router.get('/search/cuisine', (request, response) => {
-  console.log('\nEndpoint GET: restaurant reviews get')
+//Get restaurant ID serving a dish by dishname
+router.post('/search/dish', (request, response) => {
+  console.log('\nEndpoint GET: Get rid for restaurant serving a dish')
   console.log('Req Body: ', request.body)
 
-  var dbQuery = (sql `SELECT * from restaurant WHERE cuisine = ?`);
+  var dbQuery = (sql `SELECT DISTINCT rid from dish WHERE dname = ?`);
 
-  connection.query(dbQuery, request.body.cuisine, (error, results) => {
+  connection.query(dbQuery, request.body.dname, (error, results) => {
     if(error) {
-      console.log('Error getting review')
+      console.log('Error getting RID')
       response.status(404).send('Error getting review');
     } else {
       
@@ -407,7 +408,56 @@ router.get('/search/cuisine', (request, response) => {
       response.end(JSON.stringify(results));
     }
   });
+}) 
+
+//Get restuarants serving a cuisine
+//changed get to post--axios did not like get requests with a body 
+router.post('/search/cuisine', (request, response) => {
+  console.log('\nEndpoint GET: restaurants cuisine')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from restaurant WHERE rcuisine = ?`);
+
+  connection.query(dbQuery, request.body.rcuisine, (error, results) => {
+    if(error) {
+      console.log('Error fetching results')
+      response.status(404).send('Error fetching results');
+    } else {
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+
 })
+
+
+//Get restuarants serving a delivery
+router.post('/search/rdelivery', (request, response) => {
+  console.log('\nEndpoint GET: restaurants rdelivery')
+  console.log('Req Body: ', request.body)
+
+  var dbQuery = (sql `SELECT * from restaurant WHERE rdelivery = ?`);
+
+  connection.query(dbQuery, request.body.rdelivery, (error, results) => {
+    if(error) {
+      console.log('Error fetching results')
+      response.status(404).send('Error fetching results');
+    } else {
+      
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  });
+
+})
+
+
 
 
 

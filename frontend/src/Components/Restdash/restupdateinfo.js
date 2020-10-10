@@ -27,6 +27,7 @@ class Restupdateinfo extends Component {
       rabout: '',
       rcuisine: '',
       rdelivery: '',
+      rdeliveryStates: ['Curbside pickup', 'Yelp Delivery', 'Dine In'],
       updated: false,
       errors: {
         rphone: '',
@@ -222,14 +223,17 @@ class Restupdateinfo extends Component {
                                     required/>
               </div>
 
-              <div class="radio">
-                <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="1" name="optradio" checked/>Curbside Pickup </label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="2" name="optradio"/>Pickup</label>
-              </div>
-              <div class="radio disabled">
-                <label><input type="radio" onChange={this.rdeliveryChangeHandler} value="3" name="optradio"/>Dine In</label>
+              
+              <div class="form-group">
+                <label for="rdelivery">Delivery Type</label>
+                <select class="form-control" id="rdelivery" onChange = {this.rdeliveryChangeHandler}>>
+                  <option value = {this.state.rdelivery}> Choose...</option>
+                  {this.state.rdeliveryStates.map(option => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="form-group text-left">

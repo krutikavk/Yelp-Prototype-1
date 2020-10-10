@@ -14,13 +14,22 @@ class RestFilter extends Component {
     this.state = {
       method: '',
       methodStates: ['All', 'Curbside pickup', 'Yelp Delivery', 'Dine In'],
+      nbrAddress: '',
       nbrLatitude: '',
-      nbrLongitude: ''
+      nbrLongitude: '',
     }
 
     this.methodHandler = this.methodHandler.bind(this);
 
     this.handleSelectAddress = this.handleSelectAddress.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
+
+  }
+
+  handleAddressChange = (address) => {
+    this.setState({
+      nbrAddress: address
+    })
   }
 
   methodHandler = (event) => {
@@ -38,7 +47,7 @@ class RestFilter extends Component {
   }
 
   handleSelectAddress = address => {
-    this.setState({searchAddress : address});
+    this.setState({nbrAddress : address});
     console.log(address);
 
     geocodeByAddress(address)
@@ -65,8 +74,8 @@ class RestFilter extends Component {
     return (
       <div>
 
-        <div class="form-group">
-          <label for="ooption">Filter by Service: </label>
+        <div class="form-inline">
+          <label for="ooption" style={{color:"black"}}>Filter by Service: </label>
           <select class="form-control" id="ooption" onChange = {this.methodHandler}>>
             <option value = {this.state.method}> Choose...</option>
             {this.state.methodStates.map(option => (
@@ -75,8 +84,47 @@ class RestFilter extends Component {
               </option>
             ))}
           </select>
+          
+          <PlacesAutocomplete
+          value={this.state.nbrAddress}
+          onChange={this.handleAddressChange}
+          onSelect={this.handleSelectAddress}
+          >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+              <div>
+                <input
+                  {...getInputProps({
+                  placeholder: 'Enter Neighborhood...',
+                  className: 'form-control mr-sm-0',
+                  })}
+                />
+                <div className="autocomplete-dropdown-container">
+                  {loading && <div>Loading...</div>}
+                  {suggestions.map(suggestion => {
+                    const className = suggestion.active
+                      ? 'suggestion-item--active'
+                      : 'suggestion-item';
+                    // inline style for demonstration purpose
+                    const style = suggestion.active
+                      ? { backgroundColor: '#000000', cursor: 'pointer' }
+                      : { backgroundColor: '#D3D3D3', cursor: 'pointer' };
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style,
+                        })}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    );
+                
+                  })}
+                </div>
+              </div>
+            )}
+          </PlacesAutocomplete>
         </div>
-
       </div>
     )
   }

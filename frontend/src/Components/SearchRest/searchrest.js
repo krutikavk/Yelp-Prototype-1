@@ -30,7 +30,7 @@ class SearchRest extends Component {
       cuisineType: '',
       cuisineStates: ['Mexican', 'Italian', 'French', 'Indian', 'Continental', 'Dessert', 'Pan Asian', 'Patisserie', 'Fusion'],
       deliveryType: '',
-      deliveryStates: ['Pick up', 'Home Delivery', 'Curbside'],
+      deliveryStates: ['Curbside pickup', 'Yelp Delivery', 'Dine In'],
       searchStarted: false                        
     };  
     
@@ -148,7 +148,7 @@ class SearchRest extends Component {
             className="form-control mr-sm-2"
             type="text"
             placeholder={this.getPlaceHolder()}
-            onChange={this.searchTextChangeHandler}>
+            onChange={this.searchTextHandler}>
           </input>
           : ''}
 
@@ -227,8 +227,40 @@ class SearchRest extends Component {
       </li>
     )
 
+    let searchComponent = <SearchRestResults  
+                            searchBy = {this.state.searchBy} 
+                            searchTxt = {this.state.searchTxt}
+                            searchAddress = {this.state.searchAddress}
+                            searchLat = {this.state.searchLat}
+                            searchLng = {this.state.searchLng}
+                            cuisineType = {this.state.cuisineType}
+                            deliveryType = {this.state.deliveryType}
+                          />
 
-    let searchResults = this.state.searchStarted ? <SearchRestResults /> : null
+      /* STATE
+      searchBy: '',
+      searchStates: ['Location', 'Cuisine', 'Delivery Type', 'Dish Name'],
+      searchTxt: '',
+      searchAddress : '',
+      searchLat: 0.0,
+      searchLng: 0.0,
+      cuisineType: '',
+      cuisineStates: ['Mexican', 'Italian', 'French', 'Indian', 'Continental', 'Dessert', 'Pan Asian', 'Patisserie', 'Fusion'],
+      deliveryType: '',
+      deliveryStates: ['Curbside pickup', 'Yelp Delivery', 'Dine In'],
+      searchStarted: false  
+      */
+
+    let searchResults = this.state.searchStarted ? <SearchRestResults  
+                            searchBy = {this.state.searchBy} 
+                            searchTxt = {this.state.searchTxt}
+                            searchAddress = {this.state.searchAddress}
+                            searchLat = {this.state.searchLat}
+                            searchLng = {this.state.searchLng}
+                            cuisineType = {this.state.cuisineType}
+                            deliveryType = {this.state.deliveryType}
+                          /> 
+                          : null
     
     //{this.state.searchResults ? <SearchRestResults /> : null}
     

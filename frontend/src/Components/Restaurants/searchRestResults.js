@@ -51,13 +51,18 @@ class SearchRestResults extends Component {
 
       <div>
         <section class="container">
-          <RestaurantListingsProvider >
+          <RestaurantListingsProvider searchBy = {this.props.searchBy} 
+                            searchTxt = {this.props.searchTxt}
+                            searchAddress = {this.props.searchAddress}
+                            searchLat = {this.props.searchLat}
+                            searchLng = {this.props.searchLng}
+                            cuisineType = {this.props.cuisineType}
+                            deliveryType = {this.props.deliveryType}>
             <RestaurantListingsConsumer>
               
                 {function(value) {
                   const { restaurantListings, updateFilter } = value
                   console.log("listings: ", restaurantListings);
-                  
                   
                   let locations = [];
                   restaurantListings.forEach(item => {
