@@ -338,7 +338,7 @@ class Dish extends Component {
       
       <div class="card-horizontal" >
         <div class="img-square-wrapper">
-            <img class="img-responsive img-thumbnail" src={nachospic} alt="dish" width="200" height="200"></img>
+            <img class="img-responsive img-thumbnail" src={this.props.dish.durl} alt="dish" width="200" height="200"></img>
         </div>
         <div class="card-body">
           <h4 class="card-title">{this.state.dataToChange.dname} {dnameTextField}</h4>

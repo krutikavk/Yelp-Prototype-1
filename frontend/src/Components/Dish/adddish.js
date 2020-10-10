@@ -18,8 +18,11 @@ class AddDish extends Component {
       dprice: '',
       ddescription: '',
       dcategory: '',
-      durl: '',
       added: false,
+
+      //For uploading image
+      url: '',
+      success: false,
     }
 
     this.dnameChangeHandler = this.dnameChangeHandler.bind(this);
@@ -59,6 +62,64 @@ class AddDish extends Component {
     })
   }
 
+  handleFileChange = (event) => {
+    this.setState({
+      success: false, url : ''
+    });
+  }
+
+  // Perform the upload
+  handleFileUpload = (event) => {
+    this.setState({
+      success: false, 
+      url : ''
+    });
+
+    let file = this.uploadInput.files[0];
+    // Split the filename to get the name and type
+    let fileParts = this.uploadInput.files[0].name.split('.');
+    let fileName = 'custprof_' + this.props.cid + '_' + fileParts[0];
+    console.log(fileName);
+    let fileType = fileParts[1];
+    console.log("Preparing the upload");
+
+    axios.defaults.withCredentials = false;
+
+    axios.post("http://localhost:3001/sign_s3",{ fileName : fileName, fileType : fileType })
+      .then(response => {
+        var returnData = response.data.data.returnData;
+        var signedRequest = returnData.signedRequest;
+        var url = returnData.url;
+
+        this.setState({url: url})
+        this.setState({success: true})
+        console.log("Recieved a signed request " + signedRequest);
+        // Put the fileType in the headers for the upload
+        var options = {
+          headers: {
+            'ContentType': fileType
+          }
+        };
+
+        axios.put(signedRequest,file, options)
+          .then(result => {
+            console.log("Response from s3")
+            this.setState({
+              success: true
+            });
+
+          })
+          .catch(error => {
+            alert("ERROR " + JSON.stringify(error));
+          })
+    })
+    .catch(error => {
+      alert(JSON.stringify(error));
+    })
+
+  }
+
+
   addDish = (event) => {
     event.preventDefault();
     axios.defaults.withCredentials = true;
@@ -70,7 +131,8 @@ class AddDish extends Component {
       dingredients: this.state.dingredients,
       dprice: this.state.dprice,
       ddescription: this.state.ddescription,
-      dcategory: this.state.dcategory
+      dcategory: this.state.dcategory,
+      durl: this.state.url
     }
 
 
@@ -105,6 +167,12 @@ class AddDish extends Component {
       redirectVar = <Redirect to='/restaurant/profile'/>
     }
 
+    const Success_message = () => (
+      <div class='form-group'>
+      <img src={this.state.url} alt="" class="img-responsive" width="40" height="40"/>
+      <br/>
+      </div>
+    )
 
     return (
 
@@ -168,6 +236,14 @@ class AddDish extends Component {
                                     step="0.01"
                                     required/>
                                     
+              </div>
+
+              <div class="form-group">
+                
+                
+                <label htmlFor="exampleInputPassword1">Dish Photo</label> <br/>
+                {Success_message}
+                <input onChange={this.handleFileUpload} ref = {(ref) => {this.uploadInput = ref;}} type = "file"/>
               </div>
 
               <div className="col-md-12 text-center">

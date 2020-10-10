@@ -24,7 +24,7 @@ router.post('/', (request, response) => {
   console.log('Endpoint POST: Add dishes')
   console.log('Request Body: ', request.body);
 
-  var dbQuery = (sql `INSERT into dish (dname, rid, dingredients, dprice, ddescription, dcategory) VALUES (?, ?, ?, ?, ?, ?)`);
+  var dbQuery = (sql `INSERT into dish (dname, rid, dingredients, dprice, ddescription, dcategory, durl) VALUES (?, ?, ?, ?, ?, ?, ?)`);
 
   var data = [
     request.body.dname,
@@ -32,7 +32,8 @@ router.post('/', (request, response) => {
     request.body.dingredients,
     request.body.dprice,
     request.body.ddescription,
-    request.body.dcategory
+    request.body.dcategory,
+    request.body.durl
   ]
 
   connection.query(dbQuery, data, (error, results) => {
