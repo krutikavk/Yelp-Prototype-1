@@ -138,7 +138,11 @@ class Orderpage extends Component {
     let editTypeComponent = null;
     let editStatus = null;
 
+    let status = this.props.location.query.ostatus;
 
+    if(this.state.updated === true) {
+      status = this.state.ostatus;
+    }
 
 
     if(this.props.isLogged === false) {
@@ -206,7 +210,7 @@ class Orderpage extends Component {
                       <p class="card-text">Order ID: {this.props.location.query.oid}</p>
                       <p class="card-text">Restaurant ID: {this.props.location.query.rid}</p>
                       <p class="card-text">Service: {this.props.location.query.ooption}</p>
-                      <p class="card-text">Status: {this.props.location.query.ostatus} {editStatusComponent}</p>
+                      <p class="card-text">Status: {status} {editStatusComponent}</p>
                       <p class="card-text">Order Type: {this.props.location.query.otype} {editTypeComponent}</p>
                       <p class="card-text">Time placed: {this.props.location.query.otime}</p>
                   </div>

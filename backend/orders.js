@@ -96,10 +96,11 @@ router.post('/dishes', (request, response) => {
   console.log('Endpoint POST: Place an new orderdish')
   console.log('Request Body: ', request.body);
   let data = [request.body.oid, 
-              request.body.did, 
+              request.body.did,
+              request.body.dname,
               request.body.odquantity ]
 
-  let dbQuery = (sql `INSERT into order_dish (oid, did, odquantity) values (?, ?, ?)`)
+  let dbQuery = (sql `INSERT into order_dish (oid, did, dname, odquantity) values (?, ?, ?, ?)`)
 
   connection.query(dbQuery, data, (error, results) => {
     if(error) {
@@ -122,7 +123,7 @@ router.get('/restaurants/:rid', (request, response) => {
   console.log('Request Body: ', request.body);
   console.log(request.params.rid)
 
-  let dbQuery = (sql `SELECT * from order_detail where rid = ?`)
+  let dbQuery = (sql `SELECT * from order_detail where rid = ? ORDER BY oid DESC`)
   connection.query(dbQuery, request.params.rid, (error, results)=> {
     if( error) {
       console.log("Error fetching orders")
@@ -144,7 +145,7 @@ router.get('/customers/:cid', (request, response) => {
   console.log('Endpoint GET: Get all orders for restaurant')
   console.log('Request Body: ', request.body);
 
-  let dbQuery = (sql `SELECT * from order_detail where cid = ?`)
+  let dbQuery = (sql `SELECT * from order_detail where cid = ? ORDER BY oid DESC`)
   connection.query(dbQuery, request.params.cid, (error, results)=> {
     if( error) {
       console.log("Error fetching orders")
@@ -184,7 +185,7 @@ router.get('/:oid', (request, response)=> {
 })
 
 
-//Update an order's status --BUG
+//Update an order's status
 router.put('/:oid', (request, response)=> {
   console.log('Endpoint PUT: Update order')
   console.log('Request Body: ', request.body);
@@ -194,15 +195,12 @@ router.put('/:oid', (request, response)=> {
     if( error) {
       console.log("Error fetching order")
       response.status(404).send('Error fetching order');
-    } else if (results.length == 1) {
-      response.writeHead(200,{
-          //'Content-Type' : 'text/plain'
-          'Content-Type': 'application/json'
-      })
-      response.end(JSON.stringify(results));
     } else {
-      
-      response.status(404).send('No such order');
+
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully updated");
     }
   });
 })

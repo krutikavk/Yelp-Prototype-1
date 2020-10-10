@@ -99,7 +99,7 @@ class Filter extends Component {
         </div>
 
         <div class="form-group">
-          <label for="ooption">Filter by Order Status: </label>
+          <label for="ostatus">Filter by Order Status: </label>
           <select class="form-control" id="ooption" onChange = {this.ostatusHandler}>>
             <option value = {this.state.ostatus}> Choose...</option>
             {this.state.ostatusStates.map(option => (
@@ -111,7 +111,7 @@ class Filter extends Component {
         </div>
 
         <div class="form-group">
-          <label for="ooption">Filter by Order Type: </label>
+          <label for="otype">Filter by Order Type: </label>
           <select class="form-control" id="ooption" onChange = {this.otypeHandler}>>
             <option value = {this.state.otype}> Choose...</option>
             {this.state.otypeStates.map(option => (

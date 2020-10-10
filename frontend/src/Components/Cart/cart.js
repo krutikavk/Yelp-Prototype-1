@@ -16,14 +16,14 @@ class Cart extends Component{
       orderdetail: false,
       orderdish: false,
       placed: false,
-      otype: '',
-      otypeStates: 
+      ooption: '',
+      ooptionStates: ['Pickup', 'Delivery'],
     };
 
     this.removeEntryHandler = this.removeEntryHandler.bind(this);
     this.placeOrderHandler = this.placeOrderHandler.bind(this);
 
-    this.otypeHandler = this.otypeHandler.bind(this);
+    this.ooptionHandler = this.ooptionHandler.bind(this);
 
   }
 
@@ -32,11 +32,11 @@ class Cart extends Component{
     this.props.updateCart('DELETE', {did: event.target.value})
   }
 
-  otypeHandler = (event) => {
+  ooptionHandler = (event) => {
     console.log("selected", event.target.value)
 
     this.setState({
-      otype: event.target.value
+      ooption: event.target.value
     })
   }
 
@@ -47,7 +47,7 @@ class Cart extends Component{
     let orderdata = {
       cid: this.props.cid, 
       rid: this.props.cartContents[0].rid, 
-      ooption: 1, 
+      ooption: this.state.ooption, 
       ostatus: 1, 
       otype: 1,
       oaddress: '', 
@@ -203,6 +203,19 @@ class Cart extends Component{
 
                       </tbody>
                     </table>
+
+                     
+                    <div class="form-group">
+                      <label for="otype">Select Service option: </label>
+                      <select class="form-control" id="ooption" onChange = {this.ooptionHandler}>>
+                        <option value = {this.state.otype}> Choose...</option>
+                        {this.state.ooptionStates.map(option => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
 
               </div>
