@@ -149,10 +149,10 @@ class AddDish extends Component {
                 <br/>
                 <label htmlFor="exampleInputPassword1">Dish Description</label>
                 <input onChange = {this.ddescriptionChangeHandler} 
-                                    type="password" 
-                                    name="cpassword" 
+                                    type="text" 
+                                    name="ddescription" 
                                     className="form-control form-control-sm"
-                                    placeholder="Password" 
+                                    placeholder="Description" 
                                     rows="5"
                                     required/>
                                     

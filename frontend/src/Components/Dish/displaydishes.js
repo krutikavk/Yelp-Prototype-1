@@ -75,8 +75,7 @@ class Dishes extends Component {
                   <div class="card-horizontal">
                     <img src={nachospic} style={{width: 250}} alt="" width></img>
                     <div class="card-body">
-                      <p class="card-text font-weight-bold">{this
-                        .props.location.query.rname}</p>
+                      <p class="card-text font-weight-bold">{this.props.location.query.rname}</p>
                       <p class="card-text font-italic">Phone: {this.props.location.query.rphone}</p>
                       <p class="card-text font-italic">Address: {this.props.location.query.raddress}</p>
                       <p class="card-text font-italic">Service: {this.props.location.query.rdelivery}</p>

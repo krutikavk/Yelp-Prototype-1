@@ -11,7 +11,7 @@ class Filter extends Component {
       ostatus: '',
       ostatusStates: ['All', 'Order received', 'Preparing', 'Pickup ready','Picked up', 'On the way', 'Delivered'],
       otype: '',
-      otypeStates: ['All', 'New', 'Delivered', 'Cancelled']
+      otypeStates: ['All', 'New', 'Picked up', 'Delivered', 'Cancelled']
     }
 
     this.ooptionHandler = this.ooptionHandler.bind(this);

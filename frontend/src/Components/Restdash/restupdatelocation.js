@@ -110,12 +110,12 @@ class Restupdatelocation extends Component {
     }
     //customer is logged in--redirect to customer dashboard
     else if(this.props.isLogged === true && this.props.whoIsLogged === false) {
-      redirectVar = <Redirect to= '/customer/dashboard'/>
+      redirectVar = <Redirect to= '/customer/profile'/>
     }
 
     //Update successful--redirect to update2 page
     else if(this.props.isLogged === true && this.props.whoIsLogged === true && this.state.updated === true) {
-      redirectVar = <Redirect to= '/restaurant/dashboard'/>
+      redirectVar = <Redirect to= '/restaurant'/>
     }
 
     return (

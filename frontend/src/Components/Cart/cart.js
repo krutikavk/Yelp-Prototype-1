@@ -15,17 +15,29 @@ class Cart extends Component{
       ordered: false,
       orderdetail: false,
       orderdish: false,
-      placed: false
+      placed: false,
+      otype: '',
+      otypeStates: 
     };
 
     this.removeEntryHandler = this.removeEntryHandler.bind(this);
     this.placeOrderHandler = this.placeOrderHandler.bind(this);
+
+    this.otypeHandler = this.otypeHandler.bind(this);
 
   }
 
   removeEntryHandler = (event) => {
     console.log("remove ID", event.target.value)
     this.props.updateCart('DELETE', {did: event.target.value})
+  }
+
+  otypeHandler = (event) => {
+    console.log("selected", event.target.value)
+
+    this.setState({
+      otype: event.target.value
+    })
   }
 
 
@@ -49,6 +61,7 @@ class Cart extends Component{
     let orderdish = {
       oid: '',
       did: '',
+      dname: '',
       dquantity: '',
     }
 
@@ -70,6 +83,7 @@ class Cart extends Component{
             let temp = {
               oid: oid,
               did: dish.did,
+              dname: dish.dname,
               odquantity: dish.dquantity
             }
 
