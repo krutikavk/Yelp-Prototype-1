@@ -142,7 +142,7 @@ router.get('/restaurants/:rid', (request, response) => {
 
 //Get all orders for a customer
 router.get('/customers/:cid', (request, response) => {
-  console.log('Endpoint GET: Get all orders for restaurant')
+  console.log('Endpoint GET: Get all orders for customer')
   console.log('Request Body: ', request.body);
 
   let dbQuery = (sql `SELECT * from order_detail where cid = ? ORDER BY oid DESC`)
