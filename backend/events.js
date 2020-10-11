@@ -94,8 +94,8 @@ router.get('/:eid', (request, response) => {
 
 
 //Get all events by a restaurant
-router.get('/restaurant/:rid', (request, response) => {
-  console.log('Endpoint POST: Add event')
+router.get('/restaurants/:rid', (request, response) => {
+  console.log('Endpoint GET: Get all events by a restaurant')
   console.log('Request Body: ', request.body);
   var dbQuery = (sql `SELECT * from event WHERE rid = ?`);
 
@@ -104,6 +104,7 @@ router.get('/restaurant/:rid', (request, response) => {
       console.log('Could not get events')
       response.status(404).send('Could not get events');    
     } else {
+      console.log(results)
       response.writeHead(200,{
         //'Content-Type' : 'text/plain'
         'Content-Type': 'application/json'

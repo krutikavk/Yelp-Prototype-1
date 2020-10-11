@@ -57,7 +57,6 @@ class Navbar extends Component {
         )
     }
 
-    
 
     let cart = (
         <Link className="nav-link" to="/cart">
@@ -82,8 +81,21 @@ class Navbar extends Component {
 
     let registeredEvents = null;
     if(this.props.isLogged === true && this.props.whoIsLogged === false) {
-      registeredEvents = <li className="nav-item"> <Link className="nav-link" to="/events/registered">Registered Events</Link> </li>
+      registeredEvents = <li className="nav-item"> <Link className="nav-link" to="/events/registered">MyEvents</Link> </li>
+    } 
+
+    //Display all events for customer/only hosted events for restaurant
+    let events = null;
+    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      events = <li className="nav-item">
+                <Link className="nav-link" to="/events">Events</Link>
+              </li>
+    } else if (this.props.isLogged === true && this.props.whoIsLogged === true) {
+      events = <li className="nav-item">
+                <Link className="nav-link" to="/events/hosted">MyEvents</Link>
+              </li>
     }
+    
     
     
     return(
@@ -101,9 +113,7 @@ class Navbar extends Component {
             <li className="nav-item">
               {menu}
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/events">Events</Link>
-            </li>
+            {events}
             {registeredEvents}
           </ul>
             

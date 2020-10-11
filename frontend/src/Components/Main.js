@@ -26,6 +26,7 @@ import Eventadd from './Events/addevent';
 import Events from './Events/displayEvents';
 import Event from './Events/eventpage';
 import RegEvents from './Events/displayRegisteredEvents';
+import HostedEvents from './Events/displayHostedEvents';
 import notfound from './NotFound/notfound';
 import SearchRest from './SearchRest/searchrest';
 import AddReview from './Reviews/addReview';
@@ -67,6 +68,7 @@ class Main extends Component {
             <Route exact path='/events/add' component={Eventadd}/>
             <Route exact path='/events' component={Events}/>
             <Route exact path='/events/registered' component={RegEvents}/>
+            <Route exact path='/events/hosted' component={HostedEvents}/>
             <Route exact path='/event' component={Event}/>
             <Route exact path='/restaurants/search' component={SearchRest}/>
             <Route exact path='/restaurant/addreview' component={AddReview}/>
