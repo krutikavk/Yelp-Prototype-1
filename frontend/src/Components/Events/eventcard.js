@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Redirect, Link} from 'react-router-dom';
 import '../../App.css';
 import axios from 'axios';
-import pumpkin from './pumpkin.jpeg';
+import pumpkin from './mediterranean.jpg';
 
 
 
@@ -21,7 +21,6 @@ class Eventcard extends Component {
 
     return (
 
-
       <Link to ={{
                   pathname: '/event',
                   query: {
@@ -39,7 +38,7 @@ class Eventcard extends Component {
               <div class="card">
                 <div class="card-horizontal">
                     <div class="img-square-wrapper">
-                      <img class="img-responsive img-thumbnail" src={pumpkin} alt="restro" width="400"/>
+                      <img class="img-responsive img-thumbnail" src={pumpkin} alt="restro" width="300"/>
                     </div>
                   <div class="card-body">
                     <p class="card-text font-weight-bold">{this.props.event.ename}</p>

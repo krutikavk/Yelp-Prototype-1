@@ -73,6 +73,26 @@ router.get('/', (request, response) => {
 });
 
 
+router.get('/:eid', (request, response) => {
+  console.log('Endpoint GET: Get particular events')
+  console.log('Request Body: ', request.body);
+  var dbQuery = (sql `SELECT * from event where eid=?`);
+
+  connection.query(dbQuery, request.params.eid, (error, results) => {
+    if(error) {
+      console.log('Could not get events')
+      response.status(404).send('Could not get events');    
+    } else {
+      response.writeHead(200,{
+        //'Content-Type' : 'text/plain'
+        'Content-Type': 'application/json'
+      })
+      response.end(JSON.stringify(results));
+    }
+  })
+});
+
+
 //Get all events by a restaurant
 router.get('/restaurant/:rid', (request, response) => {
   console.log('Endpoint POST: Add event')
@@ -100,7 +120,7 @@ router.get('/restaurant/:rid', (request, response) => {
 router.get('/customers/:cid', (request, response) => {
   console.log('Endpoint POST: Add event')
   console.log('Request Body: ', request.body);
-  var dbQuery = (sql `SELECT * from custevent WHERE cid = ?`);
+  var dbQuery = (sql `SELECT DISTINCT eid as eid from custevent WHERE cid = ?`);
 
   connection.query(dbQuery, request.params.cid, (error, results) => {
     if(error) {

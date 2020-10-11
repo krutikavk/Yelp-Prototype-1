@@ -362,7 +362,7 @@ class Restaurants extends Component {
 
                         }
                       }}><button id="btnLogin" className="btn btn-danger">{buttonDisplay}</button>
-                    </Link> {menuOption} {addReview} {updateInfo} {updateLocation}
+                    </Link> {menuOption} {addReview} {updateInfo} {updateLocation} {addEvent}
                   </div>
 
 

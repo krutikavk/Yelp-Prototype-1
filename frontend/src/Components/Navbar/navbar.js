@@ -79,6 +79,11 @@ class Navbar extends Component {
       menu = <Link className="nav-link" to="/dishes">Menu</Link>
       cart = null;
     }
+
+    let registeredEvents = null;
+    if(this.props.isLogged === true && this.props.whoIsLogged === false) {
+      registeredEvents = <li className="nav-item"> <Link className="nav-link" to="/events/registered">Registered Events</Link> </li>
+    }
     
     
     return(
@@ -99,6 +104,7 @@ class Navbar extends Component {
             <li className="nav-item">
               <Link className="nav-link" to="/events">Events</Link>
             </li>
+            {registeredEvents}
           </ul>
             
           <ul className="navbar-nav mx-auto">

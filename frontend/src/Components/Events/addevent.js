@@ -25,6 +25,8 @@ class AddEvent extends Component {
       elatitude: '',
       elongitude: '',
       edate: '',
+      address: '',
+      updated: 'false',
       added: false
     }
 
@@ -73,6 +75,7 @@ class AddEvent extends Component {
           elatitude: latLng.lat,
           elongitude: latLng.lng
         })
+
       })
       .catch(error => console.error('Error', error));
   }
@@ -116,7 +119,7 @@ class AddEvent extends Component {
     if(!(this.props.isLogged === true && this.props.whoIsLogged === true)) {
       redirectVar = <Redirect to='/login'/>
     } else if(this.props.isLogged === true && this.props.whoIsLogged === true && this.state.added === true) {
-      //redirectVar = <Redirect to='/events'/>
+      redirectVar = <Redirect to='/events'/>
     }
     return (
 

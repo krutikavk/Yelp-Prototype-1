@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import '../../App.css';
 import axios from 'axios';
-import {Redirect, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {update, login, logout, restaurantLogin} from '../../_actions';
 import Navbar from '../Navbar/navbar';
-import pumpkin from './pumpkin.jpeg';
+import pumpkin from './mediterranean.jpg';
 
 
 class Event extends Component {
