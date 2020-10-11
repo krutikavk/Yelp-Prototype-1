@@ -28,6 +28,7 @@ class Restaurant extends Component {
                     rname: `${this.props.restaurant.rname}`,
                     rphone: `${this.props.restaurant.rphone}`,
                     rabout: `${this.props.restaurant.rabout}`,
+                    rphoto: `${this.props.restaurant.rphoto}`,
                     rlocation: `${this.props.restaurant.rlocation}`,
                     rlatitude: `${this.props.restaurant.rlatitude}`,
                     rlongitude: `${this.props.restaurant.rlongitude}`,
@@ -43,7 +44,7 @@ class Restaurant extends Component {
               <div class="card">
                 <div class="card-horizontal">
                   <div class="img-square-wrapper">
-                      <img class="img-responsive img-thumbnail" src={restropic} alt="restro" width="400"/>
+                      <img class="img-responsive img-thumbnail" src={this.props.restaurant.rphoto} alt="restro" width="300"/>
                   </div>
                   <div class="card-body">
                       <p class="card-text">Name: {this.props.restaurant.rname}</p>

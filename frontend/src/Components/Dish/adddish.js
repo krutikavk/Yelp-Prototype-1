@@ -30,6 +30,7 @@ class AddDish extends Component {
     this.dpriceChangeHandler = this.dpriceChangeHandler.bind(this);
     this.ddescriptionChangeHandler = this.ddescriptionChangeHandler.bind(this);
     this.dcategoryChangeHandler = this.dcategoryChangeHandler.bind(this);
+    this.addDish = this.addDish.bind(this);
   }
 
   dnameChangeHandler = (event) => {
@@ -148,9 +149,6 @@ class AddDish extends Component {
         }
       }).catch(err =>{
         alert("Incorrect credentials")
-        this.setState({
-            authFlag : false
-        })
     });
 
   }

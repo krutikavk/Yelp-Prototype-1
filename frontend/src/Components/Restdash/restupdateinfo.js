@@ -266,6 +266,7 @@ const mapStateToProps = (state) => {
       rname: state.restProfile.rname,
       rphone: state.restProfile.rphone,
       rabout: state.restProfile.rabout,
+      rphoto: state.restProfile.rphoto,
       rlocation: state.restProfile.rlocation,
       rlatitude: state.restProfile.rlatitude,
       rlongitude: state.restProfile.rlongitude,

@@ -26,6 +26,7 @@ import Eventadd from './Events/addevent';
 import Events from './Events/displayEvents';
 import notfound from './NotFound/notfound';
 import SearchRest from './SearchRest/searchrest';
+import AddReview from './Reviews/addReview';
 
 //import Navbar from './Navbar/navbar';
 //import Userdash from './Userdash/userdash';
@@ -46,24 +47,25 @@ class Main extends Component {
         <Switch>
             <Route path='/login' component={Login}/>
             <Route path='/customer/login' component={Custlogin}/>
-            <Route path='/restaurant/login' component={Restlogin}/>
+            <Route exact path='/restaurant/login' component={Restlogin}/>
             <Route path='/customer/signup' component={Custsignup}/>
-            <Route path='/restaurant/signup' component={Restsignup}/>
-            <Route path='/restaurant/updateinfo' component={Restupdateinfo}/>
-            <Route path='/restaurant/updatelocation' component={Restupdatelocation}/>
+            <Route exact path='/restaurant/signup' component={Restsignup}/>
+            <Route exact path='/restaurant/updateinfo' component={Restupdateinfo}/>
+            <Route exact path='/restaurant/updatelocation' component={Restupdatelocation}/>
             <Route path='/customer/profile' component={CustProfile}/>
             <Route path='/customer/edit' component={CustEdit}/>
-            <Route path='/restaurant/dashboard' component={Restdash}/>
+            <Route exact path='/restaurant/dashboard' component={Restdash}/>
             <Route exact path='/dishes' component={dishes}/>
             <Route exact path='/dishes/add' component={dishesadd}/>
             <Route exact path='/restaurants' component={restaurants}/>
             <Route path='/cart' component={cart}/>
-            <Route path='/restaurant' component={restaurant}/>
+            <Route exact path='/restaurant' component={restaurant}/>
             <Route path='/orders' component={orders}/>
             <Route path='/orderpage' component={orderpage}/>
             <Route exact path='/events/add' component={Eventadd}/>
             <Route exact path='/events' component={Events}/>
             <Route exact path='/restaurants/search' component={SearchRest}/>
+            <Route exact path='/restaurant/addreview' component={AddReview}/>
             <Route path ='*' component={notfound}/>
         </Switch>
 

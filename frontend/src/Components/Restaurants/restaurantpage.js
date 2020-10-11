@@ -20,8 +20,106 @@ class Restaurants extends Component {
     this.state = {
       reviews: [],
       hours: '',
-      avgrating: ''
+      avgrating: '',
+      url: '',
+      success: false,
+      updated: false
     }
+
+    this.handleFileUpload = this.handleFileUpload.bind(this);
+    this.handleFileChange = this.handleFileChange.bind(this);
+  }
+
+  handleFileChange = (event) => {
+    this.setState({
+      success: false, 
+      url : ''
+    });
+  }
+
+  // Perform the upload
+  handleFileUpload = (event) => {
+    this.setState({
+      success: false, 
+      url : ''
+    });
+
+    let file = this.uploadInput.files[0];
+    // Split the filename to get the name and type
+    let fileParts = this.uploadInput.files[0].name.split('.');
+    let fileName = 'restprof_' + this.props.rid + '_' + fileParts[0];
+    console.log(fileName);
+    let fileType = fileParts[1];
+    console.log("Preparing the upload");
+
+    axios.defaults.withCredentials = false;
+
+    axios.post("http://localhost:3001/sign_s3",{ fileName : fileName, fileType : fileType })
+      .then(response => {
+        var returnData = response.data.data.returnData;
+        var signedRequest = returnData.signedRequest;
+        var url = returnData.url;
+
+        this.setState({url: url})
+        this.setState({success: true})
+        console.log("Recieved a signed request " + signedRequest);
+        // Put the fileType in the headers for the upload
+        var options = {
+          headers: {
+            'ContentType': fileType
+          }
+        };
+
+        axios.put(signedRequest, file, options)
+          .then(result => {
+            console.log("Response from s3")
+            this.setState({
+              success: true
+            });
+
+            //Add the URL to database HERE
+
+            const data = {
+              remail: this.props.remail,
+              rname: this.props.rname,
+              rphone : this.state.rphone,
+              rabout : this.state.rabout,
+              rphoto: url,
+              rlocation: this.props.rlocation,
+              rlatitude: this.props.rlatitude,
+              rlongitude: this.props.rlongitude,
+              raddress: this.props.raddress,
+              rcuisine: this.state.rcuisine,
+              rdelivery: this.state.rdelivery,
+              rid: this.props.rid
+            }
+            
+            let endpoint = 'http://localhost:3001/restaurants/' + this.props.rid;
+            axios.put(endpoint, data)
+              .then(response => {
+                console.log('Status Code : ', response.status);
+                if(response.status === 200){
+                  console.log('Update completed')
+                  //call props action
+                  //this.props.update('RNAME', this.state.rname)
+                  this.props.update('RPHOTO', this.state.url)
+                  this.setState({
+                    updated: true,
+                  })
+                  alert('Picture changed');
+                }
+              }).catch(err =>{
+                alert("Update picture URL to database failed")
+            });
+
+          })
+          .catch(error => {
+            alert("ERROR " + JSON.stringify(error));
+          })
+    })
+    .catch(error => {
+      alert(JSON.stringify(error));
+    })
   }
 
   //Menu handler for view dishes has to be here and not on restaurant page (only the render component is returned there)
@@ -129,6 +227,11 @@ class Restaurants extends Component {
 
     let buttonDisplay = '';
     let menuOption = null;
+    let addReview = null;
+    let addPhoto = null;
+    let updateInfo = null;
+    let updateLocation = null;
+    let addEvent = null;
 
     //If restaurant is logged in, take this info from redux state
     if(this.props.whoIsLogged === true) {
@@ -147,6 +250,12 @@ class Restaurants extends Component {
         rcuisine: this.props.rcuisine,
         rdelivery: this.props.rdelivery,
       }
+
+      addPhoto = <input onChange={this.handleFileUpload} ref = {(ref) => {this.uploadInput = ref;}} type = "file"/>
+      updateInfo = <Link to='/restaurant/updateinfo'> <button id="btnLogin" className="btn btn-danger">Update Basic profile</button></Link>
+      updateLocation = <Link to='/restaurant/updatelocation'> <button id="btnLogin" className="btn btn-danger">Update Location</button></Link>
+      addEvent = <Link to='/events/add'> <button id="btnLogin" className="btn btn-danger">Add Events</button></Link>
+
 
       buttonDisplay = 'View/Edit Menu'
       menuOption = <Link to= {{
@@ -168,6 +277,8 @@ class Restaurants extends Component {
                         }
                       }}> <button id="btnLogin" className="btn btn-danger">Add Dishes</button> </Link>
 
+      
+
     } else {
 
       restaurantprofile = {
@@ -186,6 +297,24 @@ class Restaurants extends Component {
         rdelivery: this.props.location.query.rdelivery,
       }
       buttonDisplay = 'Place Order'
+      addReview = <Link to= {{
+                        pathname: '/restaurant/addreview',
+                        query: {
+                          rid: `${restaurantprofile.rid}`, 
+                          remail: `${restaurantprofile.remail}`,
+                          rname: `${restaurantprofile.rname}`, 
+                          rphone: `${restaurantprofile.rphone}`, 
+                          rabout: `${restaurantprofile.rabout}`, 
+                          rphoto: `${restaurantprofile.rphoto}`,
+                          rlocation: `${restaurantprofile.rlocation}`,
+                          rlatitude: `${restaurantprofile.rlatitude}`, 
+                          rlongitude: `${restaurantprofile.rlongitude}`, 
+                          raddress: `${restaurantprofile.raddress}`,
+                          rcuisine: `${restaurantprofile.rcuisine}`,
+                          rdelivery: `${restaurantprofile.rdelivery}`,
+
+                        }
+                      }}> <button id="btnLogin" className="btn btn-danger">Add Review</button> </Link>
     }
 
     console.log("restaurant page restaurantprofile: ", restaurantprofile)
@@ -200,7 +329,11 @@ class Restaurants extends Component {
             <div class="col-12 mt-3">
               <div class="card">
                 <div class="card-horizontal shadow-sm p-3 mb-5 bg-white rounded">
-                  <img src={restaurantprofile.rphoto} class="img-thumbnail" width = "300" alt=""></img> <br/>
+                  <div class="form-group">
+                    <img src={restaurantprofile.rphoto} class="img-thumbnail" width = "300" alt=""></img> <br/>
+                    Change photo <br/>
+                    {addPhoto}
+                  </div>
                   <div class="card-body shadow-sm p-3 mb-5 bg-white rounded">
                     <p class="card-text font-weight-bold">{restaurantprofile.rname}</p>
                     <p class="card-text font-weight-bold font-italic"> 
@@ -229,8 +362,10 @@ class Restaurants extends Component {
 
                         }
                       }}><button id="btnLogin" className="btn btn-danger">{buttonDisplay}</button>
-                    </Link> {menuOption}
+                    </Link> {menuOption} {addReview} {updateInfo} {updateLocation}
                   </div>
+
+
                 </div>
                 <div class="card-footer">
 

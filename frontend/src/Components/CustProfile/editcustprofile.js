@@ -410,7 +410,7 @@ class Userdash extends Component {
                       phone: '',
                     }
                   })
-                  alert('Picture added to DB');
+                  alert('Picture changed');
                 }
               }).catch(err =>{
                 alert("Update picture URL to database failed")

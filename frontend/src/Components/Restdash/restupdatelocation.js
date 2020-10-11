@@ -125,46 +125,57 @@ class Restupdatelocation extends Component {
 
         {redirectVar}
         <Navbar/>
-        <div>
-          <PlacesAutocomplete
-          value={this.state.address}
-          onChange={this.handleAddressChange}
-          onSelect={this.handleSelectAddress}
-          >
-          {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
-              <input
-                {...getInputProps({
-                  placeholder: 'Search Places ...',
-                  className: 'location-search-input',
-                })}
-              />
-              <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active
-                    ? 'suggestion-item--active'
-                    : 'suggestion-item';
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
+        <div class="container-fluid style={{height: 100}}">
+          <div class="row">
+            <div class="col-12 mt-3">
+              <div class="card">
+                <div class="card-horizontal shadow-sm p-3 mb-5 bg-white rounded">
+                  <div class="form-group">
+                    Enter location: 
+                    <PlacesAutocomplete
+                    value={this.state.address}
+                    onChange={this.handleAddressChange}
+                    onSelect={this.handleSelectAddress}
                     >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div>
+                        <input
+                          {...getInputProps({
+                            placeholder: 'Search Places ...',
+                            className: 'location-search-input',
+                          })}
+                        />
+                        <div className="autocomplete-dropdown-container">
+                          {loading && <div>Loading...</div>}
+                          {suggestions.map(suggestion => {
+                            const className = suggestion.active
+                              ? 'suggestion-item--active'
+                              : 'suggestion-item';
+                            // inline style for demonstration purpose
+                            const style = suggestion.active
+                              ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                              : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  className,
+                                  style,
+                                })}
+                              >
+                                <span>{suggestion.description}</span>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
+                </div>
               </div>
             </div>
-          )}
-        </PlacesAutocomplete>
-       </div>
+          </div>
+        </div>
+      </div>
      </div>
     )
   }

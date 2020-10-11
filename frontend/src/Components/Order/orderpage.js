@@ -100,7 +100,7 @@ class Orderpage extends Component {
           })
         }
       }).catch(err =>{
-        alert("Update failed")
+        console.log("Update failed")
     });
   }
 
@@ -124,7 +124,7 @@ class Orderpage extends Component {
           })
         }
       }).catch(err =>{
-        alert("Update failed")
+        console.log("No dishes found")
     });
   }
 
