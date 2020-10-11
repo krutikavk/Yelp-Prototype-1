@@ -100,9 +100,9 @@ router.get('/restaurant/:rid', (request, response) => {
 router.get('/customers/:cid', (request, response) => {
   console.log('Endpoint POST: Add event')
   console.log('Request Body: ', request.body);
-  var dbQuery = (sql `SELECT * from custevent WHERE eid = ?`);
+  var dbQuery = (sql `SELECT * from custevent WHERE cid = ?`);
 
-  connection.query(dbQuery, request.params.eid, (error, results) => {
+  connection.query(dbQuery, request.params.cid, (error, results) => {
     if(error) {
       console.log('Could not get events')
       response.status(404).send('Could not get events');    
@@ -137,6 +137,27 @@ router.get('/:eid/customers', (request, response) => {
     }
   })
 });
+
+//Register a customer for an event
+router.post('/:eid/customers', (request, response) => {
+  console.log('Endpoint POST: Register customer for event')
+  console.log('Request Body: ', request.body);
+
+  var dbQuery = (sql `INSERT into custevent (cid, eid) VALUES (?,?)`);
+  connection.query(dbQuery, [request.body.cid, request.params.eid], (error, results) => {
+    if(error) {
+      console.log('Could not add customer to event')
+      response.status(404).send('Could not add customer to event');    
+    } else {
+      response.writeHead(200,{
+        'Content-Type' : 'text/plain'
+      })
+      response.end("Successfully added customer");
+    }
+  })
+})
+
+
 
 
 

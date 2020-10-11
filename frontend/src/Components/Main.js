@@ -24,6 +24,7 @@ import orders from './Order/ordersDisplay';
 import orderpage from './Order/orderpage'
 import Eventadd from './Events/addevent';
 import Events from './Events/displayEvents';
+import Event from './Events/eventpage';
 import notfound from './NotFound/notfound';
 import SearchRest from './SearchRest/searchrest';
 import AddReview from './Reviews/addReview';
@@ -64,6 +65,7 @@ class Main extends Component {
             <Route path='/orderpage' component={orderpage}/>
             <Route exact path='/events/add' component={Eventadd}/>
             <Route exact path='/events' component={Events}/>
+            <Route exact path='/event' component={Event}/>
             <Route exact path='/restaurants/search' component={SearchRest}/>
             <Route exact path='/restaurant/addreview' component={AddReview}/>
             <Route path ='*' component={notfound}/>
