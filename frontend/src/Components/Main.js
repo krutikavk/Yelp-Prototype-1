@@ -53,8 +53,8 @@ class Main extends Component {
             <Route exact path='/restaurant/signup' component={Restsignup}/>
             <Route exact path='/restaurant/updateinfo' component={Restupdateinfo}/>
             <Route exact path='/restaurant/updatelocation' component={Restupdatelocation}/>
-            <Route path='/customer/profile' component={CustProfile}/>
-            <Route path='/customer/edit' component={CustEdit}/>
+            <Route exact path='/customer/profile' component={CustProfile}/>
+            <Route exact path='/customer/edit' component={CustEdit}/>
             <Route exact path='/restaurant/dashboard' component={Restdash}/>
             <Route exact path='/dishes' component={dishes}/>
             <Route exact path='/dishes/add' component={dishesadd}/>

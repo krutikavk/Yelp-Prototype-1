@@ -434,6 +434,9 @@ class Userdash extends Component {
     if(this.props.isLogged === false) {
       redirectVar = <Redirect to= '/login'/>
     }
+    if(this.props.isLogged === true && this.props.whoIsLogged === true) {
+      redirectVar = <Redirect to= '/login'/>
+    }
 
   	let usernameTextField = <button class="btn btn-danger btn-sm" onClick = {this.usernameEditTextFieldHandler}>Edit</button>;
     let emailTextField = <button class="btn btn-danger btn-sm" onClick = {this.emailEditTextFieldHandler}>Edit</button>;
