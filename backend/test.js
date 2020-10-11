@@ -74,6 +74,43 @@ describe('Yelp', function(){
 
 
 describe('Yelp', function(){
+  it("Customer signup", function(done){
+    let data1 = {
+      cname: "Existing",
+      cemail: "user1@user1.com",
+      cpassword: "user1"
+    }
+
+    let data2 = {
+      cname: "New",
+      cemail: "test9@test9.com",
+      cpassword: "test123"
+    }
+    chai
+      .request(api_url)
+      .post('/customers')
+      .send(data1)
+      .end(function(err, res) {
+        expect(res).to.have.status(404);
+    })
+
+    chai
+      .request(api_url)
+      .post('/customers')
+      .send(data2)
+      .end(function(err, res) {
+        expect(res).to.have.status(200);
+        done();
+    })
+     
+    
+  });
+})
+
+
+
+
+describe('Yelp', function(){
   it("Place order for customer 1", function(done){
     let data = {
       cid: 1,
