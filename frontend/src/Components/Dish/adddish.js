@@ -162,7 +162,7 @@ class AddDish extends Component {
       //redirectVar = <Redirect to='/login'/>
     }
     if(this.state.added === true) {
-      redirectVar = <Redirect to='/restaurant/profile'/>
+      redirectVar = <Redirect to='/restaurant'/>
     }
 
     const Success_message = () => (

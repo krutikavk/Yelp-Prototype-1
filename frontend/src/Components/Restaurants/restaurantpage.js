@@ -82,15 +82,15 @@ class Restaurants extends Component {
             const data = {
               remail: this.props.remail,
               rname: this.props.rname,
-              rphone : this.state.rphone,
-              rabout : this.state.rabout,
+              rphone : this.props.rphone,
+              rabout : this.props.rabout,
               rphoto: url,
               rlocation: this.props.rlocation,
               rlatitude: this.props.rlatitude,
               rlongitude: this.props.rlongitude,
               raddress: this.props.raddress,
-              rcuisine: this.state.rcuisine,
-              rdelivery: this.state.rdelivery,
+              rcuisine: this.props.rcuisine,
+              rdelivery: this.props.rdelivery,
               rid: this.props.rid
             }
             
